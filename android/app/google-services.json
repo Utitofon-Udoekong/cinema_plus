@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "469101213143",
+    "project_id": "cinemaplus-ac4a8",
+    "storage_bucket": "cinemaplus-ac4a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:469101213143:android:b76611a92134c266c70792",
+        "android_client_info": {
+          "package_name": "com.app.cinema.plus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3u7awRwpXI6DBUy_WreOLu8bOWOsfNUQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
