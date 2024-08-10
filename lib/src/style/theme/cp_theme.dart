@@ -29,13 +29,34 @@ class CPThemeData {
     );
   }
 
-  static final ThemeData _lightThemeData = _themeData(
-      CPColorSchemeData.lightColorScheme, _lightFocusColor, Brightness.light);
+  static ThemeData lightThemeData([
+    TextTheme? textTheme,
+    BottomSheetThemeData? bottomSheetTheme,
+    AppBarTheme? appBarTheme,
+    VisualDensity? visualDensity,
+  ]) =>
+      _themeData(
+        CPColorSchemeData.lightColorScheme,
+        _lightFocusColor,
+        Brightness.light,
+        textTheme,
+        bottomSheetTheme,
+        appBarTheme,
+        visualDensity,
+      );
 
-  ThemeData get lightThemeData => _lightThemeData;
-
-  static final ThemeData _darkThemeData = _themeData(
-      CPColorSchemeData.darkColorScheme, _darkFocusColor, Brightness.dark);
-
-  ThemeData get darkThemeData => _darkThemeData;
+  static ThemeData darkThemeData([
+    TextTheme? textTheme,
+    BottomSheetThemeData? bottomSheetTheme,
+    AppBarTheme? appBarTheme,
+    VisualDensity? visualDensity,
+  ]) => _themeData(
+    CPColorSchemeData.darkColorScheme,
+    _darkFocusColor,
+    Brightness.dark,
+    textTheme,
+    bottomSheetTheme,
+    appBarTheme,
+    visualDensity,
+  );
 }

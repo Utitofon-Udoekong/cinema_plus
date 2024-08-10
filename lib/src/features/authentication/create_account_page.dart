@@ -18,8 +18,6 @@ import 'package:gap/gap.dart';
 class CreateAccountPage extends StatelessWidget {
   const CreateAccountPage({super.key});
 
-  static const routeName = '/create-account-page';
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;

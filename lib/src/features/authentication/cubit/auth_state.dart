@@ -14,9 +14,9 @@ class AuthState with _$AuthState {
 
   factory AuthState.initial() {
     return AuthState(
-      email: Email.pure(),
-      password: Password.pure(),
-      confirmedPassword: ConfirmedPassword.pure(),
+      email: const Email.pure(),
+      password: const Password.pure(),
+      confirmedPassword: const ConfirmedPassword.pure(),
       status: FormzSubmissionStatus.initial,
       isValid: false,
       errorMessage: null,

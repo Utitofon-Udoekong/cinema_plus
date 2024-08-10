@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:cinema_plus/src/core/router/router.gr.dart';
 import 'package:cinema_plus/src/features/authentication/cubit/auth_cubit.dart';
@@ -14,11 +13,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userId = context.select((AuthCubit bloc) => bloc.state.user.uid);
     var scaffoldKey = GlobalKey<ScaffoldState>();
     return AutoTabsScaffold(
       scaffoldKey: scaffoldKey,
-      routes: [
+      routes: const [
         MoviesRoute(),
         TicketsRoute(),
         CinemasRoute(),
@@ -40,47 +38,47 @@ final tabs = [
   SalomonBottomBarItem(
     selectedColor: CPColors.pink,
     unselectedColor: CPColors.grey600,
-    icon: Icon(
+    icon: const Icon(
       Icons.videocam_outlined,
       size: 20,
     ),
-    title: Text('MOVIES'),
+    title: const Text('MOVIES'),
   ),
   SalomonBottomBarItem(
     selectedColor: CPColors.pink,
     unselectedColor: CPColors.grey600,
-    icon: Icon(
+    icon: const Icon(
       Ionicons.ticket_outline,
       size: 20,
     ),
-    title: Text('TICKETS'),
+    title: const Text('TICKETS'),
   ),
   SalomonBottomBarItem(
     selectedColor: CPColors.pink,
     unselectedColor: CPColors.grey600,
-    icon: Icon(
+    icon: const Icon(
       Ionicons.tv_outline,
       size: 20,
     ),
-    title: Text('CINEMAS'),
+    title: const Text('CINEMAS'),
   ),
   SalomonBottomBarItem(
     selectedColor: CPColors.pink,
     unselectedColor: CPColors.grey600,
-    icon: Icon(
+    icon: const Icon(
       Ionicons.heart_outline,
       size: 20,
     ),
-    title: Text('FAVOURITES'),
+    title: const Text('FAVOURITES'),
   ),
   SalomonBottomBarItem(
     selectedColor: CPColors.pink,
     unselectedColor: CPColors.grey600,
-    icon: Icon(
+    icon: const Icon(
       Ionicons.person_outline,
       size: 20,
     ),
-    title: Text('PROFILE'),
+    title: const Text('PROFILE'),
   ),
   // HomeScaffoldNavBarTabItem(
   //   initialLocation: '/explore',

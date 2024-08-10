@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 const double defaultRadius = 30;
 const double defaultRadiusMd = 15;
 const double defaultRadiusSm = 10;
-const defaultPadding = EdgeInsets.all(20);
-const defaultButtonPadding = EdgeInsets.symmetric(vertical: 12, horizontal: 20);
+const defaultPadding = EdgeInsets.all(10);
+const defaultButtonPadding = EdgeInsets.symmetric(vertical: 12);
 
 class AppFormBorder {
   static initial() => OutlineInputBorder(

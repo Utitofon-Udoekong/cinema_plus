@@ -31,13 +31,14 @@ dependencies:
     path: packages/form_inputs
   cache:
     path: packages/cache
-  google_fonts: ^6.2.1
   google_sign_in: ^6.2.1
   auto_route: ^9.1.0
   firebase_crashlytics: ^3.5.7
   logger: ^2.4.0
   salomon_bottom_bar: ^3.3.2
   ionicons: ^0.2.2
+  google_fonts: ^6.2.1
+  cached_network_image: ^3.4.0
 
 dev_dependencies:
   flutter_test:

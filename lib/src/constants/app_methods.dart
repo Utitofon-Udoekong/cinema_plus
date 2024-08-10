@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:cinema_plus/src/constants/app_enums.dart';
+
 String getGender(int code) {
   switch (code) {
     case 0:
@@ -23,4 +25,20 @@ String generateUserID() {
     genUID += charList[Random().nextInt(charList.length - 1)];
   }
   return genUID;
+}
+
+String getGenre(int id) {
+  final genre = genres.where((obj) => obj["id"] == id).first;
+  return genre['name'] as String;
+}
+
+String getTagline(List<int> ids) {
+  String tagLines = "";
+  for (var i = 0; i < ids.length; i++) {
+    if(i == ids.length-1){
+      tagLines += getGenre(ids[i]);
+    }
+    tagLines += '${getGenre(ids[i])}, ';
+  }
+  return tagLines.trim();
 }

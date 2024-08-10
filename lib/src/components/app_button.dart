@@ -9,11 +9,12 @@ class AppButton extends StatelessWidget {
     super.key,
     required this.title,
     required this.isLoading,
-    this.ontap,
+    this.ontap, this.gradient,
   });
 
   final String title;
   final bool isLoading;
+  final Gradient? gradient;
   final void Function()? ontap;
 
   @override
@@ -22,9 +23,10 @@ class AppButton extends StatelessWidget {
       onTap: isLoading ? null : ontap,
       child: Container(
         width: double.infinity,
+        height: 48,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(defaultRadius),
-          gradient: const LinearGradient(
+          gradient: gradient ?? const LinearGradient(
             colors: [CPColors.purple, CPColors.pink],
           ),
         ),

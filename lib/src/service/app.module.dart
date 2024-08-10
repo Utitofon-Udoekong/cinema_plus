@@ -1,7 +1,9 @@
 import 'package:cache/cache.dart';
 import 'package:cinema_plus/src/core/router/router.dart';
+import 'package:cinema_plus/src/service/dio/dio_service.dart';
 import 'package:cinema_plus/src/service/firebase_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
@@ -26,5 +28,8 @@ abstract class AppModule {
 
   @injectable
   AppRouter get appRouter => AppRouter();
+
+  @injectable
+  Dio get dio => DioService().getDio();
 
 }

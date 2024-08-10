@@ -45,8 +45,8 @@ class CPTextStyle {
         );
       case CPTextStyleEnum.button:
         return TextStyle(
-          fontSize: size ?? 15.0,
-          fontWeight: weight ?? FontWeight.w500,
+          fontSize: size ?? 14.0,
+          fontWeight: weight ?? FontWeight.w700,
           color: color,
           overflow: overflow,
           decoration: decoration,
