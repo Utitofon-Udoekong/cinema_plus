@@ -1,34 +1,36 @@
-import 'package:cinema_plus/src/style/color/cp_color.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cinema_plus/src/style/color/cp_color.dart';
 
 typedef RatingChangeCallback = void Function(double rating);
 
 class Rating extends StatelessWidget {
   final double rating;
+  final double? size;
 
-  const Rating({super.key, required this.rating});
+  const Rating({super.key, required this.rating, this.size = 12});
 
 
   Widget buildStar(BuildContext context, int index) {
     Icon icon;
     if (index >= rating) {
-      icon = const Icon(
+      icon = Icon(
         Icons.star,
         color: CPColors.grey600,
-        size: 12
+        size: size
       );
     }
     else if (index > rating - 1 && index < rating) {
-      icon = const Icon(
+      icon = Icon(
         Icons.star_half,
         color: CPColors.pink,
-        size: 12
+        size: size
       );
     } else {
-      icon = const Icon(
+      icon = Icon(
         Icons.star,
         color: CPColors.pink,
-        size: 12
+        size: size
       );
     }
     return icon;

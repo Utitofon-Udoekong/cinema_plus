@@ -8,7 +8,7 @@ part of 'cast.dart';
 
 _$CastImpl _$$CastImplFromJson(Map<String, dynamic> json) => _$CastImpl(
       adult: json['adult'] as bool,
-      gender: (json['gender'] as num).toInt(),
+      gender: (json['gender'] as num?)?.toInt(),
       id: (json['id'] as num).toInt(),
       knownForDepartment: json['known_for_department'] as String,
       name: json['name'] as String,

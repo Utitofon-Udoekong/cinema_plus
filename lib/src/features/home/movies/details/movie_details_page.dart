@@ -1,17 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cinema_plus/src/components/app_button.dart';
-import 'package:cinema_plus/src/components/movies/cast_card.dart';
-import 'package:cinema_plus/src/components/movies/cast_loading.dart';
-import 'package:cinema_plus/src/components/rating.dart';
-import 'package:cinema_plus/src/constants/app_methods.dart';
-import 'package:cinema_plus/src/constants/app_strings.dart';
-import 'package:cinema_plus/src/constants/arb_styles.dart';
-import 'package:cinema_plus/src/core/injections.dart';
+import 'package:cinema_plus/src/components/components.dart';
+import 'package:cinema_plus/src/constants/constants.dart';
+
 import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart';
-import 'package:cinema_plus/src/models/movie/movie.dart';
-import 'package:cinema_plus/src/style/color/cp_color.dart';
-import 'package:cinema_plus/src/style/text/cp_text_style.dart';
+import 'package:cinema_plus/src/models/models.dart';
+import 'package:cinema_plus/src/style/style.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -25,6 +20,10 @@ class MovieDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final movieCast = context.select((MovieCubit bloc) => bloc.state.movieCast);
+    if (movieCast.isEmpty) {
+      context.read<MovieCubit>().getMovieCast(movie.id);
+    }
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -72,26 +71,14 @@ class MovieDetailsPage extends StatelessWidget {
                                   .withOpacity(0.8),
                             ),
                           ),
-                          Positioned(
-                            top: 30,
-                            left: 10,
-                            child: TextButton.icon(
-                              onPressed: () => context.maybePop(),
-                              label: Text(
-                                'Back',
-                                style: CPTextStyle.caption(
-                                    color: CPColors.grey100),
-                              ),
-                              icon: const Icon(
-                                Icons.arrow_back_ios,
-                                color: CPColors.grey100,
-                                size: 14,
-                              ),
-                            ),
+                          const Positioned(
+                            top: 20,
+                            left: 15,
+                            child: AppBackButton(),
                           ),
                           const Positioned(
                             top: 30,
-                            right: 10,
+                            right: 15,
                             child: Icon(Ionicons.heart),
                           ),
                         ],
@@ -129,8 +116,7 @@ class MovieDetailsPage extends StatelessWidget {
                           const Gap(50),
                           Text(
                             'Storyline',
-                            style:
-                                CPTextStyle.subTitle(color: CPColors.white),
+                            style: CPTextStyle.subTitle(color: CPColors.white),
                           ),
                           const Gap(10),
                           Text(
@@ -141,8 +127,7 @@ class MovieDetailsPage extends StatelessWidget {
                           const Gap(50),
                           Text(
                             'Cast',
-                            style:
-                                CPTextStyle.subTitle(color: CPColors.white),
+                            style: CPTextStyle.subTitle(color: CPColors.white),
                           ),
                           const Gap(10),
                           BlocBuilder<MovieCubit, MovieState>(
@@ -156,10 +141,11 @@ class MovieDetailsPage extends StatelessWidget {
                                               color: CPColors.grey400),
                                         )
                                       : SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        // physics: NeverScrollableScrollPhysics(),
-                                        child: Expanded(
-                                          child: Row(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Expanded(
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children:
                                                   state.movieCast.map((cast) {
                                                 return Container(
@@ -169,8 +155,8 @@ class MovieDetailsPage extends StatelessWidget {
                                                 );
                                               }).toList(),
                                             ),
-                                        ),
-                                      );
+                                          ),
+                                        );
                             },
                           )
                         ],
@@ -189,17 +175,18 @@ class MovieDetailsPage extends StatelessWidget {
                     child: AppButton(
                       title: 'LEAVE A REVIEW',
                       isLoading: false,
-                      gradient: LinearGradient(colors: [
-                        CPColors.grey500,
-                        CPColors.grey800
-                      ]),
+                      gradient: LinearGradient(
+                          colors: [CPColors.grey500, CPColors.grey800]),
                     ),
                   ),
                   const Gap(10),
                   Expanded(
                       child: AppButton(
-                          title: 'BOOK YOUR TICKET', isLoading: false,
-                          ontap: () => context.read<MovieCubit>().getMovieCast(movie.id),)),
+                    title: 'BOOK YOUR TICKET',
+                    isLoading: false,
+                    ontap: () =>
+                        context.read<MovieCubit>().getMovieCast(movie.id),
+                  )),
                 ],
               ),
             )

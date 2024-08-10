@@ -1,18 +1,15 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:cinema_plus/src/components/app_button.dart';
-import 'package:cinema_plus/src/components/app_text_field.dart';
-import 'package:cinema_plus/src/constants/app_images.dart';
-import 'package:cinema_plus/src/constants/app_strings.dart';
-import 'package:cinema_plus/src/constants/arb_styles.dart';
-import 'package:cinema_plus/src/core/router/router.gr.dart';
-import 'package:cinema_plus/src/features/authentication/cubit/auth_cubit.dart';
-import 'package:cinema_plus/src/style/color/cp_color.dart';
-import 'package:cinema_plus/src/style/text/cp_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:gap/gap.dart';
+
+import 'package:cinema_plus/src/components/components.dart';
+import 'package:cinema_plus/src/constants/constants.dart';
+import 'package:cinema_plus/src/core/router/router.gr.dart';
+import 'package:cinema_plus/src/features/authentication/cubit/auth_cubit.dart';
+import 'package:cinema_plus/src/style/style.dart';
 
 @RoutePage()
 class CreateAccountPage extends StatelessWidget {

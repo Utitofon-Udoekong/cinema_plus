@@ -1,10 +1,8 @@
 import 'package:cinema_plus/src/constants/app_strings.dart';
 import 'package:cinema_plus/src/core/bloc_observer.dart';
 import 'package:cinema_plus/src/core/firebase_helpers.dart';
-import 'package:cinema_plus/src/models/movie/actor/actor.dart';
-import 'package:cinema_plus/src/models/movie/cast/cast.dart';
-import 'package:cinema_plus/src/models/movie/clip.dart';
-import 'package:cinema_plus/src/models/movie/movie.dart';
+import 'package:cinema_plus/src/models/models.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -94,7 +92,6 @@ class MovieRepository {
     try {
       final response =
           await _dio.get('${AppStrings.baseURL}/movie/$movieId/credits');
-      logger.w(response.data['cast']);
       final data = response.data;
       List<Cast> castList = [];
       final serverCastList = data['cast'];
@@ -120,7 +117,7 @@ class MovieRepository {
 
   Future<Actor> getActor({required int actorId}) async {
     try {
-      final response = await _dio.get('${AppStrings.baseURL}/person/$actorId?append_to_response=movie_credits%2Cimages&language=en-US');
+      final response = await _dio.get('${AppStrings.baseURL}/person/$actorId?append_to_response=movie_credits,images&language=en-US');
       logger.w(response.data);
       return Actor.fromJson(response.data);
     } on DioException catch (e) {

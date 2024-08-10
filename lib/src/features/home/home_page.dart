@@ -1,9 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cinema_plus/src/core/router/router.gr.dart';
-import 'package:cinema_plus/src/features/authentication/cubit/auth_cubit.dart';
 import 'package:cinema_plus/src/style/color/cp_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cinema_plus/src/components/movies/film_loading.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 

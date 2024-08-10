@@ -21,7 +21,7 @@ Cast _$CastFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Cast {
   bool get adult => throw _privateConstructorUsedError;
-  int get gender => throw _privateConstructorUsedError;
+  int? get gender => throw _privateConstructorUsedError;
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: "known_for_department")
   String get knownForDepartment => throw _privateConstructorUsedError;
@@ -50,7 +50,7 @@ abstract class $CastCopyWith<$Res> {
   @useResult
   $Res call(
       {bool adult,
-      int gender,
+      int? gender,
       int id,
       @JsonKey(name: "known_for_department") String knownForDepartment,
       String name,
@@ -77,7 +77,7 @@ class _$CastCopyWithImpl<$Res, $Val extends Cast>
   @override
   $Res call({
     Object? adult = null,
-    Object? gender = null,
+    Object? gender = freezed,
     Object? id = null,
     Object? knownForDepartment = null,
     Object? name = null,
@@ -94,10 +94,10 @@ class _$CastCopyWithImpl<$Res, $Val extends Cast>
           ? _value.adult
           : adult // ignore: cast_nullable_to_non_nullable
               as bool,
-      gender: null == gender
+      gender: freezed == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -151,7 +151,7 @@ abstract class _$$CastImplCopyWith<$Res> implements $CastCopyWith<$Res> {
   @useResult
   $Res call(
       {bool adult,
-      int gender,
+      int? gender,
       int id,
       @JsonKey(name: "known_for_department") String knownForDepartment,
       String name,
@@ -175,7 +175,7 @@ class __$$CastImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? adult = null,
-    Object? gender = null,
+    Object? gender = freezed,
     Object? id = null,
     Object? knownForDepartment = null,
     Object? name = null,
@@ -192,10 +192,10 @@ class __$$CastImplCopyWithImpl<$Res>
           ? _value.adult
           : adult // ignore: cast_nullable_to_non_nullable
               as bool,
-      gender: null == gender
+      gender: freezed == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -245,7 +245,7 @@ class __$$CastImplCopyWithImpl<$Res>
 class _$CastImpl implements _Cast {
   const _$CastImpl(
       {required this.adult,
-      required this.gender,
+      this.gender,
       required this.id,
       @JsonKey(name: "known_for_department") required this.knownForDepartment,
       required this.name,
@@ -263,7 +263,7 @@ class _$CastImpl implements _Cast {
   @override
   final bool adult;
   @override
-  final int gender;
+  final int? gender;
   @override
   final int id;
   @override
@@ -354,7 +354,7 @@ class _$CastImpl implements _Cast {
 abstract class _Cast implements Cast {
   const factory _Cast(
       {required final bool adult,
-      required final int gender,
+      final int? gender,
       required final int id,
       @JsonKey(name: "known_for_department")
       required final String knownForDepartment,
@@ -372,7 +372,7 @@ abstract class _Cast implements Cast {
   @override
   bool get adult;
   @override
-  int get gender;
+  int? get gender;
   @override
   int get id;
   @override

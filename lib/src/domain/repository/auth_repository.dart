@@ -1,13 +1,14 @@
+import 'package:cache/cache.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:injectable/injectable.dart';
+
 import 'package:cinema_plus/src/constants/app_methods.dart';
 import 'package:cinema_plus/src/core/firebase_helpers.dart';
 import 'package:cinema_plus/src/domain/exceptions.dart';
 import 'package:cinema_plus/src/models/app_user.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
-import 'package:cache/cache.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:injectable/injectable.dart';
 
 @lazySingleton
 class AuthenticationRepository {

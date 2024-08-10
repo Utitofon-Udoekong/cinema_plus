@@ -20,7 +20,7 @@ _$ActorImpl _$$ActorImplFromJson(Map<String, dynamic> json) => _$ActorImpl(
       imdbId: json['imdb_id'] as String,
       knownForDepartment: json['known_for_department'] as String,
       name: json['name'] as String,
-      placeOfBirth: json['place_of_birth'] as String,
+      placeOfBirth: json['place_of_birth'] as String?,
       popularity: (json['popularity'] as num).toDouble(),
       profilePath: json['profile_path'] as String,
       movieCredits: json['movie_credits'] == null
@@ -55,7 +55,7 @@ Map<String, dynamic> _$$ActorImplToJson(_$ActorImpl instance) =>
 _$MovieCreditsImpl _$$MovieCreditsImplFromJson(Map<String, dynamic> json) =>
     _$MovieCreditsImpl(
       cast: (json['cast'] as List<dynamic>)
-          .map((e) => Cast.fromJson(e as Map<String, dynamic>))
+          .map((e) => Movie.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

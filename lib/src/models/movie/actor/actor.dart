@@ -1,4 +1,4 @@
-import 'package:cinema_plus/src/models/movie/cast/cast.dart';
+import 'package:cinema_plus/src/models/movie/movie.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'actor.freezed.dart';
@@ -11,14 +11,14 @@ class Actor with _$Actor {
     @JsonKey(name: 'also_known_as') required List<String> alsoKnownAs,
     required String biography,
     required String birthday,
-    required String? deathday,
+    String? deathday,
     required int gender,
-    required String? homepage,
+    String? homepage,
     required int id,
     @JsonKey(name: 'imdb_id') required String imdbId,
     @JsonKey(name: 'known_for_department') required String knownForDepartment,
     required String name,
-    @JsonKey(name: 'place_of_birth') required String placeOfBirth,
+    @JsonKey(name: 'place_of_birth') String? placeOfBirth,
     required double popularity,
     @JsonKey(name: 'profile_path') required String profilePath,
     @JsonKey(name: 'movie_credits') required MovieCredits? movieCredits,
@@ -27,27 +27,27 @@ class Actor with _$Actor {
 
   factory Actor.fromJson(Map<String, dynamic> json) => _$ActorFromJson(json);
 
-  factory Actor.empty() => Actor(
+  factory Actor.empty() => const Actor(
       adult: false,
       alsoKnownAs: [],
       biography: '',
       birthday: '',
-      deathday: '',
+      deathday: null,
       gender: 0,
-      homepage: '',
+      homepage: null,
       id: 0,
       imdbId: '',
       knownForDepartment: '',
       name: '',
-      placeOfBirth: '',
+      placeOfBirth: null,
       popularity: 0,
-      profilePath: 'profilePath', movieCredits: null, images: null,
+      profilePath: '', movieCredits: null, images: null,
       );
 }
 
 @freezed
 class MovieCredits with _$MovieCredits {
-  const factory MovieCredits({required List<Cast> cast}) = _MovieCredits;
+  const factory MovieCredits({required List<Movie> cast}) = _MovieCredits;
 
   factory MovieCredits.fromJson(Map<String, dynamic> json) =>
       _$MovieCreditsFromJson(json);
@@ -58,18 +58,6 @@ class Images with _$Images {
   const factory Images({required List<Profiles> profiles}) = _Images;
 
   factory Images.fromJson(Map<String, dynamic> json) => _$ImagesFromJson(json);
-
-  // Make sure to run 'flutter pub run build_runner build' after adding this method.
-
-  // factory Images.fromJson(Map<String, dynamic> json) {
-  //   List<Profiles> profiles = [];
-  //   if (json['profiles'] != null) {
-  //     json['profiles'].forEach((v) {
-  //       profiles.add(Profiles.fromJson(v));
-  //     });
-  //   }
-  //   return Images(profiles: profiles);
-  // }
 }
 
 @freezed
@@ -83,18 +71,4 @@ class Profiles with _$Profiles {
 
   factory Profiles.fromJson(Map<String, dynamic> json) =>
       _$ProfilesFromJson(json);
-
-  // Make sure to run 'flutter pub run build_runner build' after adding this method.
-
-  // factory Profiles.fromJson(Map<String, dynamic> json) {
-  //   final aspectRatio = json['aspect_ratio'];
-  //   final height = json['height'];
-  //   final filePath = json['file_path'];
-  //   final width = json['width'];
-  //   return Profiles(
-  //       aspectRatio: aspectRatio,
-  //       height: height,
-  //       filePath: filePath,
-  //       width: width);
-  // }
 }

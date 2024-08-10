@@ -12,7 +12,11 @@ part 'movie_cubit.freezed.dart';
 
 @lazySingleton
 class MovieCubit extends Cubit<MovieState> {
-  MovieCubit(this._movieRepository) : super(MovieState.initial());
+  MovieCubit(this._movieRepository) : super(MovieState.initial()) {
+    discoverMovies();
+    getNowPlayingMovies();
+    getUpcomingMovies();
+  }
 
   final MovieRepository _movieRepository;
 
@@ -56,10 +60,10 @@ class MovieCubit extends Cubit<MovieState> {
     }
   }
 
-  getActor(int id) async {
+  Future<void> getActor(int id) async {
     loadCast();
     try {
-    final actor = await _movieRepository.getActor(actorId: id);
+      final actor = await _movieRepository.getActor(actorId: id);
       emit(state.copyWith(selectedActor: actor, isCastLoading: false));
     } on DioException catch (e) {
       emit(state.copyWith(isCastLoading: false, errorMessage: e.message));

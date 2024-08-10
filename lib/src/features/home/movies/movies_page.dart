@@ -1,14 +1,12 @@
 import 'package:auto_route/annotations.dart';
+import 'package:flutter/material.dart';
+
+import 'package:cinema_plus/src/components/custom_tab_indicator.dart';
 import 'package:cinema_plus/src/constants/arb_styles.dart';
-import 'package:cinema_plus/src/core/injections.dart';
-import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart';
 import 'package:cinema_plus/src/features/home/movies/tabs/discover_movies.dart';
 import 'package:cinema_plus/src/features/home/movies/tabs/now_playing_movies.dart';
 import 'package:cinema_plus/src/features/home/movies/tabs/upcoming_movies.dart';
-import 'package:cinema_plus/src/components/custom_tab_indicator.dart';
 import 'package:cinema_plus/src/style/color/cp_color.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 class MoviesPage extends StatefulWidget {

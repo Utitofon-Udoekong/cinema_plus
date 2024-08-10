@@ -8,7 +8,7 @@ part 'cast.g.dart';
 class Cast with _$Cast {
   const factory Cast({
     required bool adult,
-    required int gender,
+    int? gender,
     required int id,
     @JsonKey(name: "known_for_department") required String knownForDepartment,
     required String name,

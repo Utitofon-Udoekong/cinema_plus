@@ -35,7 +35,7 @@ mixin _$Actor {
   String get knownForDepartment => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'place_of_birth')
-  String get placeOfBirth => throw _privateConstructorUsedError;
+  String? get placeOfBirth => throw _privateConstructorUsedError;
   double get popularity => throw _privateConstructorUsedError;
   @JsonKey(name: 'profile_path')
   String get profilePath => throw _privateConstructorUsedError;
@@ -65,7 +65,7 @@ abstract class $ActorCopyWith<$Res> {
       @JsonKey(name: 'imdb_id') String imdbId,
       @JsonKey(name: 'known_for_department') String knownForDepartment,
       String name,
-      @JsonKey(name: 'place_of_birth') String placeOfBirth,
+      @JsonKey(name: 'place_of_birth') String? placeOfBirth,
       double popularity,
       @JsonKey(name: 'profile_path') String profilePath,
       @JsonKey(name: 'movie_credits') MovieCredits? movieCredits,
@@ -99,7 +99,7 @@ class _$ActorCopyWithImpl<$Res, $Val extends Actor>
     Object? imdbId = null,
     Object? knownForDepartment = null,
     Object? name = null,
-    Object? placeOfBirth = null,
+    Object? placeOfBirth = freezed,
     Object? popularity = null,
     Object? profilePath = null,
     Object? movieCredits = freezed,
@@ -150,10 +150,10 @@ class _$ActorCopyWithImpl<$Res, $Val extends Actor>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      placeOfBirth: null == placeOfBirth
+      placeOfBirth: freezed == placeOfBirth
           ? _value.placeOfBirth
           : placeOfBirth // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       popularity: null == popularity
           ? _value.popularity
           : popularity // ignore: cast_nullable_to_non_nullable
@@ -217,7 +217,7 @@ abstract class _$$ActorImplCopyWith<$Res> implements $ActorCopyWith<$Res> {
       @JsonKey(name: 'imdb_id') String imdbId,
       @JsonKey(name: 'known_for_department') String knownForDepartment,
       String name,
-      @JsonKey(name: 'place_of_birth') String placeOfBirth,
+      @JsonKey(name: 'place_of_birth') String? placeOfBirth,
       double popularity,
       @JsonKey(name: 'profile_path') String profilePath,
       @JsonKey(name: 'movie_credits') MovieCredits? movieCredits,
@@ -251,7 +251,7 @@ class __$$ActorImplCopyWithImpl<$Res>
     Object? imdbId = null,
     Object? knownForDepartment = null,
     Object? name = null,
-    Object? placeOfBirth = null,
+    Object? placeOfBirth = freezed,
     Object? popularity = null,
     Object? profilePath = null,
     Object? movieCredits = freezed,
@@ -302,10 +302,10 @@ class __$$ActorImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      placeOfBirth: null == placeOfBirth
+      placeOfBirth: freezed == placeOfBirth
           ? _value.placeOfBirth
           : placeOfBirth // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       popularity: null == popularity
           ? _value.popularity
           : popularity // ignore: cast_nullable_to_non_nullable
@@ -334,14 +334,14 @@ class _$ActorImpl implements _Actor {
       @JsonKey(name: 'also_known_as') required final List<String> alsoKnownAs,
       required this.biography,
       required this.birthday,
-      required this.deathday,
+      this.deathday,
       required this.gender,
-      required this.homepage,
+      this.homepage,
       required this.id,
       @JsonKey(name: 'imdb_id') required this.imdbId,
       @JsonKey(name: 'known_for_department') required this.knownForDepartment,
       required this.name,
-      @JsonKey(name: 'place_of_birth') required this.placeOfBirth,
+      @JsonKey(name: 'place_of_birth') this.placeOfBirth,
       required this.popularity,
       @JsonKey(name: 'profile_path') required this.profilePath,
       @JsonKey(name: 'movie_credits') required this.movieCredits,
@@ -384,7 +384,7 @@ class _$ActorImpl implements _Actor {
   final String name;
   @override
   @JsonKey(name: 'place_of_birth')
-  final String placeOfBirth;
+  final String? placeOfBirth;
   @override
   final double popularity;
   @override
@@ -475,15 +475,15 @@ abstract class _Actor implements Actor {
       @JsonKey(name: 'also_known_as') required final List<String> alsoKnownAs,
       required final String biography,
       required final String birthday,
-      required final String? deathday,
+      final String? deathday,
       required final int gender,
-      required final String? homepage,
+      final String? homepage,
       required final int id,
       @JsonKey(name: 'imdb_id') required final String imdbId,
       @JsonKey(name: 'known_for_department')
       required final String knownForDepartment,
       required final String name,
-      @JsonKey(name: 'place_of_birth') required final String placeOfBirth,
+      @JsonKey(name: 'place_of_birth') final String? placeOfBirth,
       required final double popularity,
       @JsonKey(name: 'profile_path') required final String profilePath,
       @JsonKey(name: 'movie_credits') required final MovieCredits? movieCredits,
@@ -518,7 +518,7 @@ abstract class _Actor implements Actor {
   String get name;
   @override
   @JsonKey(name: 'place_of_birth')
-  String get placeOfBirth;
+  String? get placeOfBirth;
   @override
   double get popularity;
   @override
@@ -541,7 +541,7 @@ MovieCredits _$MovieCreditsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MovieCredits {
-  List<Cast> get cast => throw _privateConstructorUsedError;
+  List<Movie> get cast => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -555,7 +555,7 @@ abstract class $MovieCreditsCopyWith<$Res> {
           MovieCredits value, $Res Function(MovieCredits) then) =
       _$MovieCreditsCopyWithImpl<$Res, MovieCredits>;
   @useResult
-  $Res call({List<Cast> cast});
+  $Res call({List<Movie> cast});
 }
 
 /// @nodoc
@@ -577,7 +577,7 @@ class _$MovieCreditsCopyWithImpl<$Res, $Val extends MovieCredits>
       cast: null == cast
           ? _value.cast
           : cast // ignore: cast_nullable_to_non_nullable
-              as List<Cast>,
+              as List<Movie>,
     ) as $Val);
   }
 }
@@ -590,7 +590,7 @@ abstract class _$$MovieCreditsImplCopyWith<$Res>
       __$$MovieCreditsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Cast> cast});
+  $Res call({List<Movie> cast});
 }
 
 /// @nodoc
@@ -610,7 +610,7 @@ class __$$MovieCreditsImplCopyWithImpl<$Res>
       cast: null == cast
           ? _value._cast
           : cast // ignore: cast_nullable_to_non_nullable
-              as List<Cast>,
+              as List<Movie>,
     ));
   }
 }
@@ -618,14 +618,14 @@ class __$$MovieCreditsImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$MovieCreditsImpl implements _MovieCredits {
-  const _$MovieCreditsImpl({required final List<Cast> cast}) : _cast = cast;
+  const _$MovieCreditsImpl({required final List<Movie> cast}) : _cast = cast;
 
   factory _$MovieCreditsImpl.fromJson(Map<String, dynamic> json) =>
       _$$MovieCreditsImplFromJson(json);
 
-  final List<Cast> _cast;
+  final List<Movie> _cast;
   @override
-  List<Cast> get cast {
+  List<Movie> get cast {
     if (_cast is EqualUnmodifiableListView) return _cast;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_cast);
@@ -664,14 +664,14 @@ class _$MovieCreditsImpl implements _MovieCredits {
 }
 
 abstract class _MovieCredits implements MovieCredits {
-  const factory _MovieCredits({required final List<Cast> cast}) =
+  const factory _MovieCredits({required final List<Movie> cast}) =
       _$MovieCreditsImpl;
 
   factory _MovieCredits.fromJson(Map<String, dynamic> json) =
       _$MovieCreditsImpl.fromJson;
 
   @override
-  List<Cast> get cast;
+  List<Movie> get cast;
   @override
   @JsonKey(ignore: true)
   _$$MovieCreditsImplCopyWith<_$MovieCreditsImpl> get copyWith =>

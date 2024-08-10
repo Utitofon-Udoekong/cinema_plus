@@ -35,10 +35,20 @@ String getGenre(int id) {
 String getTagline(List<int> ids) {
   String tagLines = "";
   for (var i = 0; i < ids.length; i++) {
-    if(i == ids.length-1){
+    if (i == ids.length - 1) {
       tagLines += getGenre(ids[i]);
     }
     tagLines += '${getGenre(ids[i])}, ';
   }
   return tagLines.trim();
+}
+
+getAvailableDays() {
+  List<DateTime> dateList = [];
+  final today = DateTime.now();
+  for (var i = 0; i < 31; i++) {
+    final newDay = today.add(Duration(days: i));
+    dateList.add(newDay);
+  }
+  return dateList;
 }
