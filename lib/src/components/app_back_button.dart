@@ -13,7 +13,7 @@ class AppBackButton extends StatelessWidget {
       style: TextButton.styleFrom(padding: EdgeInsets.zero),
       label: Text(
         'Back',
-        style: CPTextStyle.caption(color: CPColors.grey100),
+        style: CPTextStyle.caption(context, color: CPColors.grey100),
       ),
       icon: const Icon(
         Icons.arrow_back_ios,

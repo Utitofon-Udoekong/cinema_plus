@@ -35,9 +35,10 @@ class MovieRepository {
 
   Future<List<Movie>> nowPlaying() async {
     try {
-      final response =
-          await _dio.get('${AppStrings.baseURL}/movie/now_playing&page=1');
+      final response = await _dio.get(
+          '${AppStrings.baseURL}/movie/now_playing?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc');
       final data = response.data;
+      logger.w(data);
       List<Movie> movieList = [];
       final serverMovieList = data['results'];
       for (var i = 0; i < serverMovieList.length; i++) {
@@ -52,9 +53,10 @@ class MovieRepository {
 
   Future<List<Movie>> upcomingMovies() async {
     try {
-      final response =
-          await _dio.get('${AppStrings.baseURL}/movie/upcoming&page=1');
+      final response = await _dio.get(
+          '${AppStrings.baseURL}/movie/upcoming?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc');
       final data = response.data;
+      logger.w(data);
       List<Movie> movieList = [];
       final serverMovieList = data['results'];
       for (var i = 0; i < serverMovieList.length; i++) {
@@ -117,7 +119,8 @@ class MovieRepository {
 
   Future<Actor> getActor({required int actorId}) async {
     try {
-      final response = await _dio.get('${AppStrings.baseURL}/person/$actorId?append_to_response=movie_credits,images&language=en-US');
+      final response = await _dio.get(
+          '${AppStrings.baseURL}/person/$actorId?append_to_response=movie_credits,images&language=en-US');
       logger.w(response.data);
       return Actor.fromJson(response.data);
     } on DioException catch (e) {
@@ -127,7 +130,8 @@ class MovieRepository {
 
   Future<List<Movie>> getActorFilmography({required String actorId}) async {
     try {
-      final response = await _dio.get('${AppStrings.baseURL}/person/$actorId/movie_credits?language=en-US');
+      final response = await _dio.get(
+          '${AppStrings.baseURL}/person/$actorId/movie_credits?language=en-US');
       logger.w(response.data);
       final data = response.data;
       List<Movie> movieList = [];

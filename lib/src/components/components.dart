@@ -7,5 +7,6 @@ export 'movies/cast_loading.dart';
 export 'movies/film_card.dart';
 export 'movies/film_loading.dart';
 export 'movies/movie_card.dart';
+export 'movies/movie_loading.dart';
 export 'rating.dart';
 export 'cinema/cinema.dart';

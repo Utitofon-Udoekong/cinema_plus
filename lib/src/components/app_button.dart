@@ -9,7 +9,8 @@ class AppButton extends StatelessWidget {
     super.key,
     required this.title,
     required this.isLoading,
-    this.ontap, this.gradient,
+    this.ontap,
+    this.gradient,
   });
 
   final String title;
@@ -26,9 +27,10 @@ class AppButton extends StatelessWidget {
         height: 48,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(defaultRadius),
-          gradient: gradient ?? const LinearGradient(
-            colors: [CPColors.purple, CPColors.pink],
-          ),
+          gradient: gradient ??
+              const LinearGradient(
+                colors: [CPColors.purple, CPColors.pink],
+              ),
         ),
         padding: defaultButtonPadding,
         child: isLoading
@@ -36,7 +38,7 @@ class AppButton extends StatelessWidget {
             : Text(
                 title,
                 style: CPTextStyle.button(
-                  color: CPColors.white,
+                  context,
                 ),
                 textAlign: TextAlign.center,
               ),

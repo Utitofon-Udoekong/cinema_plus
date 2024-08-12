@@ -1,16 +1,19 @@
 import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/style/style.dart';
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
 
 class CinemaDate extends StatelessWidget {
-  const CinemaDate({super.key, required this.date, required this.day, required this.time});
+  const CinemaDate({
+    super.key,
+    required this.date,
+  });
 
-  final String date;
-  final String day;
-  final String time;
+  final DateTime date;
 
   @override
   Widget build(BuildContext context) {
+    final jDate = Jiffy.parseFromDateTime(date);
     return ClipRRect(
       borderRadius: BorderRadius.circular(defaultRadiusSm),
       child: Column(
@@ -19,19 +22,23 @@ class CinemaDate extends StatelessWidget {
             height: 80,
             width: 80,
             decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
                   CPColors.purple,
                   CPColors.pink,
-                ]
-              )
-            ),
+                ])),
             child: Column(
               children: [
-                Text(date,style: CPTextStyle.caption(color: CPColors.white),),
-                Text(day,style: CPTextStyle.link(color: CPColors.white),),
+                Text(
+                  jDate.date.toString(),
+                  style: CPTextStyle.caption(context),
+                ),
+                Text(
+                  jDate.EEEE,
+                  style: CPTextStyle.link(context),
+                ),
               ],
             ),
           ),
@@ -39,18 +46,19 @@ class CinemaDate extends StatelessWidget {
             height: 80,
             width: 80,
             decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
                   CPColors.grey600,
                   CPColors.grey800,
-                ]
-              )
-            ),
+                ])),
             child: Column(
               children: [
-                Text(time,style: CPTextStyle.caption(color: CPColors.white),),
+                Text(
+                  jDate.Hm,
+                  style: CPTextStyle.caption(context),
+                ),
               ],
             ),
           ),

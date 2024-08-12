@@ -26,7 +26,8 @@ class CastDetailPage extends StatelessWidget {
             : actor == Actor.empty()
                 ? Text(
                     'Data not available',
-                    style: CPTextStyle.caption(color: CPColors.grey400),
+                    style:
+                        CPTextStyle.caption(context, color: CPColors.grey400),
                   )
                 : SingleChildScrollView(
                     child: Column(
@@ -77,8 +78,7 @@ class CastDetailPage extends StatelessWidget {
                                 left: 15,
                                 child: Text(
                                   actor.name,
-                                  style: CPTextStyle.headline(
-                                      color: CPColors.white,
+                                  style: CPTextStyle.headline(context,
                                       weight: FontWeight.w900,
                                       size: 32),
                                 ),
@@ -107,19 +107,19 @@ class CastDetailPage extends StatelessWidget {
                                       children: [
                                         Text(
                                           actor.birthday,
-                                          style: CPTextStyle.caption(
+                                          style: CPTextStyle.caption(context,
                                               color: CPColors.grey400),
                                         ),
                                         const Gap(5),
                                         Text(
                                           actor.placeOfBirth ?? '',
-                                          style: CPTextStyle.caption(
+                                          style: CPTextStyle.caption(context,
                                               color: CPColors.grey400),
                                         ),
                                         const Gap(5),
                                         Text(
                                           actor.knownForDepartment,
-                                          style: CPTextStyle.caption(
+                                          style: CPTextStyle.caption(context,
                                               color: CPColors.pink),
                                         ),
                                       ],
@@ -138,20 +138,18 @@ class CastDetailPage extends StatelessWidget {
                               const Gap(30),
                               Text(
                                 'Biography',
-                                style:
-                                    CPTextStyle.subTitle(color: CPColors.white),
+                                style: CPTextStyle.subTitle(context,),
                               ),
                               const Gap(10),
                               Text(
                                 actor.biography,
-                                style: CPTextStyle.subTitle(
+                                style: CPTextStyle.subTitle(context,
                                     color: CPColors.grey400),
                               ),
                               const Gap(50),
                               Text(
                                 'Filmography',
-                                style:
-                                    CPTextStyle.subTitle(color: CPColors.white),
+                                style: CPTextStyle.subTitle(context,),
                               ),
                               const Gap(10),
                               BlocBuilder<MovieCubit, MovieState>(
@@ -162,6 +160,7 @@ class CastDetailPage extends StatelessWidget {
                                           ? Text(
                                               'Data not available',
                                               style: CPTextStyle.caption(
+                                                  context,
                                                   color: CPColors.grey400),
                                             )
                                           : SingleChildScrollView(

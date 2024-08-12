@@ -1,4 +1,3 @@
-import 'package:cinema_plus/src/constants/app_images.dart';
 import 'package:cinema_plus/src/constants/arb_styles.dart';
 import 'package:cinema_plus/src/style/color/cp_color.dart';
 import 'package:flutter/material.dart';

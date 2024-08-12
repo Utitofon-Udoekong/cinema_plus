@@ -1,37 +1,30 @@
-import 'dart:convert';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'cinema.freezed.dart';
+part 'cinema.g.dart';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class Cinema {
-  String name;
-  String image;
-  int popularity;
-  String location;
-  Cinema({
-    required this.name,
-    required this.image,
-    required this.popularity,
-    required this.location,
-  });
+@unfreezed
+class Cinema with _$Cinema {
+  factory Cinema({
+    required String name,
+    required String image,
+    required double popularity,
+    required String location,
+    String? hall,
+    required List<String> seats,
+    DateTime? dateTime,
+  }) = _Cinema;
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'name': name,
-      'image': image,
-      'popularity': popularity,
-      'location': location,
-    };
-  }
+  factory Cinema.fromJson(Map<String, dynamic> json) => _$CinemaFromJson(json);
 
-  factory Cinema.fromMap(Map<String, dynamic> map) {
-    return Cinema(
-      name: map['name'] as String,
-      image: map['image'] as String,
-      popularity: map['popularity'] as int,
-      location: map['location'] as String,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory Cinema.fromJson(String source) => Cinema.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Cinema.empty() => Cinema(
+        name: '',
+        image: '',
+        popularity: 0,
+        location: '',
+        hall: null,
+        seats: [],
+        dateTime: null,
+      );
 }

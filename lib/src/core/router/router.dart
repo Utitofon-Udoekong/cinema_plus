@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cinema_plus/src/features/authentication/create_account_page.dart';
 import 'package:cinema_plus/src/features/authentication/sign_in_page.dart';
+import 'package:cinema_plus/src/features/booking/cinema/choose_seat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cinema_plus/src/core/router/router.gr.dart';
 
@@ -23,5 +24,7 @@ class AppRouter extends RootStackRouter {
         ),
         AutoRoute(page: MovieDetailsRoute.page),
         AutoRoute(page: CastDetailRoute.page),
+        AutoRoute(page: ChooseSessionRoute.page),
+        AutoRoute(page: ChooseSeatRoute.page),
       ];
 }

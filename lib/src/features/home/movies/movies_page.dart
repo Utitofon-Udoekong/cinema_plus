@@ -1,11 +1,12 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 import 'package:cinema_plus/src/components/custom_tab_indicator.dart';
 import 'package:cinema_plus/src/constants/arb_styles.dart';
-import 'package:cinema_plus/src/features/home/movies/tabs/discover_movies.dart';
-import 'package:cinema_plus/src/features/home/movies/tabs/now_playing_movies.dart';
-import 'package:cinema_plus/src/features/home/movies/tabs/upcoming_movies.dart';
+import 'package:cinema_plus/src/features/movie_tabs/tabs/discover_movies.dart';
+import 'package:cinema_plus/src/features/movie_tabs/tabs/now_playing_movies.dart';
+import 'package:cinema_plus/src/features/movie_tabs/tabs/upcoming_movies.dart';
 import 'package:cinema_plus/src/style/color/cp_color.dart';
 
 @RoutePage()
@@ -53,6 +54,7 @@ class _MoviesPageState extends State<MoviesPage>
                 ),
               ],
             ),
+            const Gap(20),
             Expanded(
               child: TabBarView(
                 controller: tabController,

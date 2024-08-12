@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinema_plus/src/components/components.dart';
 import 'package:cinema_plus/src/constants/constants.dart';
+import 'package:cinema_plus/src/core/router/router.gr.dart';
+import 'package:cinema_plus/src/features/booking/cubit/booking_cubit.dart';
 
 import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart';
 import 'package:cinema_plus/src/models/models.dart';
@@ -91,14 +93,13 @@ class MovieDetailsPage extends StatelessWidget {
                         children: [
                           Text(
                             movie.title,
-                            style: CPTextStyle.headline(
-                                color: CPColors.white,
-                                weight: FontWeight.w900,
-                                size: 32),
+                            style: CPTextStyle.headline(context,
+                                weight: FontWeight.w900, size: 32),
                           ),
                           Text(
                             getTagline(movie.genreIds),
-                            style: CPTextStyle.caption(color: CPColors.pink),
+                            style: CPTextStyle.caption(context,
+                                color: CPColors.pink),
                           ),
                           const Gap(10),
                           Row(
@@ -108,6 +109,7 @@ class MovieDetailsPage extends StatelessWidget {
                               Text(
                                 '${movie.voteCount} reviews',
                                 style: CPTextStyle.caption(
+                                  context,
                                   color: CPColors.grey400,
                                 ),
                               )
@@ -116,18 +118,22 @@ class MovieDetailsPage extends StatelessWidget {
                           const Gap(50),
                           Text(
                             'Storyline',
-                            style: CPTextStyle.subTitle(color: CPColors.white),
+                            style: CPTextStyle.subTitle(
+                              context,
+                            ),
                           ),
                           const Gap(10),
                           Text(
                             movie.overview,
-                            style:
-                                CPTextStyle.subTitle(color: CPColors.grey400),
+                            style: CPTextStyle.subTitle(context,
+                                color: CPColors.grey400),
                           ),
                           const Gap(50),
                           Text(
                             'Cast',
-                            style: CPTextStyle.subTitle(color: CPColors.white),
+                            style: CPTextStyle.subTitle(
+                              context,
+                            ),
                           ),
                           const Gap(10),
                           BlocBuilder<MovieCubit, MovieState>(
@@ -137,7 +143,7 @@ class MovieDetailsPage extends StatelessWidget {
                                   : state.movieCast.isEmpty
                                       ? Text(
                                           'Data not available',
-                                          style: CPTextStyle.caption(
+                                          style: CPTextStyle.caption(context,
                                               color: CPColors.grey400),
                                         )
                                       : SingleChildScrollView(
@@ -182,11 +188,12 @@ class MovieDetailsPage extends StatelessWidget {
                   const Gap(10),
                   Expanded(
                       child: AppButton(
-                    title: 'BOOK YOUR TICKET',
-                    isLoading: false,
-                    ontap: () =>
-                        context.read<MovieCubit>().getMovieCast(movie.id),
-                  )),
+                          title: 'BOOK YOUR TICKET',
+                          isLoading: false,
+                          ontap: () {
+                            context.read<BookingCubit>().selectMovie(movie);
+                            context.pushRoute(const ChooseSessionRoute());
+                          })),
                 ],
               ),
             )

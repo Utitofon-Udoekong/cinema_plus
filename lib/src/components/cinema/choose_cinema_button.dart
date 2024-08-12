@@ -16,14 +16,14 @@ class ChooseCinemaButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: CPColors.grey600,
-          border: Border.all(color: CPColors.grey400),
+          border: Border.all(color: CPColors.grey600),
+          borderRadius: BorderRadius.circular(defaultRadiusSm),
           gradient: const LinearGradient(colors: [
             CPColors.grey600,
-            CPColors.grey400,
-            CPColors.grey600,
+            CPColors.grey500,
+            CPColors.grey800,
           ]),
           boxShadow: const [
             BoxShadow(
@@ -43,8 +43,8 @@ class ChooseCinemaButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(defaultRadiusSm),
               child: CachedNetworkImage(
                 imageUrl: cinema.image,
-                height: 100,
-                width: 80,
+                height: 120,
+                width: 100,
                 fit: BoxFit.cover,
               ),
             ),
@@ -54,12 +54,12 @@ class ChooseCinemaButton extends StatelessWidget {
               children: [
                 Text(
                   cinema.name,
-                  style: CPTextStyle.caption(color: CPColors.white, weight: FontWeight.bold),
+                  style: CPTextStyle.caption(context, weight: FontWeight.bold),
                 ),
                 const Gap(5),
                 Text(
                   cinema.location,
-                  style: CPTextStyle.caption(color: CPColors.grey400),
+                  style: CPTextStyle.caption(context, color: CPColors.grey400),
                 ),
               ],
             )

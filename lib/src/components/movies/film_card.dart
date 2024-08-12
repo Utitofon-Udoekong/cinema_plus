@@ -37,8 +37,7 @@ class FilmCard extends StatelessWidget {
             width: 150,
             child: Text(
               name,
-              style: CPTextStyle.caption(
-                  color: CPColors.white, weight: FontWeight.bold),
+              style: CPTextStyle.caption(context, weight: FontWeight.bold),
             ),
           ),
         ],

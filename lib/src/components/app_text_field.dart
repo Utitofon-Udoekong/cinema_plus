@@ -8,7 +8,8 @@ class AppTextField extends StatelessWidget {
     super.key,
     required this.hint,
     this.onChanged,
-    this.errorText, this.keyboardType,
+    this.errorText,
+    this.keyboardType,
   });
 
   final String hint;
@@ -20,18 +21,18 @@ class AppTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
-        border: AppFormBorder.initial(),
-        filled: true,
-        fillColor: CPColors.grey800,
-        disabledBorder: AppFormBorder.disabled(),
-        errorBorder: AppFormBorder.error(),
-        focusedErrorBorder: AppFormBorder.error(),
-        focusedBorder: AppFormBorder.focused(),
-        hintText: hint,
-        errorText: errorText,
-        hintStyle: CPTextStyle.body(color: CPColors.grey600),
-        contentPadding: EdgeInsets.zero + const EdgeInsets.symmetric(horizontal: 20)
-      ),
+          border: AppFormBorder.initial(),
+          filled: true,
+          fillColor: CPColors.grey800,
+          disabledBorder: AppFormBorder.disabled(),
+          errorBorder: AppFormBorder.error(),
+          focusedErrorBorder: AppFormBorder.error(),
+          focusedBorder: AppFormBorder.focused(),
+          hintText: hint,
+          errorText: errorText,
+          hintStyle: CPTextStyle.body(context, color: CPColors.grey600),
+          contentPadding:
+              EdgeInsets.zero + const EdgeInsets.symmetric(horizontal: 20)),
       keyboardType: keyboardType,
       cursorColor: CPColors.pink,
       onChanged: onChanged,

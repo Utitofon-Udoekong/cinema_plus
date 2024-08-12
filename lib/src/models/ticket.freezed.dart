@@ -21,15 +21,8 @@ Ticket _$TicketFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Ticket {
   String get bookingId => throw _privateConstructorUsedError;
-  int get movieId => throw _privateConstructorUsedError;
-  String get movieTitle => throw _privateConstructorUsedError;
-  String get moviePoster => throw _privateConstructorUsedError;
-  DateTime get date => throw _privateConstructorUsedError;
-  String get hall => throw _privateConstructorUsedError;
-  String get cinema => throw _privateConstructorUsedError;
-  String get location => throw _privateConstructorUsedError;
-  String get row => throw _privateConstructorUsedError;
-  List<String> get seats => throw _privateConstructorUsedError;
+  Movie get movie => throw _privateConstructorUsedError;
+  Cinema get cinema => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,17 +34,10 @@ abstract class $TicketCopyWith<$Res> {
   factory $TicketCopyWith(Ticket value, $Res Function(Ticket) then) =
       _$TicketCopyWithImpl<$Res, Ticket>;
   @useResult
-  $Res call(
-      {String bookingId,
-      int movieId,
-      String movieTitle,
-      String moviePoster,
-      DateTime date,
-      String hall,
-      String cinema,
-      String location,
-      String row,
-      List<String> seats});
+  $Res call({String bookingId, Movie movie, Cinema cinema});
+
+  $MovieCopyWith<$Res> get movie;
+  $CinemaCopyWith<$Res> get cinema;
 }
 
 /// @nodoc
@@ -68,58 +54,39 @@ class _$TicketCopyWithImpl<$Res, $Val extends Ticket>
   @override
   $Res call({
     Object? bookingId = null,
-    Object? movieId = null,
-    Object? movieTitle = null,
-    Object? moviePoster = null,
-    Object? date = null,
-    Object? hall = null,
+    Object? movie = null,
     Object? cinema = null,
-    Object? location = null,
-    Object? row = null,
-    Object? seats = null,
   }) {
     return _then(_value.copyWith(
       bookingId: null == bookingId
           ? _value.bookingId
           : bookingId // ignore: cast_nullable_to_non_nullable
               as String,
-      movieId: null == movieId
-          ? _value.movieId
-          : movieId // ignore: cast_nullable_to_non_nullable
-              as int,
-      movieTitle: null == movieTitle
-          ? _value.movieTitle
-          : movieTitle // ignore: cast_nullable_to_non_nullable
-              as String,
-      moviePoster: null == moviePoster
-          ? _value.moviePoster
-          : moviePoster // ignore: cast_nullable_to_non_nullable
-              as String,
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      hall: null == hall
-          ? _value.hall
-          : hall // ignore: cast_nullable_to_non_nullable
-              as String,
+      movie: null == movie
+          ? _value.movie
+          : movie // ignore: cast_nullable_to_non_nullable
+              as Movie,
       cinema: null == cinema
           ? _value.cinema
           : cinema // ignore: cast_nullable_to_non_nullable
-              as String,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as String,
-      row: null == row
-          ? _value.row
-          : row // ignore: cast_nullable_to_non_nullable
-              as String,
-      seats: null == seats
-          ? _value.seats
-          : seats // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as Cinema,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MovieCopyWith<$Res> get movie {
+    return $MovieCopyWith<$Res>(_value.movie, (value) {
+      return _then(_value.copyWith(movie: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CinemaCopyWith<$Res> get cinema {
+    return $CinemaCopyWith<$Res>(_value.cinema, (value) {
+      return _then(_value.copyWith(cinema: value) as $Val);
+    });
   }
 }
 
@@ -130,17 +97,12 @@ abstract class _$$TicketImplCopyWith<$Res> implements $TicketCopyWith<$Res> {
       __$$TicketImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String bookingId,
-      int movieId,
-      String movieTitle,
-      String moviePoster,
-      DateTime date,
-      String hall,
-      String cinema,
-      String location,
-      String row,
-      List<String> seats});
+  $Res call({String bookingId, Movie movie, Cinema cinema});
+
+  @override
+  $MovieCopyWith<$Res> get movie;
+  @override
+  $CinemaCopyWith<$Res> get cinema;
 }
 
 /// @nodoc
@@ -155,57 +117,22 @@ class __$$TicketImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? bookingId = null,
-    Object? movieId = null,
-    Object? movieTitle = null,
-    Object? moviePoster = null,
-    Object? date = null,
-    Object? hall = null,
+    Object? movie = null,
     Object? cinema = null,
-    Object? location = null,
-    Object? row = null,
-    Object? seats = null,
   }) {
     return _then(_$TicketImpl(
       bookingId: null == bookingId
           ? _value.bookingId
           : bookingId // ignore: cast_nullable_to_non_nullable
               as String,
-      movieId: null == movieId
-          ? _value.movieId
-          : movieId // ignore: cast_nullable_to_non_nullable
-              as int,
-      movieTitle: null == movieTitle
-          ? _value.movieTitle
-          : movieTitle // ignore: cast_nullable_to_non_nullable
-              as String,
-      moviePoster: null == moviePoster
-          ? _value.moviePoster
-          : moviePoster // ignore: cast_nullable_to_non_nullable
-              as String,
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      hall: null == hall
-          ? _value.hall
-          : hall // ignore: cast_nullable_to_non_nullable
-              as String,
+      movie: null == movie
+          ? _value.movie
+          : movie // ignore: cast_nullable_to_non_nullable
+              as Movie,
       cinema: null == cinema
           ? _value.cinema
           : cinema // ignore: cast_nullable_to_non_nullable
-              as String,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as String,
-      row: null == row
-          ? _value.row
-          : row // ignore: cast_nullable_to_non_nullable
-              as String,
-      seats: null == seats
-          ? _value._seats
-          : seats // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as Cinema,
     ));
   }
 }
@@ -214,17 +141,7 @@ class __$$TicketImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TicketImpl implements _Ticket {
   const _$TicketImpl(
-      {required this.bookingId,
-      required this.movieId,
-      required this.movieTitle,
-      required this.moviePoster,
-      required this.date,
-      required this.hall,
-      required this.cinema,
-      required this.location,
-      required this.row,
-      required final List<String> seats})
-      : _seats = seats;
+      {required this.bookingId, required this.movie, required this.cinema});
 
   factory _$TicketImpl.fromJson(Map<String, dynamic> json) =>
       _$$TicketImplFromJson(json);
@@ -232,32 +149,13 @@ class _$TicketImpl implements _Ticket {
   @override
   final String bookingId;
   @override
-  final int movieId;
+  final Movie movie;
   @override
-  final String movieTitle;
-  @override
-  final String moviePoster;
-  @override
-  final DateTime date;
-  @override
-  final String hall;
-  @override
-  final String cinema;
-  @override
-  final String location;
-  @override
-  final String row;
-  final List<String> _seats;
-  @override
-  List<String> get seats {
-    if (_seats is EqualUnmodifiableListView) return _seats;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_seats);
-  }
+  final Cinema cinema;
 
   @override
   String toString() {
-    return 'Ticket(bookingId: $bookingId, movieId: $movieId, movieTitle: $movieTitle, moviePoster: $moviePoster, date: $date, hall: $hall, cinema: $cinema, location: $location, row: $row, seats: $seats)';
+    return 'Ticket(bookingId: $bookingId, movie: $movie, cinema: $cinema)';
   }
 
   @override
@@ -267,34 +165,13 @@ class _$TicketImpl implements _Ticket {
             other is _$TicketImpl &&
             (identical(other.bookingId, bookingId) ||
                 other.bookingId == bookingId) &&
-            (identical(other.movieId, movieId) || other.movieId == movieId) &&
-            (identical(other.movieTitle, movieTitle) ||
-                other.movieTitle == movieTitle) &&
-            (identical(other.moviePoster, moviePoster) ||
-                other.moviePoster == moviePoster) &&
-            (identical(other.date, date) || other.date == date) &&
-            (identical(other.hall, hall) || other.hall == hall) &&
-            (identical(other.cinema, cinema) || other.cinema == cinema) &&
-            (identical(other.location, location) ||
-                other.location == location) &&
-            (identical(other.row, row) || other.row == row) &&
-            const DeepCollectionEquality().equals(other._seats, _seats));
+            (identical(other.movie, movie) || other.movie == movie) &&
+            (identical(other.cinema, cinema) || other.cinema == cinema));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      bookingId,
-      movieId,
-      movieTitle,
-      moviePoster,
-      date,
-      hall,
-      cinema,
-      location,
-      row,
-      const DeepCollectionEquality().hash(_seats));
+  int get hashCode => Object.hash(runtimeType, bookingId, movie, cinema);
 
   @JsonKey(ignore: true)
   @override
@@ -313,38 +190,17 @@ class _$TicketImpl implements _Ticket {
 abstract class _Ticket implements Ticket {
   const factory _Ticket(
       {required final String bookingId,
-      required final int movieId,
-      required final String movieTitle,
-      required final String moviePoster,
-      required final DateTime date,
-      required final String hall,
-      required final String cinema,
-      required final String location,
-      required final String row,
-      required final List<String> seats}) = _$TicketImpl;
+      required final Movie movie,
+      required final Cinema cinema}) = _$TicketImpl;
 
   factory _Ticket.fromJson(Map<String, dynamic> json) = _$TicketImpl.fromJson;
 
   @override
   String get bookingId;
   @override
-  int get movieId;
+  Movie get movie;
   @override
-  String get movieTitle;
-  @override
-  String get moviePoster;
-  @override
-  DateTime get date;
-  @override
-  String get hall;
-  @override
-  String get cinema;
-  @override
-  String get location;
-  @override
-  String get row;
-  @override
-  List<String> get seats;
+  Cinema get cinema;
   @override
   @JsonKey(ignore: true)
   _$$TicketImplCopyWith<_$TicketImpl> get copyWith =>

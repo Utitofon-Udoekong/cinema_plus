@@ -43,7 +43,7 @@ String getTagline(List<int> ids) {
   return tagLines.trim();
 }
 
-getAvailableDays() {
+List<DateTime> getAvailableDays() {
   List<DateTime> dateList = [];
   final today = DateTime.now();
   for (var i = 0; i < 31; i++) {

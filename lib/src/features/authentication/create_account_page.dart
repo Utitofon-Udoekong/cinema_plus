@@ -109,7 +109,8 @@ class CreateAccountPage extends StatelessWidget {
                         children: [
                           Text(
                             'Already have an account?',
-                            style: CPTextStyle.caption(color: CPColors.grey600),
+                            style: CPTextStyle.caption(context,
+                                color: CPColors.grey600),
                           ),
                           const Gap(5),
                           GestureDetector(
@@ -123,8 +124,7 @@ class CreateAccountPage extends StatelessWidget {
                                 },
                                 blendMode: BlendMode.modulate,
                                 child: Text('Sign In',
-                                    style: CPTextStyle.caption(
-                                        color: CPColors.white))),
+                                    style: CPTextStyle.caption(context,),),),
                           ),
                         ],
                       ),

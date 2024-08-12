@@ -1,6 +1,9 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'cinema.dart';
+import 'movie/movie.dart';
+
 part 'ticket.freezed.dart';
 part 'ticket.g.dart';
 
@@ -8,28 +11,14 @@ part 'ticket.g.dart';
 class Ticket with _$Ticket {
   const factory Ticket({
     required String bookingId,
-    required int movieId,
-    required String movieTitle,
-    required String moviePoster,
-    required DateTime date,
-    required String hall,
-    required String cinema,
-    required String location,
-    required String row,
-    required List<String> seats,
+    required Movie movie,
+    required Cinema cinema,
   }) = _Ticket;
 
   factory Ticket.empty() => Ticket(
         bookingId: '',
-        movieId: 0,
-        movieTitle: '',
-        moviePoster: '',
-        date: DateTime.now(),
-        hall: '',
-        cinema: '',
-        location: '',
-        row: '',
-        seats: [],
+        cinema: Cinema.empty(),
+        movie: Movie.empty()
       );
 
   factory Ticket.fromJson(Map<String, dynamic> json) => _$TicketFromJson(json);

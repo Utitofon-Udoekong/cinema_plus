@@ -62,77 +62,87 @@ class CPTextStyle {
     }
   }
 
-  static TextStyle headline(
-          {Color color = CPColors.black,
-          double? size,
-          FontWeight? weight,
-          TextOverflow? overflow,
-          TextDecoration? decoration}) =>
-      from(CPTextStyleEnum.headline,
-          color: color,
-          size: size,
-          weight: weight,
-          overflow: overflow,
-          decoration: decoration);
+  static TextStyle headline(BuildContext context, {
+    Color? color,
+    double? size,
+    FontWeight? weight,
+    TextOverflow? overflow,
+    TextDecoration? decoration,
+  }) =>
+      from(
+        CPTextStyleEnum.headline,
+        color: color ?? Theme.of(context).colorScheme.onSurface,
+        size: size,
+        weight: weight,
+        overflow: overflow,
+        decoration: decoration,
+      );
   static TextStyle body(
-          {Color color = CPColors.black,
-          FontWeight? weight,
-          TextOverflow? overflow,
-          double? size,
-          TextDecoration? decoration}) =>
-      from(CPTextStyleEnum.body,
-          color: color,
-          weight: weight,
-          overflow: overflow,
-          size: size,
-          decoration: decoration);
-  static TextStyle subTitle(
-          {Color color = CPColors.black,
-          FontWeight? weight,
-          TextOverflow? overflow,
-          double? size,
-          TextDecoration? decoration}) =>
+    BuildContext context, {
+    Color? color,
+    FontWeight? weight,
+    TextOverflow? overflow,
+    double? size,
+    TextDecoration? decoration,
+  }) =>
+      from(
+        CPTextStyleEnum.body,
+        color: color ?? Theme.of(context).colorScheme.onSurface,
+        weight: weight,
+        overflow: overflow,
+        size: size,
+        decoration: decoration,
+      );
+  static TextStyle subTitle(BuildContext context, {
+    Color? color,
+    FontWeight? weight,
+    TextOverflow? overflow,
+    double? size,
+    TextDecoration? decoration,
+  }) =>
       from(CPTextStyleEnum.subTitle,
-          color: color,
+          color: color ?? Theme.of(context).colorScheme.onSurface,
           weight: weight,
           size: size,
           overflow: overflow,
           decoration: decoration);
-  static TextStyle caption(
-          {Color color = CPColors.black,
-          FontWeight? weight,
-          double? size,
-          TextOverflow? overflow,
-          TextDecoration? decoration}) =>
+  static TextStyle caption(BuildContext context, {
+    Color? color,
+    FontWeight? weight,
+    double? size,
+    TextOverflow? overflow,
+    TextDecoration? decoration,
+  }) =>
       from(CPTextStyleEnum.caption,
-          color: color,
+          color: color ?? Theme.of(context).colorScheme.onSurface,
           size: size,
           weight: weight,
           overflow: overflow,
           decoration: decoration);
-  static TextStyle button(
-          {Color color = CPColors.black,
-          FontWeight? weight,
-          double? size,
-          TextOverflow? overflow,
-          TextDecoration? decoration}) =>
+  static TextStyle button(BuildContext context, {
+    Color? color,
+    FontWeight? weight,
+    double? size,
+    TextOverflow? overflow,
+    TextDecoration? decoration,
+  }) =>
       from(CPTextStyleEnum.button,
-          color: color,
+          color: color ?? Theme.of(context).colorScheme.onSurface,
           size: size,
           weight: weight,
           overflow: overflow,
           decoration: decoration);
-  static TextStyle link(
-          {Color color = CPColors.black,
-          FontWeight? weight,
-          double? size,
-          TextOverflow? overflow,
-          TextDecoration? decoration}) =>
+  static TextStyle link(BuildContext context, {
+    Color? color,
+    FontWeight? weight,
+    double? size,
+    TextOverflow? overflow,
+    TextDecoration? decoration,
+  }) =>
       from(CPTextStyleEnum.link,
-          color: color,
+          color: color ?? Theme.of(context).colorScheme.onSurface,
           size: size,
           weight: weight,
           overflow: overflow,
           decoration: decoration);
 }
-

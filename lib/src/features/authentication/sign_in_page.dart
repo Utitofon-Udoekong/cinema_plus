@@ -107,7 +107,8 @@ class SignInPage extends StatelessWidget {
                         children: [
                           Text(
                             'New at CinemaPlus?',
-                            style: CPTextStyle.caption(color: CPColors.grey600),
+                            style: CPTextStyle.caption(context,
+                                color: CPColors.grey600),
                           ),
                           const Gap(5),
                           GestureDetector(
@@ -121,8 +122,7 @@ class SignInPage extends StatelessWidget {
                                 },
                                 blendMode: BlendMode.modulate,
                                 child: Text('Create Account',
-                                    style: CPTextStyle.caption(
-                                        color: Colors.white))),
+                                    style: CPTextStyle.caption(context,),),),
                           ),
                         ],
                       ),

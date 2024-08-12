@@ -5,28 +5,31 @@ import 'package:cinema_plus/src/components/components.dart';
 import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart';
 import 'package:cinema_plus/src/style/style.dart';
 
-class UpcomingMovies extends StatelessWidget {
-  const UpcomingMovies({super.key});
+class DiscoverMovies extends StatelessWidget {
+  const DiscoverMovies({super.key});
 
   @override
   Widget build(BuildContext context) {
     final movies =
-        context.select((MovieCubit bloc) => bloc.state.upcomingMovies);
+        context.select((MovieCubit bloc) => bloc.state.discoverMovies);
     final isLoading =
-        context.select((MovieCubit bloc) => bloc.state.isUpcomingLoading);
+        context.select((MovieCubit bloc) => bloc.state.isDiscoverLoading);
     return isLoading
         ? GridView.count(
             crossAxisCount: 2,
+            childAspectRatio: 9 / 16,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
             children: List.generate(
               8,
-              (_) => const FilmLoading(),
+              (_) => const MovieLoading(),
             ),
           )
         : movies.isEmpty
             ? Center(
                 child: Text(
                   'Data not available',
-                  style: CPTextStyle.caption(color: CPColors.grey400),
+                  style: CPTextStyle.caption(context, color: CPColors.grey400),
                 ),
               )
             : GridView.count(

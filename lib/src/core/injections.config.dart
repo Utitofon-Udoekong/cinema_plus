@@ -16,6 +16,8 @@ import 'package:cinema_plus/src/domain/repository/movie_repository.dart'
     as _i1045;
 import 'package:cinema_plus/src/features/authentication/cubit/auth_cubit.dart'
     as _i975;
+import 'package:cinema_plus/src/features/booking/cubit/booking_cubit.dart'
+    as _i796;
 import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart'
     as _i432;
 import 'package:cinema_plus/src/service/app.module.dart' as _i374;
@@ -49,6 +51,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i566.CacheClient>(() => appModule.cache);
     gh.factory<_i653.AppRouter>(() => appModule.appRouter);
     gh.factory<_i361.Dio>(() => appModule.dio);
+    gh.lazySingleton<_i796.BookingCubit>(() => _i796.BookingCubit());
     gh.lazySingleton<_i1045.MovieRepository>(() => _i1045.MovieRepository(
           gh<_i361.Dio>(),
           gh<_i974.FirebaseFirestore>(),
