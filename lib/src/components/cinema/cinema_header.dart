@@ -1,5 +1,6 @@
 import 'package:cinema_plus/src/components/cinema/cinema.dart';
 import 'package:cinema_plus/src/components/cinema/cinema_seat.dart';
+import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';

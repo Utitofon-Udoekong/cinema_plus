@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:cinema_plus/src/constants/app_enums.dart';
+import 'package:cinema_plus/src/style/style.dart';
 
 String getGender(int code) {
   switch (code) {
@@ -51,4 +52,21 @@ List<DateTime> getAvailableDays() {
     dateList.add(newDay);
   }
   return dateList;
+}
+
+getCinemaSeatState(CinemaSeatState state){
+  
+}
+
+CPColor getChairColor(CinemaSeatState state) {
+  switch (state) {
+    case CinemaSeatState.available:
+      return CPColors.grey100;
+    case CinemaSeatState.booked:
+      return CPColors.grey700;
+    case CinemaSeatState.selected:
+      return CPColors.pink;
+    default:
+      return CPColors.grey100;
+  }
 }

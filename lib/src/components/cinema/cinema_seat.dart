@@ -1,3 +1,4 @@
+import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -46,17 +47,4 @@ class CinemaSeat extends StatelessWidget {
   }
 }
 
-enum CinemaSeatState { booked, available, selected }
 
-Color getChairColor(CinemaSeatState state) {
-  switch (state) {
-    case CinemaSeatState.available:
-      return CPColors.grey100;
-    case CinemaSeatState.booked:
-      return CPColors.grey700;
-    case CinemaSeatState.selected:
-      return CPColors.pink;
-    default:
-      return CPColors.grey100;
-  }
-}

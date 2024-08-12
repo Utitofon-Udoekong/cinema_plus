@@ -22,3 +22,6 @@ const genres = <Map<String,dynamic>>{
   {"id": 10752, "name": "War"},
   {"id": 37, "name": "Western"}
 };
+
+enum CinemaSeatState { booked, available, selected }
+
