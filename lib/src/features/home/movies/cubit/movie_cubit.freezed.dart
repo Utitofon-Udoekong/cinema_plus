@@ -25,6 +25,7 @@ mixin _$MovieState {
   List<Movie> get nowPlaying => throw _privateConstructorUsedError;
   List<Movie> get upcomingMovies => throw _privateConstructorUsedError;
   Actor get selectedActor => throw _privateConstructorUsedError;
+  Movie get selectedMovie => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -48,9 +49,11 @@ abstract class $MovieStateCopyWith<$Res> {
       List<Movie> nowPlaying,
       List<Movie> upcomingMovies,
       Actor selectedActor,
+      Movie selectedMovie,
       String? errorMessage});
 
   $ActorCopyWith<$Res> get selectedActor;
+  $MovieCopyWith<$Res> get selectedMovie;
 }
 
 /// @nodoc
@@ -75,6 +78,7 @@ class _$MovieStateCopyWithImpl<$Res, $Val extends MovieState>
     Object? nowPlaying = null,
     Object? upcomingMovies = null,
     Object? selectedActor = null,
+    Object? selectedMovie = null,
     Object? errorMessage = freezed,
   }) {
     return _then(_value.copyWith(
@@ -114,6 +118,10 @@ class _$MovieStateCopyWithImpl<$Res, $Val extends MovieState>
           ? _value.selectedActor
           : selectedActor // ignore: cast_nullable_to_non_nullable
               as Actor,
+      selectedMovie: null == selectedMovie
+          ? _value.selectedMovie
+          : selectedMovie // ignore: cast_nullable_to_non_nullable
+              as Movie,
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -126,6 +134,14 @@ class _$MovieStateCopyWithImpl<$Res, $Val extends MovieState>
   $ActorCopyWith<$Res> get selectedActor {
     return $ActorCopyWith<$Res>(_value.selectedActor, (value) {
       return _then(_value.copyWith(selectedActor: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MovieCopyWith<$Res> get selectedMovie {
+    return $MovieCopyWith<$Res>(_value.selectedMovie, (value) {
+      return _then(_value.copyWith(selectedMovie: value) as $Val);
     });
   }
 }
@@ -147,10 +163,13 @@ abstract class _$$MovieImplCopyWith<$Res> implements $MovieStateCopyWith<$Res> {
       List<Movie> nowPlaying,
       List<Movie> upcomingMovies,
       Actor selectedActor,
+      Movie selectedMovie,
       String? errorMessage});
 
   @override
   $ActorCopyWith<$Res> get selectedActor;
+  @override
+  $MovieCopyWith<$Res> get selectedMovie;
 }
 
 /// @nodoc
@@ -173,6 +192,7 @@ class __$$MovieImplCopyWithImpl<$Res>
     Object? nowPlaying = null,
     Object? upcomingMovies = null,
     Object? selectedActor = null,
+    Object? selectedMovie = null,
     Object? errorMessage = freezed,
   }) {
     return _then(_$MovieImpl(
@@ -212,6 +232,10 @@ class __$$MovieImplCopyWithImpl<$Res>
           ? _value.selectedActor
           : selectedActor // ignore: cast_nullable_to_non_nullable
               as Actor,
+      selectedMovie: null == selectedMovie
+          ? _value.selectedMovie
+          : selectedMovie // ignore: cast_nullable_to_non_nullable
+              as Movie,
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -233,6 +257,7 @@ class _$MovieImpl implements _Movie {
       required final List<Movie> nowPlaying,
       required final List<Movie> upcomingMovies,
       required this.selectedActor,
+      required this.selectedMovie,
       required this.errorMessage})
       : _movieCast = movieCast,
         _discoverMovies = discoverMovies,
@@ -282,11 +307,13 @@ class _$MovieImpl implements _Movie {
   @override
   final Actor selectedActor;
   @override
+  final Movie selectedMovie;
+  @override
   final String? errorMessage;
 
   @override
   String toString() {
-    return 'MovieState(isDiscoverLoading: $isDiscoverLoading, isNowPlayingLoading: $isNowPlayingLoading, isUpcomingLoading: $isUpcomingLoading, isCastLoading: $isCastLoading, movieCast: $movieCast, discoverMovies: $discoverMovies, nowPlaying: $nowPlaying, upcomingMovies: $upcomingMovies, selectedActor: $selectedActor, errorMessage: $errorMessage)';
+    return 'MovieState(isDiscoverLoading: $isDiscoverLoading, isNowPlayingLoading: $isNowPlayingLoading, isUpcomingLoading: $isUpcomingLoading, isCastLoading: $isCastLoading, movieCast: $movieCast, discoverMovies: $discoverMovies, nowPlaying: $nowPlaying, upcomingMovies: $upcomingMovies, selectedActor: $selectedActor, selectedMovie: $selectedMovie, errorMessage: $errorMessage)';
   }
 
   @override
@@ -312,6 +339,8 @@ class _$MovieImpl implements _Movie {
                 .equals(other._upcomingMovies, _upcomingMovies) &&
             (identical(other.selectedActor, selectedActor) ||
                 other.selectedActor == selectedActor) &&
+            (identical(other.selectedMovie, selectedMovie) ||
+                other.selectedMovie == selectedMovie) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage));
   }
@@ -328,6 +357,7 @@ class _$MovieImpl implements _Movie {
       const DeepCollectionEquality().hash(_nowPlaying),
       const DeepCollectionEquality().hash(_upcomingMovies),
       selectedActor,
+      selectedMovie,
       errorMessage);
 
   @JsonKey(ignore: true)
@@ -348,6 +378,7 @@ abstract class _Movie implements MovieState {
       required final List<Movie> nowPlaying,
       required final List<Movie> upcomingMovies,
       required final Actor selectedActor,
+      required final Movie selectedMovie,
       required final String? errorMessage}) = _$MovieImpl;
 
   @override
@@ -368,6 +399,8 @@ abstract class _Movie implements MovieState {
   List<Movie> get upcomingMovies;
   @override
   Actor get selectedActor;
+  @override
+  Movie get selectedMovie;
   @override
   String? get errorMessage;
   @override

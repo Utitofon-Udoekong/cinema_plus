@@ -1,8 +1,7 @@
-import 'package:cinema_plus/src/models/movie/actor/actor.dart';
+import 'package:cinema_plus/src/models/models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cinema_plus/src/domain/repository/movie_repository.dart';
-import 'package:cinema_plus/src/models/movie/cast/cast.dart';
-import 'package:cinema_plus/src/models/movie/movie.dart';
+
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -59,6 +58,8 @@ class MovieCubit extends Cubit<MovieState> {
       emit(state.copyWith(isCastLoading: false, errorMessage: e.message));
     }
   }
+
+  void selectMovie(Movie movie) => emit(state.copyWith(selectedMovie: movie));
 
   Future<void> getActor(int id) async {
     loadCast();

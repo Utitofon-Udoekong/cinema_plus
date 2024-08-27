@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:cinema_plus/firebase_options.dart';
 import 'package:cinema_plus/src/core/app.dart';
 import 'package:cinema_plus/src/core/bloc_observer.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final savedThemeMode = await AdaptiveTheme.getThemeMode();
   await configureDependencies();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -23,5 +25,5 @@ void main() async {
     return true;
   };
   Bloc.observer = AppBlocObserver();
-  runApp(AppBuilder());
+  runApp(AppBuilder(savedThemeMode: savedThemeMode));
 }

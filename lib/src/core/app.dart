@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,13 +7,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:cinema_plus/src/core/injections.dart';
 import 'package:cinema_plus/src/core/router/router.dart';
 import 'package:cinema_plus/src/features/authentication/cubit/auth_cubit.dart';
+import 'package:cinema_plus/src/features/booking/cubit/booking_cubit.dart';
+import 'package:cinema_plus/src/features/home/favorites/cubit/favourite_cubit.dart';
 import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart';
+import 'package:cinema_plus/src/features/home/tickets/cubit/ticket_cubit.dart';
+import 'package:cinema_plus/src/features/payment/cubit/payment_cubit.dart';
 import 'package:cinema_plus/src/style/theme/cp_theme.dart';
 
 class AppBuilder extends StatelessWidget {
-  AppBuilder({super.key});
 
-  final _appRouter = locator<AppRouter>();
+  const AppBuilder({
+    super.key,
+    this.savedThemeMode,
+  });
+  
+  final AdaptiveThemeMode? savedThemeMode;
 
   @override
   Widget build(BuildContext context) {
@@ -23,18 +33,37 @@ class AppBuilder extends StatelessWidget {
         BlocProvider(
           create: (context) => locator<MovieCubit>(),
         ),
+        BlocProvider(
+          create: (context) => locator<BookingCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => locator<PaymentCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => locator<TicketCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => locator<FavouriteCubit>(),
+        ),
       ],
-      child: MaterialApp.router(
-        title: 'Cinema Plus',
-        debugShowCheckedModeBanner: false,
-        darkTheme: CPThemeData.darkThemeData(
-          GoogleFonts.poppinsTextTheme(),
-        ),
-        theme: CPThemeData.lightThemeData(
-          GoogleFonts.poppinsTextTheme(),
-        ),
-        themeMode: ThemeMode.dark,
-        routerConfig: _appRouter.config(),
+      child: AdaptiveTheme(
+      light: CPThemeData.lightThemeData(
+              GoogleFonts.poppinsTextTheme(),
+            ),
+      dark: CPThemeData.darkThemeData(
+              GoogleFonts.poppinsTextTheme(),
+            ),
+      initial: savedThemeMode ?? AdaptiveThemeMode.light,
+      builder: (theme, darkTheme) {
+          return MaterialApp.router(
+            title: 'Cinema Plus',
+            debugShowCheckedModeBanner: false,
+            darkTheme: darkTheme,
+            theme: theme,
+            themeMode: ThemeMode.system,
+            routerConfig: appRouter,
+          );
+        }
       ),
     );
   }

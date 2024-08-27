@@ -1,24 +1,18 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:cinema_plus/src/style/color/cp_color.dart';
-import 'package:cinema_plus/src/style/text/cp_text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AppBackButton extends StatelessWidget {
-  const AppBackButton({super.key});
+  const AppBackButton({super.key, this.sepcialTap});
+  final void Function()? sepcialTap;
 
   @override
   Widget build(BuildContext context) {
-    return TextButton.icon(
-      onPressed: () => context.maybePop(),
-      style: TextButton.styleFrom(padding: EdgeInsets.zero),
-      label: Text(
-        'Back',
-        style: CPTextStyle.caption(context, color: CPColors.grey100),
-      ),
-      icon: const Icon(
+    return InkWell(
+      onTap: sepcialTap ?? () => context.pop(),
+      child: Icon(
         Icons.arrow_back_ios,
-        color: CPColors.grey100,
-        size: 14,
+        color: Theme.of(context).colorScheme.onSurface,
+        size: 18,
       ),
     );
   }

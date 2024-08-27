@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/style/style.dart';
 import 'package:flutter/material.dart';
@@ -10,37 +11,25 @@ class TimeChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final jDate = Jiffy.parseFromDateTime(date);
+    final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: isSelected ? null : CPColors.grey600.withOpacity(0.4),
-        border: Border.all(color: CPColors.grey600),
+        color: isSelected ? Theme.of(context).colorScheme.primaryContainer : null,
+        border: Border.all(color: Theme.of(context).colorScheme.primaryContainer),
         borderRadius: BorderRadius.circular(defaultRadiusSm),
         gradient: isSelected
-            ? const LinearGradient(
+            ? isDark ? const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
+                  CPColors.grey400,
                   CPColors.grey700,
-                  CPColors.grey800,
                 ],
-              )
+              ) : null
             : null,
         boxShadow: isSelected
-            ? const [
-                BoxShadow(
-                    color: CPColors.black,
-                    offset: Offset(-3, 2),
-                    blurRadius: 5),
-                BoxShadow(
-                    color: CPColors.black,
-                    offset: Offset(-10, 0),
-                    spreadRadius: 10,
-                    blurRadius: 5),
-                BoxShadow(
-                    color: CPColors.black, offset: Offset(3, 2), blurRadius: 5),
-              ]
+            ? isDark ? darkShadow : lightShadow
             : null,
       ),
       child: Text(

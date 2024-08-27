@@ -1,36 +1,44 @@
-import 'package:cinema_plus/src/components/loader/app_loader_sm.dart';
-import 'package:cinema_plus/src/constants/arb_styles.dart';
-import 'package:cinema_plus/src/style/color/cp_color.dart';
-import 'package:cinema_plus/src/style/text/cp_text_style.dart';
 import 'package:flutter/material.dart';
+
+import 'package:cinema_plus/src/components/loader/app_loader_sm.dart';
+import 'package:cinema_plus/src/constants/constants.dart';
+import 'package:cinema_plus/src/style/style.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({
     super.key,
     required this.title,
-    required this.isLoading,
+    this.isLoading = false,
     this.ontap,
     this.gradient,
+    this.disabled = false,
   });
 
   final String title;
   final bool isLoading;
+  final bool disabled;
   final Gradient? gradient;
   final void Function()? ontap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: isLoading ? null : ontap,
+      onTap: isLoading || disabled ? null : ontap,
       child: Container(
         width: double.infinity,
         height: 48,
         decoration: BoxDecoration(
+          color: disabled ? CPColors.grey500 : null,
           borderRadius: BorderRadius.circular(defaultRadius),
-          gradient: gradient ??
-              const LinearGradient(
-                colors: [CPColors.purple, CPColors.pink],
-              ),
+          gradient: disabled
+              ? null
+              : gradient ??
+                  LinearGradient(
+                    colors: [
+                      CPColors.purple,
+                      Theme.of(context).colorScheme.primary
+                    ],
+                  ),
         ),
         padding: defaultButtonPadding,
         child: isLoading
@@ -39,6 +47,7 @@ class AppButton extends StatelessWidget {
                 title,
                 style: CPTextStyle.button(
                   context,
+                  color: Theme.of(context).colorScheme.onSecondary,
                 ),
                 textAlign: TextAlign.center,
               ),

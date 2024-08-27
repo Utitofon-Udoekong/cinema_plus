@@ -1,5 +1,4 @@
 import 'package:cinema_plus/src/components/cinema/cinema.dart';
-import 'package:cinema_plus/src/components/cinema/cinema_seat.dart';
 import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/style/style.dart';
 import 'package:flutter/material.dart';
@@ -22,30 +21,33 @@ class CinemaHeader extends StatelessWidget {
       children: [
         CinemaDate(date: date),
         const Gap(20),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
+        Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     movieTitle,
-                    style: CPTextStyle.caption(context),
+                    style: CPTextStyle.caption(context, weight: FontWeight.bold),
                   ),
                   Text(
                     cinemaName,
                     style: CPTextStyle.link(context),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
+              const Gap(30),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CinemaSeat.text(context, state: CinemaSeatState.booked, text: 'BOOKED'),
-                  const Gap(5),
+                  // const Gap(5),
                   CinemaSeat.text(context, state: CinemaSeatState.available, text: 'AVAILABLE'),
-                  const Gap(5),
+                  // const Gap(5),
                   CinemaSeat.text(context, state: CinemaSeatState.selected, text: 'SELECTED'),
                 ],
               )

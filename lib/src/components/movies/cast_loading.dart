@@ -1,6 +1,4 @@
-import 'package:cinema_plus/src/constants/app_images.dart';
 import 'package:cinema_plus/src/constants/arb_styles.dart';
-import 'package:cinema_plus/src/style/color/cp_color.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -36,7 +34,7 @@ class _CastCard extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(defaultRadiusSm),
-            color: CPColors.grey600,
+            color: Theme.of(context).colorScheme.primaryContainer,
           ),
           width: 80,
           height: 100,
@@ -45,7 +43,7 @@ class _CastCard extends StatelessWidget {
         Container(
           height: 10,
           width: 80,
-          color: CPColors.grey600,
+          color: Theme.of(context).colorScheme.primaryContainer,
         )
       ],
     );

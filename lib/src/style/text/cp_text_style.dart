@@ -1,4 +1,3 @@
-import 'package:cinema_plus/src/style/color/cp_color.dart';
 import 'package:flutter/material.dart';
 
 enum CPTextStyleEnum { headline, subTitle, body, caption, button, link }

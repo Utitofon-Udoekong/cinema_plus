@@ -1,6 +1,8 @@
 // enum Gender{
 //   0,1,2
 // }
+import 'package:flutter/widgets.dart';
+
 const genres = <Map<String,dynamic>>{
   {"id": 28, "name": "Action"},
   {"id": 12, "name": "Adventure"},
@@ -25,3 +27,15 @@ const genres = <Map<String,dynamic>>{
 
 enum CinemaSeatState { booked, available, selected }
 
+
+extension WidgetSpace on Iterable<Widget> {
+  List<Widget> withSpacing(double spacing) {
+    return expand((item) sync* {
+      yield SizedBox(
+        width: spacing,
+        height: spacing,
+      );
+      yield item;
+    }).skip(1).toList();
+  }
+}

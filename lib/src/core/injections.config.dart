@@ -9,17 +9,26 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:cache/cache.dart' as _i566;
-import 'package:cinema_plus/src/core/router/router.dart' as _i653;
 import 'package:cinema_plus/src/domain/repository/auth_repository.dart'
     as _i854;
 import 'package:cinema_plus/src/domain/repository/movie_repository.dart'
     as _i1045;
+import 'package:cinema_plus/src/domain/repository/ticket_repository.dart'
+    as _i1064;
+import 'package:cinema_plus/src/domain/repository/user_repository.dart'
+    as _i447;
 import 'package:cinema_plus/src/features/authentication/cubit/auth_cubit.dart'
     as _i975;
 import 'package:cinema_plus/src/features/booking/cubit/booking_cubit.dart'
     as _i796;
+import 'package:cinema_plus/src/features/home/favorites/cubit/favourite_cubit.dart'
+    as _i186;
 import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart'
     as _i432;
+import 'package:cinema_plus/src/features/home/tickets/cubit/ticket_cubit.dart'
+    as _i749;
+import 'package:cinema_plus/src/features/payment/cubit/payment_cubit.dart'
+    as _i1019;
 import 'package:cinema_plus/src/service/app.module.dart' as _i374;
 import 'package:cinema_plus/src/service/firebase_service.dart' as _i651;
 import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
@@ -49,7 +58,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i974.FirebaseFirestore>(() => appModule.firestore);
     gh.factory<_i116.GoogleSignIn>(() => appModule.googleSignIn);
     gh.factory<_i566.CacheClient>(() => appModule.cache);
-    gh.factory<_i653.AppRouter>(() => appModule.appRouter);
     gh.factory<_i361.Dio>(() => appModule.dio);
     gh.lazySingleton<_i796.BookingCubit>(() => _i796.BookingCubit());
     gh.lazySingleton<_i1045.MovieRepository>(() => _i1045.MovieRepository(
@@ -66,8 +74,22 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.lazySingleton<_i975.AuthCubit>(
         () => _i975.AuthCubit(gh<_i854.AuthenticationRepository>()));
+    gh.lazySingleton<_i186.FavouriteCubit>(
+        () => _i186.FavouriteCubit(gh<_i1045.MovieRepository>()));
     gh.lazySingleton<_i432.MovieCubit>(
         () => _i432.MovieCubit(gh<_i1045.MovieRepository>()));
+    gh.lazySingleton<_i1064.TicketRepository>(() => _i1064.TicketRepository(
+          gh<_i974.FirebaseFirestore>(),
+          gh<_i59.FirebaseAuth>(),
+        ));
+    gh.lazySingleton<_i447.UserRepository>(() => _i447.UserRepository(
+          gh<_i974.FirebaseFirestore>(),
+          gh<_i59.FirebaseAuth>(),
+        ));
+    gh.lazySingleton<_i1019.PaymentCubit>(
+        () => _i1019.PaymentCubit(gh<_i447.UserRepository>()));
+    gh.lazySingleton<_i749.TicketCubit>(
+        () => _i749.TicketCubit(gh<_i1064.TicketRepository>()));
     return this;
   }
 }

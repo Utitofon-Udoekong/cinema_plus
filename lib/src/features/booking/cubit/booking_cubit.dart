@@ -1,7 +1,6 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/models/models.dart';
-import 'package:cinema_plus/src/models/movie/movie.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -17,18 +16,17 @@ class BookingCubit extends Cubit<BookingState> {
       emit(state.copyWith(selectedCinema: cinema));
   void chooseSession(Cinema cinema) =>
       emit(state.copyWith(selectedCinema: cinema));
-
-  void selectSeats(String seat) {
-    final cinema = state.selectedCinema;
-    final seats = cinema.seats;
+  void selectSeat(String seat) {
+    final seats = state.selectedSeats.toList(growable: true);
     if (seats.contains(seat)) {
       seats.remove(seat);
-      cinema.seats = seats;
-      emit(state.copyWith(selectedCinema: cinema));
-    }else{
+      emit(state.copyWith(selectedSeats: seats));
+    } else {
       seats.add(seat);
-      cinema.seats = seats;
-      emit(state.copyWith(selectedCinema: cinema));
+      emit(state.copyWith(selectedSeats: seats));
     }
   }
+
+  void clearSeat() => emit(state.copyWith(selectedSeats: []));
+  void reset() => emit(BookingState.empty());
 }

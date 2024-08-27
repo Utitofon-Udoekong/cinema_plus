@@ -1,5 +1,4 @@
 import 'package:cache/cache.dart';
-import 'package:cinema_plus/src/core/router/router.dart';
 import 'package:cinema_plus/src/service/dio/dio_service.dart';
 import 'package:cinema_plus/src/service/firebase_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,9 +24,6 @@ abstract class AppModule {
 
   @injectable
   CacheClient get cache => CacheClient();
-
-  @injectable
-  AppRouter get appRouter => AppRouter();
 
   @injectable
   Dio get dio => DioService().getDio();

@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 /// {@template sign_up_with_email_and_password_failure}
 /// Thrown during the sign up process if a failure occurs.
 /// {@endtemplate}
@@ -141,3 +142,56 @@ class LogInWithGoogleFailure implements Exception {
 class LogOutFailure implements Exception {}
 
 
+
+/// Thrown during a network request if a failure occurs.
+class CPException implements Exception {
+  final String message;
+
+  CPException(this.message);
+  /// Create an authentication message
+  /// from a firebase authentication exception code.
+  factory CPException.auth(FirebaseAuthException e) {
+    switch (e.code) {
+      case 'weak-password':
+        return CPException('Password is too weak.');
+      case 'email-already-in-use':
+        return CPException('Email address is already in use.');
+      case 'invalid-email':
+        return CPException('Invalid email address.');
+      case 'user-not-found':
+        return CPException('User not found.');
+      case 'wrong-password':
+        return CPException('Wrong password.');
+      case 'operation-not-allowed':
+        return CPException('Operation not allowed.');
+      case 'too-many-requests':
+        return CPException('Too many requests.');
+      case 'requires-recent-login':
+        return CPException('Requires recent login.');
+      case 'invalid-verification-code':
+        return CPException('Invalid verification code.');
+      case 'invalid-credential':
+        return CPException('Invalid credential.');
+      case 'user-disabled':
+        return CPException('User disabled.');
+      case 'email-already-exists':
+        return CPException('Email already exists.');
+      case 'operation-aborted':
+        return CPException('Operation aborted.');
+      case 'weak-password-policy':
+        return CPException('Weak password policy.');
+      case 'network-request-failed':
+        return CPException('Network request failed.');
+      default:
+        return CPException('Unknown error: ${e.code}');
+    }
+  }
+
+  factory CPException.firestore(FirebaseException e) {
+    return CPException(e.message ?? 'Unknown Firebase Firestore error: ${e.code}');
+  }
+
+  factory CPException.dio(DioException e) {
+    return CPException(e.message ?? 'Unknown Dio error');
+  }
+}

@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -7,9 +6,7 @@ import 'package:cinema_plus/src/constants/arb_styles.dart';
 import 'package:cinema_plus/src/features/movie_tabs/tabs/discover_movies.dart';
 import 'package:cinema_plus/src/features/movie_tabs/tabs/now_playing_movies.dart';
 import 'package:cinema_plus/src/features/movie_tabs/tabs/upcoming_movies.dart';
-import 'package:cinema_plus/src/style/color/cp_color.dart';
 
-@RoutePage()
 class MoviesPage extends StatefulWidget {
   const MoviesPage({super.key});
 
@@ -39,8 +36,11 @@ class _MoviesPageState extends State<MoviesPage>
             TabBar(
               controller: tabController,
               indicatorSize: TabBarIndicatorSize.tab,
-              labelColor: CPColors.white,
-              indicator: CustomTabIndicator(),
+              labelColor: Theme.of(context).colorScheme.onSurface,
+              indicator: CustomTabIndicator(
+                Theme.of(context).colorScheme.secondary,
+                Theme.of(context).colorScheme.primary,
+              ),
               dividerHeight: 0,
               tabs: const [
                 Tab(

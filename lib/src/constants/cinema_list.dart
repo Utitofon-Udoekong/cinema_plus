@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/models/cinema.dart';
 import 'package:cinema_plus/src/models/models.dart';
 
@@ -11,6 +10,7 @@ final cinemaList = <Cinema>[
     popularity: 4.7,
     location: '1564 Saint Denis St, Montreal, QC, Canada',
     seats: generateSeats(),
+    hall: generateHall()
   ),
   Cinema(
     name: 'Corona Theatre',
@@ -19,6 +19,7 @@ final cinemaList = <Cinema>[
     popularity: 3.5,
     location: 'FCMF+6VH Montreal, Quebec, Canada',
     seats: generateSeats(),
+    hall: generateHall()
   ),
   Cinema(
     name: 'Garneau Theatre',
@@ -27,6 +28,7 @@ final cinemaList = <Cinema>[
     popularity: 4,
     location: 'GFFQ+65Q Edmonton, Alberta, Canada',
     seats: generateSeats(),
+    hall: generateHall()
   ),
   Cinema(
     name: 'L\'Arlequin',
@@ -35,6 +37,7 @@ final cinemaList = <Cinema>[
     popularity: 4.3,
     location: 'Luxembourg, 75006 Paris, France',
     seats: generateSeats(),
+    hall: generateHall()
   ),
   Cinema(
     name: 'Le Grand Rex',
@@ -43,6 +46,7 @@ final cinemaList = <Cinema>[
     popularity: 3.7,
     location: '1 Bd Poissonnière, 75002 Paris, France',
     seats: generateSeats(),
+    hall: generateHall()
   ),
   Cinema(
     name: 'Tennispalatsi',
@@ -51,6 +55,7 @@ final cinemaList = <Cinema>[
     popularity: 4.7,
     location: 'Tennispalatsi, 00100 Helsinki, Finland',
     seats: generateSeats(),
+    hall: generateHall()
   ),
   Cinema(
     name: 'Teatro Adriano',
@@ -59,6 +64,7 @@ final cinemaList = <Cinema>[
     popularity: 4.7,
     location: 'Piazza Cavour, 7, 00193 Roma RM, Italy',
     seats: generateSeats(),
+    hall: generateHall()
   ),
   Cinema(
     name: 'London IMAX',
@@ -67,29 +73,8 @@ final cinemaList = <Cinema>[
     popularity: 4.8,
     location: 'Lambeth, London SE1 8XR, UK',
     seats: generateSeats(),
+    hall: generateHall()
   ),
 ];
 
-List<String> generateSeats() {
-  List<String> seats = [];
-  String columns = "12345678";
-  String rows = "ABCDEFGH";
-  for (var i = 0; i < Random().nextInt(50) + 10; i++) {
-    final randomColumnIndex = Random().nextInt(columns.length - 1);
-    final randomRowIndex = Random().nextInt(rows.length - 1);
-    final randomRow = rows[randomRowIndex];
-    final randomColumn = columns[randomColumnIndex];
-    bool failCase1 =
-        randomColumn == '1' && (randomRow == 'A' || randomRow == 'B');
-    bool failCase2 =
-        randomColumn == '2' && (randomRow == 'A' || randomRow == 'B');
 
-    if (failCase1 || failCase2) {
-      continue;
-    } else {
-      String seat = '$randomRow$randomColumn';
-      seats.add(seat);
-    }
-  }
-  return seats;
-}

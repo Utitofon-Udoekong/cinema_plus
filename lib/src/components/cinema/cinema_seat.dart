@@ -12,11 +12,12 @@ class CinemaSeat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: state == CinemaSeatState.booked ? null : onTap,
       child: child ??
           Icon(
             Icons.chair_rounded,
-            color: getChairColor(state),
+            color: getChairColor(state, context),
+            size: 20,
           ),
     );
   }
@@ -34,12 +35,13 @@ class CinemaSeat extends StatelessWidget {
         children: [
           Icon(
             Icons.chair_rounded,
-            color: getChairColor(state),
+            color: getChairColor(state, context),
+            size: 20,
           ),
           const Gap(5),
           Text(
             text,
-            style: CPTextStyle.link(context, color: CPColors.grey700),
+            style: CPTextStyle.link(context, color: CPColors.grey600, size: 10),
           ),
         ],
       ),

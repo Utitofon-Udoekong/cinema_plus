@@ -1,15 +1,13 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-import 'package:cinema_plus/src/components/cinema/choose_cinema_tile.dart';
 import 'package:cinema_plus/src/components/components.dart';
 import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/features/booking/cubit/booking_cubit.dart';
 import 'package:cinema_plus/src/style/style.dart';
+import 'package:go_router/go_router.dart';
 
-@RoutePage()
 class ChooseSessionPage extends StatefulWidget {
   const ChooseSessionPage({super.key});
 
@@ -18,20 +16,15 @@ class ChooseSessionPage extends StatefulWidget {
 }
 
 class _ChooseSessionPageState extends State<ChooseSessionPage> {
-  String selectedTime = '';
+  String selectedTime = _classicSession.first;
   DateTime selectedDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
     final selectedCinema =
         context.select((BookingCubit bloc) => bloc.state.selectedCinema);
     return Scaffold(
-      appBar: AppBar(
-        leading: const AppBackButton(),
-        centerTitle: true,
-        title: Text(
-          'Choose Session',
-          style: CPTextStyle.body(context),
-        ),
+      appBar: const PageHeader(
+        title: 'Choose Session',
       ),
       body: SafeArea(
         child: Padding(
@@ -47,21 +40,32 @@ class _ChooseSessionPageState extends State<ChooseSessionPage> {
                       const Gap(30),
                       Text(
                         'Choose cinema',
-                        style: CPTextStyle.caption(context, weight: FontWeight.bold),
+                        style: CPTextStyle.caption(context,
+                            weight: FontWeight.bold),
                       ),
-                      const Gap(5),
+                      const Gap(10),
                       ChooseCinemaButton(
                         cinema: selectedCinema,
-                        onTap: () => showChooseCinemaModal,
+                        onTap: () {
+                          showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: true,
+                              barrierColor: CPColors.grey600.withOpacity(0.6),
+                              builder: (context) {
+                                return const _ChooseCinemaModal();
+                              });
+                        },
                       ),
                       const Gap(30),
                       Text(
                         'Choose Date',
-                        style: CPTextStyle.caption(context, weight: FontWeight.bold),
+                        style: CPTextStyle.caption(context,
+                            weight: FontWeight.bold),
                       ),
                       const Gap(5),
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
+                        clipBehavior: Clip.none,
                         child: Expanded(
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,7 +79,8 @@ class _ChooseSessionPageState extends State<ChooseSessionPage> {
                                 child: Container(
                                   margin: const EdgeInsets.only(right: 10),
                                   child: DateChip(
-                                      isSelected: selectedDate == day, date: day),
+                                      isSelected: selectedDate.day == day.day,
+                                      date: day),
                                 ),
                               );
                             }).toList(),
@@ -85,12 +90,14 @@ class _ChooseSessionPageState extends State<ChooseSessionPage> {
                       const Gap(30),
                       Text(
                         'Choose Time',
-                        style: CPTextStyle.caption(context, weight: FontWeight.bold),
+                        style: CPTextStyle.caption(context,
+                            weight: FontWeight.bold),
                       ),
                       const Gap(10),
                       Text(
                         'CLASSIC SESSION',
-                        style: CPTextStyle.link(context, color: CPColors.grey500),
+                        style:
+                            CPTextStyle.link(context, color: CPColors.grey500),
                       ),
                       const Gap(10),
                       Row(
@@ -105,8 +112,7 @@ class _ChooseSessionPageState extends State<ChooseSessionPage> {
                             child: Container(
                               margin: const EdgeInsets.only(right: 10),
                               child: TimeChip(
-                                  isSelected: selectedTime == time,
-                                  time: selectedTime),
+                                  isSelected: selectedTime == time, time: time),
                             ),
                           );
                         }).toList(),
@@ -114,7 +120,8 @@ class _ChooseSessionPageState extends State<ChooseSessionPage> {
                       const Gap(10),
                       Text(
                         '3D SESSION',
-                        style: CPTextStyle.link(context, color: CPColors.grey500),
+                        style:
+                            CPTextStyle.link(context, color: CPColors.grey500),
                       ),
                       const Gap(10),
                       Row(
@@ -129,8 +136,7 @@ class _ChooseSessionPageState extends State<ChooseSessionPage> {
                             child: Container(
                               margin: const EdgeInsets.only(right: 10),
                               child: TimeChip(
-                                  isSelected: selectedTime == time,
-                                  time: selectedTime),
+                                  isSelected: selectedTime == time, time: time),
                             ),
                           );
                         }).toList(),
@@ -139,11 +145,17 @@ class _ChooseSessionPageState extends State<ChooseSessionPage> {
                   ),
                 ),
               ),
-              AppButton(title: 'CHOOSE SESSION', isLoading: false,
-              ontap: () {
-                final newCinema = selectedCinema.copyWith(dateTime: DateTime.parse('${selectedDate.toIso8601String().substring(0,10)} $selectedTime'));
-                context.read<BookingCubit>().chooseSession(newCinema);
-              },)
+              AppButton(
+                title: 'CHOOSE SESSION',
+                ontap: () {
+                  final cinemaDate = DateTime.parse(
+                      '${selectedDate.toIso8601String().substring(0, 10)} $selectedTime');
+                  final newCinema =
+                      selectedCinema.copyWith(dateTime: cinemaDate);
+                  context.read<BookingCubit>().chooseSession(newCinema);
+                  context.push(AppRoutes.chooseSeat);
+                },
+              )
             ],
           ),
         ),
@@ -162,16 +174,8 @@ const _classicSession = [
 const _3dSession = [
   "19:30",
   "21:35",
-  "23:05",
+  "23:45",
 ];
-showChooseCinemaModal(BuildContext context) {
-  return showModalBottomSheet(
-      context: context,
-      enableDrag: false,
-      builder: (context) {
-        return const _ChooseCinemaModal();
-      });
-}
 
 class _ChooseCinemaModal extends StatelessWidget {
   const _ChooseCinemaModal({super.key});
@@ -179,37 +183,50 @@ class _ChooseCinemaModal extends StatelessWidget {
   Widget build(BuildContext context) {
     final selectedCinema =
         context.select((BookingCubit bloc) => bloc.state.selectedCinema);
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Text(
-                    'Select Cinema',
-                    style:
-                        CPTextStyle.caption(context, weight: FontWeight.bold),
+    return DraggableScrollableSheet(
+        expand: false,
+        initialChildSize: 0.75,
+        minChildSize: 0.7,
+        maxChildSize: 0.75,
+        builder: (_, controller) {
+          return Container(
+            padding: defaultPadding,
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(defaultRadius),
+              topRight: Radius.circular(defaultRadius),
+            )),
+            child: Column(
+              children: [
+                const Gap(30),
+                Text(
+                  'Select Cinema',
+                  style: CPTextStyle.body(context, weight: FontWeight.bold),
+                ),
+                const Gap(10),
+                Expanded(
+                  child: ListView.builder(
+                    controller: controller,
+                    itemCount: cinemaList.length,
+                    itemBuilder: (context, index) {
+                      final cinema = cinemaList[index];
+                      return ChooseCinemaTile(
+                        cinema: cinema,
+                        isSelected: selectedCinema.location == cinema.location,
+                        onTap: () =>
+                            context.read<BookingCubit>().chooseCinema(cinema),
+                      );
+                    },
                   ),
-                  ...cinemaList.map(
-                    (cinema) => ChooseCinemaTile(
-                      cinema: cinema,
-                      isSelected: selectedCinema.location == cinema.location,
-                      onTap: () =>
-                          context.read<BookingCubit>().chooseCinema(cinema),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                const Gap(10),
+                AppButton(
+                  title: 'CHOOSE CINEMA',
+                  ontap: () => context.pop(),
+                ),
+              ],
             ),
-          ),
-          AppButton(
-            title: 'CHOOSE CINEMA',
-            isLoading: false,
-            ontap: () => context.maybePop(),
-          )
-        ],
-      ),
-    );
+          );
+        });
   }
 }

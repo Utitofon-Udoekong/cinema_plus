@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinema_plus/src/components/components.dart';
 import 'package:cinema_plus/src/constants/constants.dart';
@@ -10,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-@RoutePage()
 class CastDetailPage extends StatelessWidget {
   const CastDetailPage({super.key});
 
@@ -79,8 +77,7 @@ class CastDetailPage extends StatelessWidget {
                                 child: Text(
                                   actor.name,
                                   style: CPTextStyle.headline(context,
-                                      weight: FontWeight.w900,
-                                      size: 32),
+                                      weight: FontWeight.w900, size: 32),
                                 ),
                               ),
                               Positioned(
@@ -101,28 +98,34 @@ class CastDetailPage extends StatelessWidget {
                                       ),
                                     ),
                                     const Gap(10),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          actor.birthday,
-                                          style: CPTextStyle.caption(context,
-                                              color: CPColors.grey400),
-                                        ),
-                                        const Gap(5),
-                                        Text(
-                                          actor.placeOfBirth ?? '',
-                                          style: CPTextStyle.caption(context,
-                                              color: CPColors.grey400),
-                                        ),
-                                        const Gap(5),
-                                        Text(
-                                          actor.knownForDepartment,
-                                          style: CPTextStyle.caption(context,
-                                              color: CPColors.pink),
-                                        ),
-                                      ],
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            actor.birthday,
+                                            style: CPTextStyle.caption(context,
+                                                color: CPColors.grey400),
+                                          ),
+                                          const Gap(5),
+                                          Text(
+                                            actor.placeOfBirth ?? '',
+                                            style: CPTextStyle.caption(context,
+                                                color: CPColors.grey400),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                          const Gap(5),
+                                          Text(
+                                            actor.knownForDepartment,
+                                            style: CPTextStyle.caption(context,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary),
+                                          ),
+                                        ],
+                                      ),
                                     )
                                   ],
                                 ),
@@ -138,7 +141,9 @@ class CastDetailPage extends StatelessWidget {
                               const Gap(30),
                               Text(
                                 'Biography',
-                                style: CPTextStyle.subTitle(context,),
+                                style: CPTextStyle.subTitle(
+                                  context,
+                                ),
                               ),
                               const Gap(10),
                               Text(
@@ -149,7 +154,9 @@ class CastDetailPage extends StatelessWidget {
                               const Gap(50),
                               Text(
                                 'Filmography',
-                                style: CPTextStyle.subTitle(context,),
+                                style: CPTextStyle.subTitle(
+                                  context,
+                                ),
                               ),
                               const Gap(10),
                               BlocBuilder<MovieCubit, MovieState>(
@@ -175,17 +182,12 @@ class CastDetailPage extends StatelessWidget {
                                                           movie.backdropPath !=
                                                           null)
                                                       .map((movie) {
-                                                    return Container(
-                                                      margin:
-                                                          const EdgeInsets.only(
-                                                              right: 10),
-                                                      child: FilmCard(
-                                                        imageUrl:
-                                                            movie.backdropPath!,
-                                                        name: movie.title,
-                                                      ),
+                                                    return FilmCard(
+                                                      imageUrl:
+                                                          movie.backdropPath!,
+                                                      name: movie.title,
                                                     );
-                                                  }).toList(),
+                                                  }).withSpacing(10),
                                                 ),
                                               ),
                                             );

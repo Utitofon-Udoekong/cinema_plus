@@ -1,7 +1,8 @@
 import 'package:cinema_plus/src/constants/app_strings.dart';
 import 'package:cinema_plus/src/core/bloc_observer.dart';
 import 'package:cinema_plus/src/core/firebase_helpers.dart';
-import 'package:cinema_plus/src/models/models.dart';
+import 'package:cinema_plus/src/domain/exceptions.dart';
+import 'package:cinema_plus/src/models/models.dart' show Movie, Cast, Actor;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
@@ -29,7 +30,7 @@ class MovieRepository {
       }
       return movieList;
     } on DioException catch (e) {
-      throw DioException(requestOptions: e.requestOptions);
+      throw CPException.dio(e);
     }
   }
 
@@ -38,7 +39,6 @@ class MovieRepository {
       final response = await _dio.get(
           '${AppStrings.baseURL}/movie/now_playing?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc');
       final data = response.data;
-      logger.w(data);
       List<Movie> movieList = [];
       final serverMovieList = data['results'];
       for (var i = 0; i < serverMovieList.length; i++) {
@@ -47,7 +47,7 @@ class MovieRepository {
       }
       return movieList;
     } on DioException catch (e) {
-      throw DioException(requestOptions: e.requestOptions);
+      throw CPException.dio(e);
     }
   }
 
@@ -56,7 +56,6 @@ class MovieRepository {
       final response = await _dio.get(
           '${AppStrings.baseURL}/movie/upcoming?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc');
       final data = response.data;
-      logger.w(data);
       List<Movie> movieList = [];
       final serverMovieList = data['results'];
       for (var i = 0; i < serverMovieList.length; i++) {
@@ -65,7 +64,7 @@ class MovieRepository {
       }
       return movieList;
     } on DioException catch (e) {
-      throw DioException(requestOptions: e.requestOptions);
+      throw CPException.dio(e);
     }
   }
 
@@ -76,17 +75,7 @@ class MovieRepository {
       logger.w(response.data);
       throw UnimplementedError();
     } on DioException catch (e) {
-      throw DioException(requestOptions: e.requestOptions);
-    }
-  }
-
-  Future<Movie> getMovie({required String movieId}) async {
-    try {
-      final response = await _dio.get('${AppStrings.baseURL}/movie/$movieId');
-      logger.w(response.data);
-      throw UnimplementedError();
-    } on DioException catch (e) {
-      throw DioException(requestOptions: e.requestOptions);
+      throw CPException.dio(e);
     }
   }
 
@@ -107,16 +96,6 @@ class MovieRepository {
     }
   }
 
-  Future<List<Clip>> getMovieClips({required String movieId}) async {
-    throw UnimplementedError();
-    // try {
-    //   final response = await _dio.get('${AppStrings.baseURL}/movie/$movieId/videos');
-    //   logger.w(response.data);
-    // } on DioException {
-    //   rethrow;
-    // }
-  }
-
   Future<Actor> getActor({required int actorId}) async {
     try {
       final response = await _dio.get(
@@ -124,7 +103,7 @@ class MovieRepository {
       logger.w(response.data);
       return Actor.fromJson(response.data);
     } on DioException catch (e) {
-      throw DioException(requestOptions: e.requestOptions);
+      throw CPException.dio(e);
     }
   }
 
@@ -142,30 +121,46 @@ class MovieRepository {
       }
       return movieList;
     } on DioException catch (e) {
-      throw DioException(requestOptions: e.requestOptions);
+      throw CPException.dio(e);
     }
   }
 
-  // Stream<Movie> getFavorites({required Movie movie}) {
-  //   final Stream<DocumentSnapshot> snapshots = _firebaseFirestore.userCollection
-  //       .doc(_firebaseAuth.currentUser!.uid)
-  //       .snapshots();
-  //   return snapshots.map((doc) => Movie.fromFirestore(doc as DocumentSnapshot<Map<String, dynamic>>));
-  // }
-
-  Future<void> addToFavorites({required Movie movie}) async {
-    await _firebaseFirestore.userCollection
+  Stream<QuerySnapshot<Movie>> getFavorites() {
+    return _firebaseFirestore.userCollection
         .doc(_firebaseAuth.currentUser!.uid)
-        .update({
-      "favourites": FieldValue.arrayUnion([movie])
-    });
+        .favoritesCollection
+        .withConverter(
+            fromFirestore: Movie.fromFirestore,
+            toFirestore: (Movie movie, options) => Movie.toFirestore(movie))
+        .snapshots();
   }
 
-  Future<void> removeFromFavorites({required Movie movie}) async {
-    await _firebaseFirestore.userCollection
-        .doc(_firebaseAuth.currentUser!.uid)
-        .update({
-      "favourites": FieldValue.arrayRemove([movie])
-    });
+  Future<bool> addToFavorites({required Movie movie}) async {
+    try {
+      final docRef = _firebaseFirestore.userCollection
+          .doc(_firebaseAuth.currentUser!.uid)
+          .favoritesCollection
+          .withConverter(
+              fromFirestore: Movie.fromFirestore,
+              toFirestore: (Movie movie, options) => Movie.toFirestore(movie))
+          .doc(movie.id.toString());
+      await docRef.set(movie);
+      return true;
+    } on FirebaseException catch (e) {
+      throw CPException.firestore(e);
+    }
+  }
+
+  Future<bool> removeFromFavorites({required String movieID}) async {
+    try {
+      final docRef = _firebaseFirestore.userCollection
+          .doc(_firebaseAuth.currentUser!.uid)
+          .favoritesCollection
+          .doc(movieID);
+      await docRef.delete();
+      return true;
+    } on FirebaseException catch (e) {
+      throw CPException.firestore(e);
+    }
   }
 }

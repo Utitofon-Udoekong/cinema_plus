@@ -15,6 +15,8 @@ class CPColors {
   static const grey600 = CPColor._(0XFF474654);
   static const grey500 = CPColor._(0XFF4D4D57);
   static const grey400 = CPColor._(0XFF71717B);
+  static const grey300 = CPColor._(0xFFAAAAAA);
+  static const grey200 = CPColor._(0xFFDFDFDF);
   static const grey100 = CPColor._(0xFFFAFBFB);
 
   static const error = CPColor._(0xFFFF5252);
@@ -27,13 +29,17 @@ const _secondaryLight = CPColors.purple;
 const _onSecondaryLight = CPColors.white;
 const _surfaceLight = CPColors.grey100;
 const _onSurfaceLight = CPColors.grey900;
+const _primaryContainerLight = CPColors.grey200;
+const _onPrimaryContainerLight = CPColors.grey900;
 
 const _primaryDark = CPColors.pink;
 const _onPrimaryDark = CPColors.white;
 const _secondaryDark = CPColors.purple;
 const _onSecondaryDark = CPColors.white;
 const _surfaceDark = CPColors.grey900;
-const _onSurfaceDark = CPColors.white;
+const _onSurfaceDark = CPColors.grey100;
+const _primaryContainerDark = CPColors.grey800;
+const _onPrimaryContainerDark = CPColors.grey100;
 
 class CPColorSchemeData {
   static const ColorScheme lightColorScheme = ColorScheme(
@@ -43,6 +49,8 @@ class CPColorSchemeData {
     onSecondary: _onSecondaryLight,
     surface: _surfaceLight,
     onSurface: _onSurfaceLight,
+    primaryContainer: _primaryContainerLight,
+    onPrimaryContainer: _onPrimaryContainerLight,
     error: CPColors.error,
     onError: CPColors.onError,
     brightness: Brightness.light,
@@ -55,6 +63,8 @@ class CPColorSchemeData {
     onSecondary: _onSecondaryDark,
     surface: _surfaceDark,
     onSurface: _onSurfaceDark,
+    primaryContainer: _primaryContainerDark,
+    onPrimaryContainer: _onPrimaryContainerDark,
     error: CPColors.error,
     onError: CPColors.onError,
     brightness: Brightness.dark,

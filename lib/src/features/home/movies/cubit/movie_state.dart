@@ -12,6 +12,7 @@ class MovieState with _$MovieState {
       required List<Movie> nowPlaying,
       required List<Movie> upcomingMovies,
       required Actor selectedActor,
+      required Movie selectedMovie,
       required String? errorMessage}) = _Movie;
 
   factory MovieState.initial() => MovieState(
@@ -24,6 +25,7 @@ class MovieState with _$MovieState {
         upcomingMovies: [],
         movieCast: [],
         errorMessage: null,
-        selectedActor: Actor.empty()
+        selectedActor: Actor.empty(),
+        selectedMovie: Movie.empty()
       );
 }

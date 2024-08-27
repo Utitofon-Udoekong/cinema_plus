@@ -1,31 +1,28 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinema_plus/src/components/components.dart';
 import 'package:cinema_plus/src/constants/constants.dart';
-import 'package:cinema_plus/src/core/router/router.gr.dart';
 import 'package:cinema_plus/src/features/booking/cubit/booking_cubit.dart';
+import 'package:cinema_plus/src/features/home/favorites/cubit/favourite_cubit.dart';
 
 import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart';
-import 'package:cinema_plus/src/models/models.dart';
 import 'package:cinema_plus/src/style/style.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 
-@RoutePage()
 class MovieDetailsPage extends StatelessWidget {
-  const MovieDetailsPage({super.key, required this.movie});
-
-  final Movie movie;
+  const MovieDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final movieCast = context.select((MovieCubit bloc) => bloc.state.movieCast);
-    if (movieCast.isEmpty) {
-      context.read<MovieCubit>().getMovieCast(movie.id);
-    }
+    final movie = context.select((MovieCubit bloc) => bloc.state.selectedMovie);
+    context.read<MovieCubit>().getMovieCast(movie.id);
+    final favouriteMovies =
+        context.select((FavouriteCubit bloc) => bloc.state.favoriteMovies);
+    final isFavorite = favouriteMovies.any((m) => m.id == movie.id);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -36,7 +33,7 @@ class MovieDetailsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 350,
+                      height: 250,
                       child: Stack(
                         children: [
                           Container(
@@ -74,14 +71,46 @@ class MovieDetailsPage extends StatelessWidget {
                             ),
                           ),
                           const Positioned(
-                            top: 20,
+                            top: 30,
                             left: 15,
                             child: AppBackButton(),
                           ),
-                          const Positioned(
+                          Positioned(
                             top: 30,
                             right: 15,
-                            child: Icon(Ionicons.heart),
+                            child: InkWell(
+                              onTap: () {
+                                if (isFavorite) {
+                                  context
+                                      .read<FavouriteCubit>()
+                                      .removeFromFavorites(movie.id.toString());
+                                } else {
+                                  context
+                                      .read<FavouriteCubit>()
+                                      .addToFavorites(movie);
+                                }
+                              },
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color:
+                                              CPColors.black.withOpacity(0.4),
+                                          offset: Offset.zero,
+                                          spreadRadius: 3,
+                                          blurRadius: 5)
+                                    ]),
+                                child: Icon(
+                                  isFavorite
+                                      ? Ionicons.heart
+                                      : Ionicons.heart_outline,
+                                  color: isFavorite
+                                      ? Theme.of(context).colorScheme.primary
+                                      : CPColors.white,
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -99,7 +128,7 @@ class MovieDetailsPage extends StatelessWidget {
                           Text(
                             getTagline(movie.genreIds),
                             style: CPTextStyle.caption(context,
-                                color: CPColors.pink),
+                                color: Theme.of(context).colorScheme.primary),
                           ),
                           const Gap(10),
                           Row(
@@ -180,20 +209,20 @@ class MovieDetailsPage extends StatelessWidget {
                   const Expanded(
                     child: AppButton(
                       title: 'LEAVE A REVIEW',
-                      isLoading: false,
                       gradient: LinearGradient(
                           colors: [CPColors.grey500, CPColors.grey800]),
                     ),
                   ),
                   const Gap(10),
                   Expanded(
-                      child: AppButton(
-                          title: 'BOOK YOUR TICKET',
-                          isLoading: false,
-                          ontap: () {
-                            context.read<BookingCubit>().selectMovie(movie);
-                            context.pushRoute(const ChooseSessionRoute());
-                          })),
+                    child: AppButton(
+                      title: 'BOOK YOUR TICKET',
+                      ontap: () {
+                        context.read<BookingCubit>().selectMovie(movie);
+                        context.push(AppRoutes.chooseSession);
+                      },
+                    ),
+                  ),
                 ],
               ),
             )

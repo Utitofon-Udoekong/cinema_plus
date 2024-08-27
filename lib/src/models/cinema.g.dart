@@ -11,7 +11,7 @@ _$CinemaImpl _$$CinemaImplFromJson(Map<String, dynamic> json) => _$CinemaImpl(
       image: json['image'] as String,
       popularity: (json['popularity'] as num).toDouble(),
       location: json['location'] as String,
-      hall: json['hall'] as String?,
+      hall: json['hall'] as String,
       seats: (json['seats'] as List<dynamic>).map((e) => e as String).toList(),
       dateTime: json['dateTime'] == null
           ? null

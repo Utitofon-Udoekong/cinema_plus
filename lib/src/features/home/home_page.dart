@@ -1,41 +1,59 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:cinema_plus/src/core/router/router.gr.dart';
+import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/style/color/cp_color.dart';
 import 'package:flutter/material.dart';
-import 'package:cinema_plus/src/components/movies/film_loading.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
-@RoutePage()
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int get _currentIndex =>
+      _locationToTabIndex(GoRouterState.of(context).uri.toString());
+  int _locationToTabIndex(String location) {
+    final index = tabRoutes.indexWhere((route) => location.startsWith(route));
+    // if index not found (-1), return 0
+    return index < 0 ? 0 : index;
+  }
+
+  // callback used to navigate to the desired tab
+  void _onItemTapped(BuildContext context, int tabIndex) async {
+    if (tabIndex != _currentIndex) {
+      // go to the initial location of the selected tab (by index)
+      context.go(tabRoutes[tabIndex]);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    var scaffoldKey = GlobalKey<ScaffoldState>();
-    return AutoTabsScaffold(
-      scaffoldKey: scaffoldKey,
-      routes: const [
-        MoviesRoute(),
-        TicketsRoute(),
-        CinemasRoute(),
-        FavoritesRoute(),
-        ProfileRoute()
-      ],
-      bottomNavigationBuilder: (_, tabsRouter) {
-        return SalomonBottomBar(
-          items: tabs,
-          currentIndex: tabsRouter.activeIndex,
-          onTap: tabsRouter.setActiveIndex,
-        );
-      },
+    return Scaffold(
+      body: widget.child,
+      bottomNavigationBar: SalomonBottomBar(
+        items: tabs(context),
+        currentIndex: _currentIndex,
+        onTap: (index) => _onItemTapped(context, index),
+      ),
     );
   }
 }
 
-final tabs = [
+final tabRoutes = [
+  AppRoutes.movies,
+  AppRoutes.tickets,
+  AppRoutes.favorites,
+  AppRoutes.profile
+];
+
+tabs(BuildContext context) => [
   SalomonBottomBarItem(
-    selectedColor: CPColors.pink,
+    selectedColor: Theme.of(context).colorScheme.primary,
     unselectedColor: CPColors.grey600,
     icon: const Icon(
       Icons.videocam_outlined,
@@ -44,7 +62,7 @@ final tabs = [
     title: const Text('MOVIES'),
   ),
   SalomonBottomBarItem(
-    selectedColor: CPColors.pink,
+    selectedColor: Theme.of(context).colorScheme.primary,
     unselectedColor: CPColors.grey600,
     icon: const Icon(
       Ionicons.ticket_outline,
@@ -53,16 +71,7 @@ final tabs = [
     title: const Text('TICKETS'),
   ),
   SalomonBottomBarItem(
-    selectedColor: CPColors.pink,
-    unselectedColor: CPColors.grey600,
-    icon: const Icon(
-      Ionicons.tv_outline,
-      size: 20,
-    ),
-    title: const Text('CINEMAS'),
-  ),
-  SalomonBottomBarItem(
-    selectedColor: CPColors.pink,
+    selectedColor: Theme.of(context).colorScheme.primary,
     unselectedColor: CPColors.grey600,
     icon: const Icon(
       Ionicons.heart_outline,
@@ -71,7 +80,7 @@ final tabs = [
     title: const Text('FAVOURITES'),
   ),
   SalomonBottomBarItem(
-    selectedColor: CPColors.pink,
+    selectedColor: Theme.of(context).colorScheme.primary,
     unselectedColor: CPColors.grey600,
     icon: const Icon(
       Ionicons.person_outline,
@@ -79,9 +88,4 @@ final tabs = [
     ),
     title: const Text('PROFILE'),
   ),
-  // HomeScaffoldNavBarTabItem(
-  //   initialLocation: '/explore',
-  //   icon: Icon(Icons.tv_outlined),
-  //   label: 'CINEMAS',
-  // ),
 ];

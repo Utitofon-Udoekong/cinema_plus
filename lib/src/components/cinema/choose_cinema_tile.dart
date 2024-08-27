@@ -22,76 +22,72 @@ class ChooseCinemaTile extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         margin: const EdgeInsets.only(bottom: 8),
         decoration: BoxDecoration(
-          border: Border.all(color: CPColors.grey600),
+          color: Theme.of(context).colorScheme.primaryContainer,
           borderRadius: BorderRadius.circular(defaultRadiusSm),
-          gradient: const LinearGradient(colors: [
-            CPColors.grey700,
-            Colors.transparent,
-          ]),
         ),
         child: Row(
           children: [
-            Row(
-              children: [
-                Container(
-                  height: 80,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(defaultRadiusSm),
-                  ),
-                  child: Stack(
-                    children: [
-                      isSelected
-                          ? Positioned.fill(
-                              child: Container(
-                                color: CPColors.pink.withOpacity(0.7),
-                              ),
-                            )
-                          : const Gap(0),
-                      isSelected
-                          ? const Positioned.fill(
-                              child: Center(
-                                child: Icon(
-                                  Icons.check,
-                                  color: CPColors.white,
-                                ),
-                              ),
-                            )
-                          : const Gap(0),
-                      Positioned.fill(
-                        child: CachedNetworkImage(
-                          imageUrl: cinema.image,
-                          height: 80,
-                          width: 80,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const Gap(10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+            Container(
+              height: 50,
+              width: 70,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(defaultRadiusSm),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(defaultRadiusSm),
+                child: Stack(
                   children: [
-                    Text(
-                      cinema.name,
-                      style:
-                          CPTextStyle.caption(context, weight: FontWeight.bold),
+                    Positioned.fill(
+                      child: CachedNetworkImage(
+                        imageUrl: cinema.image,
+                        height: 50,
+                        width: 70,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    const Gap(5),
-                    Text(
-                      cinema.location,
-                      style:
-                          CPTextStyle.caption(context, color: CPColors.grey400),
-                    ),
+                    isSelected
+                        ? Positioned.fill(
+                            child: Container(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(0.7),
+                            ),
+                          )
+                        : const Gap(0),
+                    isSelected
+                        ? const Positioned.fill(
+                            child: Center(
+                              child: Icon(
+                                Icons.check,
+                                color: CPColors.white,
+                              ),
+                            ),
+                          )
+                        : const Gap(0),
                   ],
-                )
-              ],
+                ),
+              ),
             ),
-            Icon(
-              Icons.star_rate,
-              color: cinema.popularity > 3.5
-                  ? Colors.amber.shade700
-                  : CPColors.grey600,
+            const Gap(10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    cinema.name,
+                    style:
+                        CPTextStyle.caption(context, weight: FontWeight.bold),
+                  ),
+                  const Gap(5),
+                  Text(
+                    cinema.location,
+                    style:
+                        CPTextStyle.caption(context, color: CPColors.grey400),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
             )
           ],
         ),

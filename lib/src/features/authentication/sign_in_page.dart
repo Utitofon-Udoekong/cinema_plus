@@ -1,5 +1,3 @@
-import 'package:auto_route/annotations.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -7,11 +5,10 @@ import 'package:gap/gap.dart';
 
 import 'package:cinema_plus/src/components/components.dart';
 import 'package:cinema_plus/src/constants/constants.dart';
-import 'package:cinema_plus/src/core/router/router.gr.dart';
 import 'package:cinema_plus/src/features/authentication/cubit/auth_cubit.dart';
 import 'package:cinema_plus/src/style/style.dart';
+import 'package:go_router/go_router.dart';
 
-@RoutePage()
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
 
@@ -21,8 +18,7 @@ class SignInPage extends StatelessWidget {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state.status.isSuccess) {
-          print("----------------success----------------");
-          context.router.push(const HomeRoute());
+          context.go(AppRoutes.movies);
         } else if (state.status.isFailure) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
@@ -64,8 +60,11 @@ class SignInPage extends StatelessWidget {
                   ),
                   ShaderMask(
                     shaderCallback: (bounds) {
-                      return const LinearGradient(
-                        colors: [CPColors.purple, CPColors.pink],
+                      return LinearGradient(
+                        colors: [
+                          CPColors.purple,
+                          Theme.of(context).colorScheme.primary
+                        ],
                       ).createShader(bounds);
                     },
                     blendMode: BlendMode.modulate,
@@ -112,17 +111,24 @@ class SignInPage extends StatelessWidget {
                           ),
                           const Gap(5),
                           GestureDetector(
-                            onTap: () =>
-                                context.router.push(const CreateAccountRoute()),
+                            onTap: () => context.push(AppRoutes.signUp),
                             child: ShaderMask(
-                                shaderCallback: (bounds) {
-                                  return const LinearGradient(
-                                    colors: [CPColors.purple, CPColors.pink],
-                                  ).createShader(bounds);
-                                },
-                                blendMode: BlendMode.modulate,
-                                child: Text('Create Account',
-                                    style: CPTextStyle.caption(context,),),),
+                              shaderCallback: (bounds) {
+                                return LinearGradient(
+                                  colors: [
+                                    CPColors.purple,
+                                    Theme.of(context).colorScheme.primary
+                                  ],
+                                ).createShader(bounds);
+                              },
+                              blendMode: BlendMode.modulate,
+                              child: Text(
+                                'Create Account',
+                                style: CPTextStyle.caption(
+                                  context,
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),

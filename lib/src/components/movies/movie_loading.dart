@@ -1,14 +1,12 @@
-import 'package:cinema_plus/src/constants/arb_styles.dart';
-import 'package:cinema_plus/src/style/color/cp_color.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:cinema_plus/src/constants/arb_styles.dart';
 
 class MovieLoading extends StatelessWidget {
-  const MovieLoading();
+  const MovieLoading({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return _CastCard();
+    return const _CastCard();
   }
 }
 
@@ -20,7 +18,7 @@ class _CastCard extends StatelessWidget {
     return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(defaultRadiusSm),
-            color: CPColors.grey600,
+            color: Theme.of(context).colorScheme.primaryContainer,
           ),
           width: 150,
           height: 270,

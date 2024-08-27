@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/models/models.dart';
@@ -13,29 +14,24 @@ class ChooseCinemaButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = AdaptiveTheme.of(context).mode == AdaptiveThemeMode.dark;
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          border: Border.all(color: CPColors.grey600),
           borderRadius: BorderRadius.circular(defaultRadiusSm),
-          gradient: const LinearGradient(colors: [
-            CPColors.grey600,
-            CPColors.grey500,
-            CPColors.grey800,
-          ]),
-          boxShadow: const [
-            BoxShadow(
-                color: CPColors.black, offset: Offset(-3, 2), blurRadius: 5),
-            BoxShadow(
-                color: CPColors.black,
-                offset: Offset(-10, 0),
-                spreadRadius: 10,
-                blurRadius: 5),
-            BoxShadow(
-                color: CPColors.black, offset: Offset(3, 2), blurRadius: 5),
-          ],
+          color: Theme.of(context).colorScheme.primaryContainer,
+          gradient: isDark
+              ? const LinearGradient(colors: [
+                  CPColors.grey600,
+                  CPColors.grey500,
+                  CPColors.grey800,
+                ])
+              : null,
+          boxShadow: isDark
+              ? darkShadow
+              : lightShadow,
         ),
         child: Row(
           children: [
@@ -43,25 +39,28 @@ class ChooseCinemaButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(defaultRadiusSm),
               child: CachedNetworkImage(
                 imageUrl: cinema.image,
-                height: 120,
-                width: 100,
+                height: 50,
+                width: 70,
                 fit: BoxFit.cover,
               ),
             ),
             const Gap(10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  cinema.name,
-                  style: CPTextStyle.caption(context, weight: FontWeight.bold),
-                ),
-                const Gap(5),
-                Text(
-                  cinema.location,
-                  style: CPTextStyle.caption(context, color: CPColors.grey400),
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    cinema.name,
+                    style:
+                        CPTextStyle.caption(context, weight: FontWeight.bold),
+                  ),
+                  const Gap(5),
+                  Text(cinema.location,
+                      style:
+                          CPTextStyle.caption(context, color: CPColors.grey400),
+                      overflow: TextOverflow.ellipsis),
+                ],
+              ),
             )
           ],
         ),

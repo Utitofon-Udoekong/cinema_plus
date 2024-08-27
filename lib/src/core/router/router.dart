@@ -1,30 +1,99 @@
-import 'package:auto_route/auto_route.dart';
+import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/features/authentication/create_account_page.dart';
 import 'package:cinema_plus/src/features/authentication/sign_in_page.dart';
 import 'package:cinema_plus/src/features/booking/cinema/choose_seat_page.dart';
+import 'package:cinema_plus/src/features/booking/cinema/choose_session_page.dart';
+import 'package:cinema_plus/src/features/home/favorites/favorites_page.dart';
+import 'package:cinema_plus/src/features/home/home_page.dart';
+import 'package:cinema_plus/src/features/home/movies/movies_page.dart';
+import 'package:cinema_plus/src/features/home/profile/profile_page.dart';
+import 'package:cinema_plus/src/features/home/splash_page.dart';
+import 'package:cinema_plus/src/features/home/tickets/tickets_page.dart';
+import 'package:cinema_plus/src/features/movie_details/details/cast_detail_page.dart';
+import 'package:cinema_plus/src/features/movie_details/details/movie_details_page.dart';
+import 'package:cinema_plus/src/features/payment/add_card_page.dart';
+import 'package:cinema_plus/src/features/payment/booking_confirmed_page.dart';
+import 'package:cinema_plus/src/features/payment/payment_methods_page.dart';
+import 'package:cinema_plus/src/features/payment/payment_page.dart';
 import 'package:flutter/material.dart';
-import 'package:cinema_plus/src/core/router/router.gr.dart';
+import 'package:go_router/go_router.dart';
 
-@AutoRouterConfig()
-class AppRouter extends RootStackRouter {
-  @override
-  List<AutoRoute> get routes => [
-        AutoRoute(page: SplashRoute.page, initial: true),
-        AutoRoute(page: SignInRoute.page),
-        AutoRoute(page: CreateAccountRoute.page),
-        AutoRoute(
-          page: HomeRoute.page,
-          children: [
-            AutoRoute(page: MoviesRoute.page),
-            AutoRoute(page: CinemasRoute.page),
-            AutoRoute(page: TicketsRoute.page),
-            AutoRoute(page: FavoritesRoute.page),
-            AutoRoute(page: ProfileRoute.page),
-          ],
+final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> _shellNavigatorKey =
+    GlobalKey<NavigatorState>();
+
+final GoRouter appRouter = GoRouter(
+  initialLocation: AppRoutes.splash,
+  navigatorKey: _rootNavigatorKey,
+  routes: [
+    GoRoute(
+      path: AppRoutes.splash,
+      builder: (context, state) => const SplashPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.signIn,
+      builder: (context, state) => const SignInPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.signUp,
+      builder: (context, state) => const CreateAccountPage(),
+    ),
+    ShellRoute(
+      navigatorKey: _shellNavigatorKey,
+      builder: (context, state, child) {
+        return HomePage(child: child);
+      },
+      routes: [
+        GoRoute(
+          path: AppRoutes.movies,
+          pageBuilder: (context, state) => const NoTransitionPage(child: MoviesPage()),
         ),
-        AutoRoute(page: MovieDetailsRoute.page),
-        AutoRoute(page: CastDetailRoute.page),
-        AutoRoute(page: ChooseSessionRoute.page),
-        AutoRoute(page: ChooseSeatRoute.page),
-      ];
-}
+        GoRoute(
+          path: AppRoutes.tickets,
+          pageBuilder: (context, state) => const NoTransitionPage(child: TicketsPage()),
+        ),
+        GoRoute(
+          path: AppRoutes.favorites,
+          pageBuilder: (context, state) => const NoTransitionPage(child: FavoritesPage()),
+        ),
+        GoRoute(
+          path: AppRoutes.profile,
+          pageBuilder: (context, state) => const NoTransitionPage(child: ProfilePage()),
+        ),
+      ],
+    ),
+    GoRoute(
+      path: AppRoutes.movieDetail,
+      builder: (context, state) => const MovieDetailsPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.castDetail,
+      builder: (context, state) => const CastDetailPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.chooseSession,
+      builder: (context, state) => const ChooseSessionPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.chooseSeat,
+      builder: (context, state) => const ChooseSeatPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.payment,
+      builder: (context, state) => const PaymentPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.bookingConfirmed,
+      builder: (context, state) => const BookingConfirmedPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.addCard,
+      builder: (context, state) => const AddCardPage(),
+    ),
+    GoRoute(
+      path: AppRoutes.paymentMethods,
+      builder: (context, state) => const PaymentMethodsPage(),
+    ),
+  ],
+  debugLogDiagnostics: true,
+);

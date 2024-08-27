@@ -1,3 +1,4 @@
+import 'package:cinema_plus/src/features/home/favorites/cubit/favourite_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,6 +15,8 @@ class UpcomingMovies extends StatelessWidget {
         context.select((MovieCubit bloc) => bloc.state.upcomingMovies);
     final isLoading =
         context.select((MovieCubit bloc) => bloc.state.isUpcomingLoading);
+    final favouriteMovies =
+        context.select((FavouriteCubit bloc) => bloc.state.favoriteMovies);
     return isLoading
         ? GridView.count(
             crossAxisCount: 2,
@@ -38,7 +41,21 @@ class UpcomingMovies extends StatelessWidget {
                 mainAxisSpacing: 10,
                 childAspectRatio: 9 / 16,
                 children: movies.map((movie) {
-                  return MovieCard(movie: movie);
+                  final isFavorite =
+                      favouriteMovies.any((m) => m.id == movie.id);
+                  return MovieCard(
+                    movie: movie,
+                    isFavorite: isFavorite,
+                    onLikeButtonPressed: () {
+                      if (isFavorite) {
+                        context
+                            .read<FavouriteCubit>()
+                            .removeFromFavorites(movie.id.toString());
+                      } else {
+                        context.read<FavouriteCubit>().addToFavorites(movie);
+                      }
+                    },
+                  );
                 }).toList(),
               );
   }

@@ -1,13 +1,12 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cinema_plus/src/constants/constants.dart';
-import 'package:cinema_plus/src/core/router/router.gr.dart';
 import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart';
 import 'package:cinema_plus/src/models/movie/cast/cast.dart';
 import 'package:cinema_plus/src/style/text/cp_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class CastCard extends StatelessWidget {
   const CastCard({super.key, required this.cast});
@@ -19,7 +18,7 @@ class CastCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.read<MovieCubit>().getActor(cast.id);
-        context.pushRoute(const CastDetailRoute());
+        context.push(AppRoutes.castDetail);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

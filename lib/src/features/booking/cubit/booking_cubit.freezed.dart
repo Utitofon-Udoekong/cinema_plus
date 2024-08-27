@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$BookingState {
   Cinema get selectedCinema => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
+  List<String> get selectedSeats => throw _privateConstructorUsedError;
   Movie get selectedMovie => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -31,7 +32,11 @@ abstract class $BookingStateCopyWith<$Res> {
           BookingState value, $Res Function(BookingState) then) =
       _$BookingStateCopyWithImpl<$Res, BookingState>;
   @useResult
-  $Res call({Cinema selectedCinema, bool isLoading, Movie selectedMovie});
+  $Res call(
+      {Cinema selectedCinema,
+      bool isLoading,
+      List<String> selectedSeats,
+      Movie selectedMovie});
 
   $CinemaCopyWith<$Res> get selectedCinema;
   $MovieCopyWith<$Res> get selectedMovie;
@@ -52,6 +57,7 @@ class _$BookingStateCopyWithImpl<$Res, $Val extends BookingState>
   $Res call({
     Object? selectedCinema = null,
     Object? isLoading = null,
+    Object? selectedSeats = null,
     Object? selectedMovie = null,
   }) {
     return _then(_value.copyWith(
@@ -63,6 +69,10 @@ class _$BookingStateCopyWithImpl<$Res, $Val extends BookingState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      selectedSeats: null == selectedSeats
+          ? _value.selectedSeats
+          : selectedSeats // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       selectedMovie: null == selectedMovie
           ? _value.selectedMovie
           : selectedMovie // ignore: cast_nullable_to_non_nullable
@@ -95,7 +105,11 @@ abstract class _$$BookingStateImplCopyWith<$Res>
       __$$BookingStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Cinema selectedCinema, bool isLoading, Movie selectedMovie});
+  $Res call(
+      {Cinema selectedCinema,
+      bool isLoading,
+      List<String> selectedSeats,
+      Movie selectedMovie});
 
   @override
   $CinemaCopyWith<$Res> get selectedCinema;
@@ -116,6 +130,7 @@ class __$$BookingStateImplCopyWithImpl<$Res>
   $Res call({
     Object? selectedCinema = null,
     Object? isLoading = null,
+    Object? selectedSeats = null,
     Object? selectedMovie = null,
   }) {
     return _then(_$BookingStateImpl(
@@ -127,6 +142,10 @@ class __$$BookingStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      selectedSeats: null == selectedSeats
+          ? _value._selectedSeats
+          : selectedSeats // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       selectedMovie: null == selectedMovie
           ? _value.selectedMovie
           : selectedMovie // ignore: cast_nullable_to_non_nullable
@@ -141,18 +160,28 @@ class _$BookingStateImpl implements _BookingState {
   const _$BookingStateImpl(
       {required this.selectedCinema,
       required this.isLoading,
-      required this.selectedMovie});
+      required final List<String> selectedSeats,
+      required this.selectedMovie})
+      : _selectedSeats = selectedSeats;
 
   @override
   final Cinema selectedCinema;
   @override
   final bool isLoading;
+  final List<String> _selectedSeats;
+  @override
+  List<String> get selectedSeats {
+    if (_selectedSeats is EqualUnmodifiableListView) return _selectedSeats;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_selectedSeats);
+  }
+
   @override
   final Movie selectedMovie;
 
   @override
   String toString() {
-    return 'BookingState(selectedCinema: $selectedCinema, isLoading: $isLoading, selectedMovie: $selectedMovie)';
+    return 'BookingState(selectedCinema: $selectedCinema, isLoading: $isLoading, selectedSeats: $selectedSeats, selectedMovie: $selectedMovie)';
   }
 
   @override
@@ -164,13 +193,15 @@ class _$BookingStateImpl implements _BookingState {
                 other.selectedCinema == selectedCinema) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            const DeepCollectionEquality()
+                .equals(other._selectedSeats, _selectedSeats) &&
             (identical(other.selectedMovie, selectedMovie) ||
                 other.selectedMovie == selectedMovie));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, selectedCinema, isLoading, selectedMovie);
+  int get hashCode => Object.hash(runtimeType, selectedCinema, isLoading,
+      const DeepCollectionEquality().hash(_selectedSeats), selectedMovie);
 
   @JsonKey(ignore: true)
   @override
@@ -183,12 +214,15 @@ abstract class _BookingState implements BookingState {
   const factory _BookingState(
       {required final Cinema selectedCinema,
       required final bool isLoading,
+      required final List<String> selectedSeats,
       required final Movie selectedMovie}) = _$BookingStateImpl;
 
   @override
   Cinema get selectedCinema;
   @override
   bool get isLoading;
+  @override
+  List<String> get selectedSeats;
   @override
   Movie get selectedMovie;
   @override

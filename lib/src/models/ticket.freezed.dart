@@ -23,6 +23,7 @@ mixin _$Ticket {
   String get bookingId => throw _privateConstructorUsedError;
   Movie get movie => throw _privateConstructorUsedError;
   Cinema get cinema => throw _privateConstructorUsedError;
+  double get ticketPrice => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $TicketCopyWith<$Res> {
   factory $TicketCopyWith(Ticket value, $Res Function(Ticket) then) =
       _$TicketCopyWithImpl<$Res, Ticket>;
   @useResult
-  $Res call({String bookingId, Movie movie, Cinema cinema});
+  $Res call({String bookingId, Movie movie, Cinema cinema, double ticketPrice});
 
   $MovieCopyWith<$Res> get movie;
   $CinemaCopyWith<$Res> get cinema;
@@ -56,6 +57,7 @@ class _$TicketCopyWithImpl<$Res, $Val extends Ticket>
     Object? bookingId = null,
     Object? movie = null,
     Object? cinema = null,
+    Object? ticketPrice = null,
   }) {
     return _then(_value.copyWith(
       bookingId: null == bookingId
@@ -70,6 +72,10 @@ class _$TicketCopyWithImpl<$Res, $Val extends Ticket>
           ? _value.cinema
           : cinema // ignore: cast_nullable_to_non_nullable
               as Cinema,
+      ticketPrice: null == ticketPrice
+          ? _value.ticketPrice
+          : ticketPrice // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 
@@ -97,7 +103,7 @@ abstract class _$$TicketImplCopyWith<$Res> implements $TicketCopyWith<$Res> {
       __$$TicketImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String bookingId, Movie movie, Cinema cinema});
+  $Res call({String bookingId, Movie movie, Cinema cinema, double ticketPrice});
 
   @override
   $MovieCopyWith<$Res> get movie;
@@ -119,6 +125,7 @@ class __$$TicketImplCopyWithImpl<$Res>
     Object? bookingId = null,
     Object? movie = null,
     Object? cinema = null,
+    Object? ticketPrice = null,
   }) {
     return _then(_$TicketImpl(
       bookingId: null == bookingId
@@ -133,6 +140,10 @@ class __$$TicketImplCopyWithImpl<$Res>
           ? _value.cinema
           : cinema // ignore: cast_nullable_to_non_nullable
               as Cinema,
+      ticketPrice: null == ticketPrice
+          ? _value.ticketPrice
+          : ticketPrice // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -141,7 +152,10 @@ class __$$TicketImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TicketImpl implements _Ticket {
   const _$TicketImpl(
-      {required this.bookingId, required this.movie, required this.cinema});
+      {required this.bookingId,
+      required this.movie,
+      required this.cinema,
+      required this.ticketPrice});
 
   factory _$TicketImpl.fromJson(Map<String, dynamic> json) =>
       _$$TicketImplFromJson(json);
@@ -152,10 +166,12 @@ class _$TicketImpl implements _Ticket {
   final Movie movie;
   @override
   final Cinema cinema;
+  @override
+  final double ticketPrice;
 
   @override
   String toString() {
-    return 'Ticket(bookingId: $bookingId, movie: $movie, cinema: $cinema)';
+    return 'Ticket(bookingId: $bookingId, movie: $movie, cinema: $cinema, ticketPrice: $ticketPrice)';
   }
 
   @override
@@ -166,12 +182,15 @@ class _$TicketImpl implements _Ticket {
             (identical(other.bookingId, bookingId) ||
                 other.bookingId == bookingId) &&
             (identical(other.movie, movie) || other.movie == movie) &&
-            (identical(other.cinema, cinema) || other.cinema == cinema));
+            (identical(other.cinema, cinema) || other.cinema == cinema) &&
+            (identical(other.ticketPrice, ticketPrice) ||
+                other.ticketPrice == ticketPrice));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, bookingId, movie, cinema);
+  int get hashCode =>
+      Object.hash(runtimeType, bookingId, movie, cinema, ticketPrice);
 
   @JsonKey(ignore: true)
   @override
@@ -191,7 +210,8 @@ abstract class _Ticket implements Ticket {
   const factory _Ticket(
       {required final String bookingId,
       required final Movie movie,
-      required final Cinema cinema}) = _$TicketImpl;
+      required final Cinema cinema,
+      required final double ticketPrice}) = _$TicketImpl;
 
   factory _Ticket.fromJson(Map<String, dynamic> json) = _$TicketImpl.fromJson;
 
@@ -201,6 +221,8 @@ abstract class _Ticket implements Ticket {
   Movie get movie;
   @override
   Cinema get cinema;
+  @override
+  double get ticketPrice;
   @override
   @JsonKey(ignore: true)
   _$$TicketImplCopyWith<_$TicketImpl> get copyWith =>

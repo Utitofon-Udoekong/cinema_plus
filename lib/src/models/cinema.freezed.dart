@@ -28,8 +28,8 @@ mixin _$Cinema {
   set popularity(double value) => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
   set location(String value) => throw _privateConstructorUsedError;
-  String? get hall => throw _privateConstructorUsedError;
-  set hall(String? value) => throw _privateConstructorUsedError;
+  String get hall => throw _privateConstructorUsedError;
+  set hall(String value) => throw _privateConstructorUsedError;
   List<String> get seats => throw _privateConstructorUsedError;
   set seats(List<String> value) => throw _privateConstructorUsedError;
   DateTime? get dateTime => throw _privateConstructorUsedError;
@@ -50,7 +50,7 @@ abstract class $CinemaCopyWith<$Res> {
       String image,
       double popularity,
       String location,
-      String? hall,
+      String hall,
       List<String> seats,
       DateTime? dateTime});
 }
@@ -72,7 +72,7 @@ class _$CinemaCopyWithImpl<$Res, $Val extends Cinema>
     Object? image = null,
     Object? popularity = null,
     Object? location = null,
-    Object? hall = freezed,
+    Object? hall = null,
     Object? seats = null,
     Object? dateTime = freezed,
   }) {
@@ -93,10 +93,10 @@ class _$CinemaCopyWithImpl<$Res, $Val extends Cinema>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
-      hall: freezed == hall
+      hall: null == hall
           ? _value.hall
           : hall // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       seats: null == seats
           ? _value.seats
           : seats // ignore: cast_nullable_to_non_nullable
@@ -121,7 +121,7 @@ abstract class _$$CinemaImplCopyWith<$Res> implements $CinemaCopyWith<$Res> {
       String image,
       double popularity,
       String location,
-      String? hall,
+      String hall,
       List<String> seats,
       DateTime? dateTime});
 }
@@ -141,7 +141,7 @@ class __$$CinemaImplCopyWithImpl<$Res>
     Object? image = null,
     Object? popularity = null,
     Object? location = null,
-    Object? hall = freezed,
+    Object? hall = null,
     Object? seats = null,
     Object? dateTime = freezed,
   }) {
@@ -162,10 +162,10 @@ class __$$CinemaImplCopyWithImpl<$Res>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
-      hall: freezed == hall
+      hall: null == hall
           ? _value.hall
           : hall // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       seats: null == seats
           ? _value.seats
           : seats // ignore: cast_nullable_to_non_nullable
@@ -186,7 +186,7 @@ class _$CinemaImpl implements _Cinema {
       required this.image,
       required this.popularity,
       required this.location,
-      this.hall,
+      required this.hall,
       required this.seats,
       this.dateTime});
 
@@ -202,7 +202,7 @@ class _$CinemaImpl implements _Cinema {
   @override
   String location;
   @override
-  String? hall;
+  String hall;
   @override
   List<String> seats;
   @override
@@ -233,7 +233,7 @@ abstract class _Cinema implements Cinema {
       required String image,
       required double popularity,
       required String location,
-      String? hall,
+      required String hall,
       required List<String> seats,
       DateTime? dateTime}) = _$CinemaImpl;
 
@@ -252,8 +252,8 @@ abstract class _Cinema implements Cinema {
   String get location;
   set location(String value);
   @override
-  String? get hall;
-  set hall(String? value);
+  String get hall;
+  set hall(String value);
   @override
   List<String> get seats;
   set seats(List<String> value);
