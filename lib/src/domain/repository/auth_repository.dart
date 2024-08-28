@@ -13,7 +13,8 @@ import 'package:cinema_plus/src/domain/exceptions.dart';
 @lazySingleton
 class AuthenticationRepository {
   /// {@macro authentication_repository}
-  AuthenticationRepository(this._cache, this._firebaseAuth, this._googleSignIn, this._firebaseFirestore);
+  AuthenticationRepository(this._cache, this._firebaseAuth, this._googleSignIn,
+      this._firebaseFirestore);
 
   final CacheClient _cache;
   final FirebaseAuth _firebaseAuth;
@@ -31,8 +32,8 @@ class AuthenticationRepository {
   /// Emits [AppUser.empty()] if the user is not authenticated.
   Stream<AppUser> get authStateChanges {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
-      final user = firebaseUser == null ? AppUser.empty() : firebaseUser.toDomain();
-      _cache.write(key: userCacheKey, value: user);
+      final user =
+          firebaseUser == null ? AppUser.empty() : firebaseUser.toDomain();
       return user;
     });
   }
@@ -49,6 +50,7 @@ class AuthenticationRepository {
       }
 
       final user = AppUser.fromFirestore(e);
+      _cache.write(key: userCacheKey, value: user);
       return user;
     });
   }
@@ -64,15 +66,20 @@ class AuthenticationRepository {
   /// Throws a [SignUpWithEmailAndPasswordFailure] if an exception occurs.
   Future<void> signUp({required String email, required String password}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      await _firebaseAuth
+          .createUserWithEmailAndPassword(
         email: email,
         password: password,
-      ).then((value) async {
-          _firebaseFirestore.doc("users/${value.user!.uid}")
-        .set({"email": email, "userId": generateUserID(), "uid": value.user!.uid});
+      )
+          .then((value) async {
+        _firebaseFirestore.doc("users/${value.user!.uid}").set({
+          "email": email,
+          "userId": generateUserID(),
+          "uid": value.user!.uid
+        });
       });
     } on FirebaseAuthException catch (e) {
-      throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
+      throw CPException.auth(e);
     } catch (_) {
       throw const SignUpWithEmailAndPasswordFailure();
     }
@@ -112,7 +119,7 @@ class AuthenticationRepository {
         password: password,
       );
     } on FirebaseAuthException catch (e) {
-      throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
+      throw CPException.auth(e);
     } catch (_) {
       throw const LogInWithEmailAndPasswordFailure();
     }
@@ -122,14 +129,12 @@ class AuthenticationRepository {
   /// [User.empty] from the [user] Stream.
   ///
   /// Throws a [LogOutFailure] if an exception occurs.
-  Future<void> logOut() async {
+  Future<bool> logOut() async {
     try {
-      await Future.wait([
-        _firebaseAuth.signOut(),
-        _googleSignIn.signOut(),
-      ]);
-    } catch (_) {
-      throw LogOutFailure();
+      await _firebaseAuth.signOut();
+      return true;
+    } on FirebaseAuthException catch (e) {
+      throw CPException.auth(e);
     }
   }
 }

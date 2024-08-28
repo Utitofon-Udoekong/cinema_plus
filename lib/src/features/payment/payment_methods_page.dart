@@ -17,7 +17,6 @@ class PaymentMethodsPage extends StatelessWidget {
         context.select((PaymentCubit bloc) => bloc.state.selectedCard);
     final creditCards =
         context.select((PaymentCubit bloc) => bloc.state.creditCards);
-    final size = MediaQuery.sizeOf(context);
     return Scaffold(
       appBar: const PageHeader(title: 'Payment Methods'),
       body: SafeArea(
@@ -34,21 +33,18 @@ class PaymentMethodsPage extends StatelessWidget {
                     context,
                   ),
                 ),
-              SizedBox(
-                height: 200,
+              Expanded(
                 child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  itemExtent: size.width - defaultPadding.horizontal,
                   children: creditCards.map((card) {
                     return PaymentCreditCard(
                       card: card,
                       selected: selectedCard.id == card.id,
                       onTap: () => context.read<PaymentCubit>().selectCard(card),
+                      onDelete: () => context.read<PaymentCubit>().removeCard(card.id),
                     );
                   }).withSpacing(10),
                 ),
               ),
-              const Spacer(),
               TextButton.icon(
                 onPressed: () => context.push(AppRoutes.addCard),
                 label: Text(

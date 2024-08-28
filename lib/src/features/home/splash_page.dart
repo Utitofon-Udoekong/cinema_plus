@@ -14,7 +14,7 @@ class SplashPage extends StatelessWidget {
       // listenWhen: (p,c) => c.user != AppUser.empty(),
       listener: (context, state) {
         if (state.user == AppUser.empty()) {
-          Future.delayed(const Duration(milliseconds: 500), () {
+          Future.delayed(const Duration(seconds: 1), () {
             context.go(AppRoutes.signIn);
           });
         } else {

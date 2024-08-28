@@ -20,7 +20,6 @@ class PaymentPage extends StatelessWidget {
         context.select((PaymentCubit bloc) => bloc.state.selectedCard);
     final creditCards =
         context.select((PaymentCubit bloc) => bloc.state.creditCards);
-    final size = MediaQuery.sizeOf(context);
     return MultiBlocListener(
       listeners: [
         BlocListener<TicketCubit, TicketState>(
@@ -44,7 +43,6 @@ class PaymentPage extends StatelessWidget {
             child: Column(
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                
                 if (creditCards.isEmpty)
                   Text(
                     'No payment method found',
@@ -52,21 +50,21 @@ class PaymentPage extends StatelessWidget {
                       context,
                     ),
                   ),
-                SizedBox(
-                  height: 200,
+                Expanded(
                   child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    itemExtent: size.width - defaultPadding.horizontal,
                     children: creditCards.map((card) {
                       return PaymentCreditCard(
                         card: card,
                         selected: selectedCard.id == card.id,
-                        onTap: () => context.read<PaymentCubit>().selectCard(card),
+                        onTap: () =>
+                            context.read<PaymentCubit>().selectCard(card),
+                        onDelete: () =>
+                            context.read<PaymentCubit>().removeCard(card.id),
+                        
                       );
                     }).withSpacing(10),
                   ),
                 ),
-                const Spacer(),
                 TextButton.icon(
                   onPressed: () => context.push(AppRoutes.addCard),
                   label: Text(

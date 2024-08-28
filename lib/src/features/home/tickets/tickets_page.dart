@@ -1,3 +1,4 @@
+import 'package:cinema_plus/src/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,10 +20,20 @@ class TicketsPage extends StatelessWidget {
         title: 'Tickets',
         showBack: false,
       ),
+      
       body: SafeArea(
         child: ListView(
           padding: defaultPadding,
-          children: tickets
+          children: tickets.isEmpty ? [
+            Center(
+              child: Text(
+                    'No tickets found',
+                    style: CPTextStyle.caption(
+                      context,
+                    ),
+                  ),
+            )
+          ] : tickets
               .map((ticket) => TicketCard(
                     ticket: ticket,
                   ))

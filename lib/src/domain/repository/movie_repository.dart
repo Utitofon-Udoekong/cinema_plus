@@ -17,10 +17,10 @@ class MovieRepository {
 
   MovieRepository(this._dio, this._firebaseFirestore, this._firebaseAuth);
 
-  Future<List<Movie>> discoverMovies() async {
+  Future<List<Movie>> discoverMovies(int page) async {
     try {
       final response = await _dio.get(
-          '${AppStrings.baseURL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc');
+          '${AppStrings.baseURL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=$page&sort_by=popularity.desc');
       final data = response.data;
       List<Movie> movieList = [];
       final serverMovieList = data['results'];
@@ -34,10 +34,10 @@ class MovieRepository {
     }
   }
 
-  Future<List<Movie>> nowPlaying() async {
+  Future<List<Movie>> nowPlaying(int page) async {
     try {
       final response = await _dio.get(
-          '${AppStrings.baseURL}/movie/now_playing?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc');
+          '${AppStrings.baseURL}/movie/now_playing?include_adult=false&include_video=false&language=en-US&page=$page&sort_by=popularity.desc');
       final data = response.data;
       List<Movie> movieList = [];
       final serverMovieList = data['results'];
@@ -51,10 +51,10 @@ class MovieRepository {
     }
   }
 
-  Future<List<Movie>> upcomingMovies() async {
+  Future<List<Movie>> upcomingMovies(int page) async {
     try {
       final response = await _dio.get(
-          '${AppStrings.baseURL}/movie/upcoming?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc');
+          '${AppStrings.baseURL}/movie/upcoming?include_adult=false&include_video=false&language=en-US&page=$page&sort_by=popularity.desc');
       final data = response.data;
       List<Movie> movieList = [];
       final serverMovieList = data['results'];
@@ -72,8 +72,14 @@ class MovieRepository {
     try {
       final response =
           await _dio.get('${AppStrings.baseURL}/search/movie?query=$query');
-      logger.w(response.data);
-      throw UnimplementedError();
+      final data = response.data;
+      List<Movie> movieList = [];
+      final serverMovieList = data['results'];
+      for (var i = 0; i < serverMovieList.length; i++) {
+        final movie = Movie.fromJson(serverMovieList[i]);
+        movieList.add(movie);
+      }
+      return movieList;
     } on DioException catch (e) {
       throw CPException.dio(e);
     }

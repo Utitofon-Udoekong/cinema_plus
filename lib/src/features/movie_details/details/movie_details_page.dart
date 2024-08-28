@@ -120,10 +120,13 @@ class MovieDetailsPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            movie.title,
-                            style: CPTextStyle.headline(context,
-                                weight: FontWeight.w900, size: 32),
+                          Hero(
+                            tag: 'movie-card-${movie.title}',
+                            child: Text(
+                              movie.title,
+                              style: CPTextStyle.headline(context,
+                                  weight: FontWeight.w900, size: 32),
+                            ),
                           ),
                           Text(
                             getTagline(movie.genreIds),
@@ -203,28 +206,16 @@ class MovieDetailsPage extends StatelessWidget {
             ),
             Padding(
               padding: defaultPadding,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Expanded(
-                    child: AppButton(
-                      title: 'LEAVE A REVIEW',
-                      gradient: LinearGradient(
-                          colors: [CPColors.grey500, CPColors.grey800]),
+              child: Hero(
+                      tag: 'movie-detail-to-session',
+                      child: AppButton(
+                        title: 'BOOK YOUR TICKET',
+                        ontap: () {
+                          context.read<BookingCubit>().selectMovie(movie);
+                          context.push(AppRoutes.chooseSession);
+                        },
+                      ),
                     ),
-                  ),
-                  const Gap(10),
-                  Expanded(
-                    child: AppButton(
-                      title: 'BOOK YOUR TICKET',
-                      ontap: () {
-                        context.read<BookingCubit>().selectMovie(movie);
-                        context.push(AppRoutes.chooseSession);
-                      },
-                    ),
-                  ),
-                ],
-              ),
             )
           ],
         ),

@@ -145,16 +145,19 @@ class _ChooseSessionPageState extends State<ChooseSessionPage> {
                   ),
                 ),
               ),
-              AppButton(
-                title: 'CHOOSE SESSION',
-                ontap: () {
-                  final cinemaDate = DateTime.parse(
-                      '${selectedDate.toIso8601String().substring(0, 10)} $selectedTime');
-                  final newCinema =
-                      selectedCinema.copyWith(dateTime: cinemaDate);
-                  context.read<BookingCubit>().chooseSession(newCinema);
-                  context.push(AppRoutes.chooseSeat);
-                },
+              Hero(
+                tag: 'movie-detail-to-session',
+                child: AppButton(
+                  title: 'CHOOSE SESSION',
+                  ontap: () {
+                    final cinemaDate = DateTime.parse(
+                        '${selectedDate.toIso8601String().substring(0, 10)} $selectedTime');
+                    final newCinema =
+                        selectedCinema.copyWith(dateTime: cinemaDate);
+                    context.read<BookingCubit>().chooseSession(newCinema);
+                    context.push(AppRoutes.chooseSeat);
+                  },
+                ),
               )
             ],
           ),

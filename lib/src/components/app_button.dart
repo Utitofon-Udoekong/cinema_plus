@@ -12,9 +12,11 @@ class AppButton extends StatelessWidget {
     this.ontap,
     this.gradient,
     this.disabled = false,
+    this.height = 48
   });
 
   final String title;
+  final double height;
   final bool isLoading;
   final bool disabled;
   final Gradient? gradient;
@@ -26,7 +28,7 @@ class AppButton extends StatelessWidget {
       onTap: isLoading || disabled ? null : ontap,
       child: Container(
         width: double.infinity,
-        height: 48,
+        height: height,
         decoration: BoxDecoration(
           color: disabled ? CPColors.grey500 : null,
           borderRadius: BorderRadius.circular(defaultRadius),

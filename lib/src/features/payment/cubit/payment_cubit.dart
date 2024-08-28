@@ -103,4 +103,10 @@ class PaymentCubit extends Cubit<PaymentState> {
           failure: message,
         ),
       );
+
+  @override
+  Future<void> close() {
+    _cardsSubscription?.cancel();
+    return super.close();
+  }
 }

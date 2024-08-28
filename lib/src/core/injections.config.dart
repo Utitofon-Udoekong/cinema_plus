@@ -25,10 +25,14 @@ import 'package:cinema_plus/src/features/home/favorites/cubit/favourite_cubit.da
     as _i186;
 import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart'
     as _i432;
+import 'package:cinema_plus/src/features/home/profile/cubit/profile_cubit.dart'
+    as _i856;
 import 'package:cinema_plus/src/features/home/tickets/cubit/ticket_cubit.dart'
     as _i749;
 import 'package:cinema_plus/src/features/payment/cubit/payment_cubit.dart'
     as _i1019;
+import 'package:cinema_plus/src/features/search/cubit/search_cubit.dart'
+    as _i392;
 import 'package:cinema_plus/src/service/app.module.dart' as _i374;
 import 'package:cinema_plus/src/service/firebase_service.dart' as _i651;
 import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
@@ -74,10 +78,14 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.lazySingleton<_i975.AuthCubit>(
         () => _i975.AuthCubit(gh<_i854.AuthenticationRepository>()));
+    gh.lazySingleton<_i856.ProfileCubit>(
+        () => _i856.ProfileCubit(gh<_i854.AuthenticationRepository>()));
     gh.lazySingleton<_i186.FavouriteCubit>(
         () => _i186.FavouriteCubit(gh<_i1045.MovieRepository>()));
     gh.lazySingleton<_i432.MovieCubit>(
         () => _i432.MovieCubit(gh<_i1045.MovieRepository>()));
+    gh.lazySingleton<_i392.SearchCubit>(
+        () => _i392.SearchCubit(gh<_i1045.MovieRepository>()));
     gh.lazySingleton<_i1064.TicketRepository>(() => _i1064.TicketRepository(
           gh<_i974.FirebaseFirestore>(),
           gh<_i59.FirebaseAuth>(),

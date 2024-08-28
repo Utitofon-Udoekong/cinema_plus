@@ -1,4 +1,5 @@
 import 'package:cinema_plus/src/components/movies/favorite_card.dart';
+import 'package:cinema_plus/src/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,7 +22,16 @@ class FavoritesPage extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           padding: defaultPadding,
-          children: favorites.map((movie) {
+          children: favorites.isEmpty ? [
+            Center(
+              child: Text(
+                    'No movies found',
+                    style: CPTextStyle.caption(
+                      context,
+                    ),
+                  ),
+            )
+          ] : favorites.map((movie) {
             return FavoriteCard(
               movie: movie,
               onLikeButtonPressed: () => context

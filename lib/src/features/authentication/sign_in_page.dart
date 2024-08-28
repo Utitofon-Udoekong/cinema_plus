@@ -20,11 +20,7 @@ class SignInPage extends StatelessWidget {
         if (state.status.isSuccess) {
           context.go(AppRoutes.movies);
         } else if (state.status.isFailure) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text(state.errorMessage ?? 'Sign In Failure')),
-            );
+          CPSnackbar.showError(context, state.errorMessage ?? 'Sign In Failure');
         }
       },
       child: Scaffold(
@@ -153,6 +149,7 @@ class _EmailInput extends StatelessWidget {
           hint: AppStrings.signIn['email']!,
           keyboardType: TextInputType.emailAddress,
           errorText: state.email.displayError != null ? 'invalid email' : null,
+          textInputAction: TextInputAction.next,
           onChanged: (email) => context.read<AuthCubit>().emailChanged(email),
         );
       },
@@ -171,6 +168,7 @@ class _PasswordInput extends StatelessWidget {
           hint: AppStrings.signIn['password']!,
           errorText:
               state.password.displayError != null ? 'invalid password' : null,
+          textInputAction: TextInputAction.done,
           onChanged: (password) =>
               context.read<AuthCubit>().passwordChanged(password),
         );

@@ -19,33 +19,39 @@ class MovieCubit extends Cubit<MovieState> {
 
   final MovieRepository _movieRepository;
 
-  discoverMovies() async {
+  Future<bool> discoverMovies([int page = 1]) async {
     loadDiscover();
     try {
-      final movies = await _movieRepository.discoverMovies();
+      final movies = await _movieRepository.discoverMovies(page);
       emit(state.copyWith(discoverMovies: movies, isDiscoverLoading: false));
+      return true;
     } on DioException catch (e) {
       failDiscover(e.message!);
+      return false;
     }
   }
 
-  getUpcomingMovies() async {
+  Future<bool> getUpcomingMovies([int page = 1]) async {
     loadUpcoming();
     try {
-      final movies = await _movieRepository.upcomingMovies();
+      final movies = await _movieRepository.upcomingMovies(page);
       emit(state.copyWith(upcomingMovies: movies, isUpcomingLoading: false));
+      return true;
     } on DioException catch (e) {
       failUpcoming(e.message!);
+      return false;
     }
   }
 
-  getNowPlayingMovies() async {
+  Future<bool> getNowPlayingMovies([int page = 1]) async {
     loadNowPlaying();
     try {
-      final movies = await _movieRepository.nowPlaying();
+      final movies = await _movieRepository.nowPlaying(page);
       emit(state.copyWith(nowPlaying: movies, isNowPlayingLoading: false));
+      return true;
     } on DioException catch (e) {
       failNowPlaying(e.message!);
+      return false;
     }
   }
 

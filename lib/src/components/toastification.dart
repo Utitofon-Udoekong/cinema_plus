@@ -7,7 +7,7 @@ class CPSnackbar {
     toastification.show(
                     context: context,
                     type: ToastificationType.success,
-                    style: ToastificationStyle.minimal,
+                    style: ToastificationStyle.fillColored,
                     autoCloseDuration: const Duration(seconds: 4),
                     title: const Text('Success'),
                     description: Text(message),
@@ -30,7 +30,7 @@ class CPSnackbar {
     toastification.show(
                     context: context,
                     type: ToastificationType.error,
-                    style: ToastificationStyle.minimal,
+                    style: ToastificationStyle.fillColored,
                     autoCloseDuration: const Duration(seconds: 4),
                     title: const Text('Error'),
                     description: Text(message), 

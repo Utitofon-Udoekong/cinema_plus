@@ -1,3 +1,4 @@
+import 'package:cinema_plus/src/features/search/cp_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -28,46 +29,50 @@ class _MoviesPageState extends State<MoviesPage>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: defaultPadding,
-        child: Column(
-          children: [
-            TabBar(
-              controller: tabController,
-              indicatorSize: TabBarIndicatorSize.tab,
-              labelColor: Theme.of(context).colorScheme.onSurface,
-              indicator: CustomTabIndicator(
-                Theme.of(context).colorScheme.secondary,
-                Theme.of(context).colorScheme.primary,
-              ),
-              dividerHeight: 0,
-              tabs: const [
-                Tab(
-                  text: 'Discover',
-                ),
-                Tab(
-                  text: 'Upcoming',
-                ),
-                Tab(
-                  text: 'Now Playing',
-                ),
-              ],
-            ),
-            const Gap(20),
-            Expanded(
-              child: TabBarView(
+    return Scaffold(
+      appBar: const CPSearchBar(),
+      body: SafeArea(
+        child: Padding(
+          padding: defaultPadding,
+          child: Column(
+            children: [
+              TabBar(
                 controller: tabController,
-                children: const [
-                  DiscoverMovies(),
-                  UpcomingMovies(),
-                  NowPlayingMovies(),
+                indicatorSize: TabBarIndicatorSize.tab,
+                labelColor: Theme.of(context).colorScheme.onSurface,
+                indicator: CustomTabIndicator(
+                  Theme.of(context).colorScheme.secondary,
+                  Theme.of(context).colorScheme.primary,
+                ),
+                dividerHeight: 0,
+                tabs: const [
+                  Tab(
+                    text: 'Discover',
+                  ),
+                  Tab(
+                    text: 'Upcoming',
+                  ),
+                  Tab(
+                    text: 'Now Playing',
+                  ),
                 ],
               ),
-            ),
-          ],
+              const Gap(20),
+              Expanded(
+                child: TabBarView(
+                  controller: tabController,
+                  children: const [
+                    DiscoverMovies(),
+                    UpcomingMovies(),
+                    NowPlayingMovies(),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+

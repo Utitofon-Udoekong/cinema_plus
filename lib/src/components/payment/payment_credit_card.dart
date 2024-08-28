@@ -7,12 +7,18 @@ import 'package:cinema_plus/src/models/models.dart';
 import 'package:cinema_plus/src/style/style.dart';
 
 class PaymentCreditCard extends StatelessWidget {
-  const PaymentCreditCard(
-      {super.key, required this.card, required this.selected, this.onTap});
+  const PaymentCreditCard({
+    super.key,
+    required this.card,
+    required this.selected,
+    this.onTap,
+    this.onDelete,
+  });
 
   final CreditCard card;
   final bool selected;
   final void Function()? onTap;
+  final void Function()? onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +34,23 @@ class PaymentCreditCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              Ionicons.card,
-              color: selected
-                  ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.onPrimaryContainer,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Icon(
+                  Ionicons.card,
+                  color: selected
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.onPrimaryContainer,
+                ),
+                IconButton(
+                  onPressed: onDelete,
+                  icon: Icon(
+                    Icons.delete_rounded,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                ),
+              ],
             ),
             const Spacer(),
             // CARD NUMBER

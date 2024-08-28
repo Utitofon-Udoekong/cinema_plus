@@ -72,7 +72,7 @@ class BookingDetail extends StatelessWidget {
                     onPressed: onDelete,
                     icon: Icon(
                       Icons.delete_rounded,
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Theme.of(context).colorScheme.error,
                     ),
                   ),
               ],
