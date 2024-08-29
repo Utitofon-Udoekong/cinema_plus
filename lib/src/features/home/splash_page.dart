@@ -11,7 +11,6 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
-      // listenWhen: (p,c) => c.user != AppUser.empty(),
       listener: (context, state) {
         if (state.user == AppUser.empty()) {
           Future.delayed(const Duration(seconds: 1), () {

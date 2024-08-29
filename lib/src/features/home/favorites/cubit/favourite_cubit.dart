@@ -1,16 +1,16 @@
 import 'dart:async';
 
-import 'package:cinema_plus/src/core/bloc_observer.dart';
-import 'package:cinema_plus/src/domain/exceptions.dart';
-import 'package:cinema_plus/src/domain/repository/movie_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cinema_plus/src/models/models.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-part 'favourite_state.dart';
+import 'package:cinema_plus/src/domain/exceptions.dart';
+import 'package:cinema_plus/src/domain/repository/movie_repository.dart';
+import 'package:cinema_plus/src/models/models.dart';
+
 part 'favourite_cubit.freezed.dart';
+part 'favourite_state.dart';
 
 @lazySingleton
 class FavouriteCubit extends Cubit<FavouriteState> {
@@ -20,30 +20,29 @@ class FavouriteCubit extends Cubit<FavouriteState> {
   FavouriteCubit(this._movieRepository) : super(FavouriteState.initial()) {
     _favoritesSubscription = _movieRepository
         .getFavorites()
-        .listen(_subscribeToFavorites, onError: (e) => print(e));
+        .listen(_subscribeToFavorites, onError: (e) => fail(e));
   }
 
-  void addToFavorites(Movie movie) async {
+  void addToFavorites(Movie movie) {
     try {
-      final isDone = await _movieRepository.addToFavorites(movie: movie);
-      print(isDone);
+      _movieRepository.addToFavorites(movie: movie);
     } on CPException catch (e) {
-      print(e.message);
+      fail(e.message);
     }
   }
 
-  void removeFromFavorites(String movieID) async {
+  void removeFromFavorites(String movieID) {
     try {
-      await _movieRepository.removeFromFavorites(movieID: movieID);
+      _movieRepository.removeFromFavorites(movieID: movieID);
     } on CPException catch (e) {
-      print(e.message);
+      fail(e.message);
     }
   }
 
   _subscribeToFavorites(QuerySnapshot<Movie>? snapshot) {
-    if(snapshot != null){
-      logger.w(snapshot.docs.map((movie) => movie.data()).toList());
-      emit(state.copyWith(favoriteMovies: snapshot.docs.map((movie) => movie.data()).toList()));
+    if (snapshot != null) {
+      emit(state.copyWith(
+          favoriteMovies: snapshot.docs.map((movie) => movie.data()).toList()));
     }
   }
 
@@ -52,4 +51,8 @@ class FavouriteCubit extends Cubit<FavouriteState> {
     _favoritesSubscription?.cancel();
     return super.close();
   }
+
+  void load() => emit(state.copyWith(isLoading: true));
+  void fail(String message) => emit(state.copyWith(isLoading: false, failure: message));
+  // void pass(String message) => emit(state.copyWith(isLoading: false, failure: message));
 }

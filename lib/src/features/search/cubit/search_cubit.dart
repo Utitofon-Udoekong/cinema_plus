@@ -1,12 +1,13 @@
-import 'package:cinema_plus/src/domain/exceptions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cinema_plus/src/domain/repository/movie_repository.dart';
-import 'package:cinema_plus/src/models/models.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-part 'search_state.dart';
+import 'package:cinema_plus/src/domain/exceptions.dart';
+import 'package:cinema_plus/src/domain/repository/movie_repository.dart';
+import 'package:cinema_plus/src/models/models.dart';
+
 part 'search_cubit.freezed.dart';
+part 'search_state.dart';
 
 @lazySingleton
 class SearchCubit extends Cubit<SearchState> {

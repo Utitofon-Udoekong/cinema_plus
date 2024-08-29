@@ -1,12 +1,12 @@
-import 'package:cinema_plus/src/features/home/favorites/cubit/favourite_cubit.dart';
-import 'package:cinema_plus/src/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:cinema_plus/src/components/components.dart';
-import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart';
-import 'package:cinema_plus/src/style/style.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+
+import 'package:cinema_plus/src/components/components.dart' show MovieCard;
+import 'package:cinema_plus/src/features/home/favorites/cubit/favourite_cubit.dart';
+import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart';
+import 'package:cinema_plus/src/models/models.dart' show Movie;
+import 'package:cinema_plus/src/style/style.dart' show CPColors, CPTextStyle;
 
 class UpcomingMovies extends StatefulWidget {
   const UpcomingMovies({super.key});

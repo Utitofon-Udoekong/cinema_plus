@@ -1,0 +1,6 @@
+{
+  "imageUrl": "https://image.tmdb.org/t/p/original",
+  "baseURL": "https://api.themoviedb.org/3",
+  "apiKey": "STAGING_API_KEY",
+  "accessToken": "STAGING_ACCESS_TOKEN"
+}

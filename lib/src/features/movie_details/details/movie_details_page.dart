@@ -1,17 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cinema_plus/src/components/components.dart';
-import 'package:cinema_plus/src/constants/constants.dart';
-import 'package:cinema_plus/src/features/booking/cubit/booking_cubit.dart';
-import 'package:cinema_plus/src/features/home/favorites/cubit/favourite_cubit.dart';
-
-import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart';
-import 'package:cinema_plus/src/style/style.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
+
+import 'package:cinema_plus/src/components/components.dart';
+import 'package:cinema_plus/src/constants/constants.dart';
+import 'package:cinema_plus/src/features/booking/cubit/booking_cubit.dart';
+import 'package:cinema_plus/src/features/home/favorites/cubit/favourite_cubit.dart';
+import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart';
+import 'package:cinema_plus/src/style/style.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   const MovieDetailsPage({super.key});
@@ -207,15 +206,15 @@ class MovieDetailsPage extends StatelessWidget {
             Padding(
               padding: defaultPadding,
               child: Hero(
-                      tag: 'movie-detail-to-session',
-                      child: AppButton(
-                        title: 'BOOK YOUR TICKET',
-                        ontap: () {
-                          context.read<BookingCubit>().selectMovie(movie);
-                          context.push(AppRoutes.chooseSession);
-                        },
-                      ),
-                    ),
+                tag: 'movie-detail-to-session',
+                child: AppButton(
+                  title: 'BOOK YOUR TICKET',
+                  ontap: () {
+                    context.read<BookingCubit>().selectMovie(movie);
+                    context.push(AppRoutes.chooseSession);
+                  },
+                ),
+              ),
             )
           ],
         ),

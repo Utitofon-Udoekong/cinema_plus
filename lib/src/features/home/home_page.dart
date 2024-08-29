@@ -1,9 +1,10 @@
-import 'package:cinema_plus/src/constants/constants.dart';
-import 'package:cinema_plus/src/style/color/cp_color.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+
+import 'package:cinema_plus/src/constants/constants.dart';
+import 'package:cinema_plus/src/style/color/cp_color.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.child});
@@ -52,40 +53,40 @@ final tabRoutes = [
 ];
 
 tabs(BuildContext context) => [
-  SalomonBottomBarItem(
-    selectedColor: Theme.of(context).colorScheme.primary,
-    unselectedColor: CPColors.grey600,
-    icon: const Icon(
-      Icons.videocam_outlined,
-      size: 20,
-    ),
-    title: const Text('MOVIES'),
-  ),
-  SalomonBottomBarItem(
-    selectedColor: Theme.of(context).colorScheme.primary,
-    unselectedColor: CPColors.grey600,
-    icon: const Icon(
-      Ionicons.ticket_outline,
-      size: 20,
-    ),
-    title: const Text('TICKETS'),
-  ),
-  SalomonBottomBarItem(
-    selectedColor: Theme.of(context).colorScheme.primary,
-    unselectedColor: CPColors.grey600,
-    icon: const Icon(
-      Ionicons.heart_outline,
-      size: 20,
-    ),
-    title: const Text('FAVOURITES'),
-  ),
-  SalomonBottomBarItem(
-    selectedColor: Theme.of(context).colorScheme.primary,
-    unselectedColor: CPColors.grey600,
-    icon: const Icon(
-      Ionicons.person_outline,
-      size: 20,
-    ),
-    title: const Text('PROFILE'),
-  ),
-];
+      SalomonBottomBarItem(
+        selectedColor: Theme.of(context).colorScheme.primary,
+        unselectedColor: CPColors.grey600,
+        icon: const Icon(
+          Icons.videocam_outlined,
+          size: 20,
+        ),
+        title: const Text('MOVIES'),
+      ),
+      SalomonBottomBarItem(
+        selectedColor: Theme.of(context).colorScheme.primary,
+        unselectedColor: CPColors.grey600,
+        icon: const Icon(
+          Ionicons.ticket_outline,
+          size: 20,
+        ),
+        title: const Text('TICKETS'),
+      ),
+      SalomonBottomBarItem(
+        selectedColor: Theme.of(context).colorScheme.primary,
+        unselectedColor: CPColors.grey600,
+        icon: const Icon(
+          Ionicons.heart_outline,
+          size: 20,
+        ),
+        title: const Text('FAVOURITES'),
+      ),
+      SalomonBottomBarItem(
+        selectedColor: Theme.of(context).colorScheme.primary,
+        unselectedColor: CPColors.grey600,
+        icon: const Icon(
+          Ionicons.person_outline,
+          size: 20,
+        ),
+        title: const Text('PROFILE'),
+      ),
+    ];

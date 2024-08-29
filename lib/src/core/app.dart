@@ -1,10 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:cinema_plus/src/features/home/profile/cubit/profile_cubit.dart';
-import 'package:cinema_plus/src/features/search/cubit/search_cubit.dart';
-import 'package:cinema_plus/src/style/style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,8 +10,11 @@ import 'package:cinema_plus/src/features/authentication/cubit/auth_cubit.dart';
 import 'package:cinema_plus/src/features/booking/cubit/booking_cubit.dart';
 import 'package:cinema_plus/src/features/home/favorites/cubit/favourite_cubit.dart';
 import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart';
+import 'package:cinema_plus/src/features/home/profile/cubit/profile_cubit.dart';
 import 'package:cinema_plus/src/features/home/tickets/cubit/ticket_cubit.dart';
 import 'package:cinema_plus/src/features/payment/cubit/payment_cubit.dart';
+import 'package:cinema_plus/src/features/search/cubit/search_cubit.dart';
+import 'package:cinema_plus/src/style/style.dart';
 import 'package:cinema_plus/src/style/theme/cp_theme.dart';
 
 class AppBuilder extends StatelessWidget {

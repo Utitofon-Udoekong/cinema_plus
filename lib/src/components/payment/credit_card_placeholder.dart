@@ -1,9 +1,10 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:cinema_plus/src/constants/constants.dart';
-import 'package:cinema_plus/src/style/style.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:ionicons/ionicons.dart';
+
+import 'package:cinema_plus/src/constants/constants.dart';
+import 'package:cinema_plus/src/style/style.dart';
 
 class CreditCardPlaceholder extends StatelessWidget {
   const CreditCardPlaceholder({

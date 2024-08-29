@@ -1,12 +1,12 @@
-import 'package:cinema_plus/src/features/search/cp_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import 'package:cinema_plus/src/components/custom_tab_indicator.dart';
-import 'package:cinema_plus/src/constants/arb_styles.dart';
+import 'package:cinema_plus/src/constants/arb_styles.dart' show defaultPadding;
 import 'package:cinema_plus/src/features/movie_tabs/tabs/discover_movies.dart';
 import 'package:cinema_plus/src/features/movie_tabs/tabs/now_playing_movies.dart';
 import 'package:cinema_plus/src/features/movie_tabs/tabs/upcoming_movies.dart';
+import 'package:cinema_plus/src/features/search/cp_search_bar.dart';
 
 class MoviesPage extends StatefulWidget {
   const MoviesPage({super.key});
@@ -22,7 +22,6 @@ class _MoviesPageState extends State<MoviesPage>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     tabController = TabController(length: 3, vsync: this);
   }
@@ -75,4 +74,3 @@ class _MoviesPageState extends State<MoviesPage>
     );
   }
 }
-

@@ -1,5 +1,4 @@
 import 'package:cache/cache.dart';
-import 'package:cinema_plus/src/models/models.dart' show AppUser;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -9,6 +8,7 @@ import 'package:injectable/injectable.dart';
 import 'package:cinema_plus/src/constants/app_methods.dart';
 import 'package:cinema_plus/src/core/firebase_helpers.dart';
 import 'package:cinema_plus/src/domain/exceptions.dart';
+import 'package:cinema_plus/src/models/models.dart' show AppUser;
 
 @lazySingleton
 class AuthenticationRepository {

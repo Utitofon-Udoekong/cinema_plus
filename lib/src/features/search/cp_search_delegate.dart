@@ -1,9 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cinema_plus/src/constants/constants.dart';
-import 'package:cinema_plus/src/models/models.dart';
-import 'package:cinema_plus/src/style/style.dart';
-import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+
+import 'package:cinema_plus/src/constants/constants.dart'
+    show defaultRadiusSm, AppStrings;
+import 'package:cinema_plus/src/models/models.dart' show Movie;
+import 'package:cinema_plus/src/style/style.dart' show CPTextStyle;
 
 class DebouncedSearchDelegate extends SearchDelegate<String> {
   Timer? _debounceTimer;
@@ -20,8 +23,6 @@ class DebouncedSearchDelegate extends SearchDelegate<String> {
     required this.searchFunction,
     required this.showMovieDetails,
   });
-
-  
 
   @override
   TextStyle? get searchFieldStyle => CPTextStyle.subTitle(context);
@@ -90,7 +91,10 @@ class DebouncedSearchDelegate extends SearchDelegate<String> {
                     errorWidget: (context, url, error) {
                       return Container(
                         color: Theme.of(context).colorScheme.primaryContainer,
-                        child: Icon(Icons.error, color: Theme.of(context).colorScheme.error,),
+                        child: Icon(
+                          Icons.error,
+                          color: Theme.of(context).colorScheme.error,
+                        ),
                       );
                     },
                     width: 50,
@@ -101,7 +105,6 @@ class DebouncedSearchDelegate extends SearchDelegate<String> {
                 onTap: () {
                   query = movie.title;
                   showMovieDetails(movie);
-                  // showResults(context);
                 },
               );
             },

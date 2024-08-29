@@ -1,4 +1,3 @@
-
 import 'package:cinema_plus/src/constants/app_strings.dart';
 import 'package:cinema_plus/src/service/dio/interceptor.dart';
 import 'package:dio/dio.dart';
@@ -6,7 +5,7 @@ import 'package:dio/dio.dart';
 class DioService {
   DioService();
 
-  final accessToken = AppStrings.acessToken;
+  final accessToken = AppStrings.accessToken;
   Dio getDio() {
     Dio dio = Dio(BaseOptions(
       baseUrl: AppStrings.baseURL,

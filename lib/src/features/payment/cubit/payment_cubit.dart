@@ -1,17 +1,18 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
+
 import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/core/bloc_observer.dart';
 import 'package:cinema_plus/src/domain/exceptions.dart';
 import 'package:cinema_plus/src/domain/repository/user_repository.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cinema_plus/src/models/models.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:injectable/injectable.dart';
 
-part 'payment_state.dart';
 part 'payment_cubit.freezed.dart';
+part 'payment_state.dart';
 
 @lazySingleton
 class PaymentCubit extends Cubit<PaymentState> {

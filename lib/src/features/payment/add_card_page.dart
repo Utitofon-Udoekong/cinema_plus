@@ -4,8 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:cinema_plus/src/components/components.dart';
-import 'package:cinema_plus/src/constants/constants.dart';
+import 'package:cinema_plus/src/components/components.dart'
+    show CreditCardPlaceholder, PageHeader, CPSnackbar, AppTextField, AppButton;
+import 'package:cinema_plus/src/constants/constants.dart' show defaultPadding;
 import 'package:cinema_plus/src/features/payment/cubit/payment_cubit.dart';
 
 class AddCardPage extends StatefulWidget {
@@ -149,8 +150,9 @@ class _AddCardPageState extends State<AddCardPage> {
                             ],
                             hint: 'Enter card holder name',
                             textInputAction: TextInputAction.next,
-                            onChanged: (value) =>
-                                context.read<PaymentCubit>().setCardName(value)),
+                            onChanged: (value) => context
+                                .read<PaymentCubit>()
+                                .setCardName(value)),
                         const Gap(15),
                         Row(
                           children: [
@@ -182,8 +184,9 @@ class _AddCardPageState extends State<AddCardPage> {
                                   ],
                                   hint: 'Enter CVV',
                                   textInputAction: TextInputAction.done,
-                                  onChanged: (value) =>
-                                      context.read<PaymentCubit>().setCardCVV(value)),
+                                  onChanged: (value) => context
+                                      .read<PaymentCubit>()
+                                      .setCardCVV(value)),
                             ),
                           ],
                         ),
@@ -196,9 +199,7 @@ class _AddCardPageState extends State<AddCardPage> {
                     title: 'ADD PAYMENT METHOD',
                     isLoading: isLoading,
                     ontap: () {
-                      context
-                          .read<PaymentCubit>()
-                          .addCard();
+                      context.read<PaymentCubit>().addCard();
                     })
               ],
             ),

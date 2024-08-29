@@ -1,10 +1,11 @@
-import 'package:cinema_plus/src/constants/constants.dart';
-import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart';
-import 'package:cinema_plus/src/features/search/cubit/search_cubit.dart';
-import 'package:cinema_plus/src/features/search/cp_search_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
+import 'package:cinema_plus/src/constants/constants.dart' show AppRoutes;
+import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart';
+import 'package:cinema_plus/src/features/search/cp_search_delegate.dart';
+import 'package:cinema_plus/src/features/search/cubit/search_cubit.dart';
 
 class CPSearchBar extends StatelessWidget implements PreferredSizeWidget {
   const CPSearchBar({super.key});
@@ -42,9 +43,8 @@ void showSearchBar(BuildContext context) {
     useRootNavigator: true,
     delegate: DebouncedSearchDelegate(
         context: context,
-        debounceDuration: const Duration(milliseconds: 700),
+        debounceDuration: const Duration(milliseconds: 500),
         searchFunction: (query) async {
-          // Simulate an API call or database search
           return await context.read<SearchCubit>().searchMovie(query);
         },
         showMovieDetails: (movie) {

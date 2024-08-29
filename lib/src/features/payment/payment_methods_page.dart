@@ -3,16 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:cinema_plus/src/components/components.dart';
-import 'package:cinema_plus/src/constants/constants.dart';
+import 'package:cinema_plus/src/constants/constants.dart' show defaultPadding, AppRoutes, WidgetSpace;
 import 'package:cinema_plus/src/features/payment/cubit/payment_cubit.dart';
-import 'package:cinema_plus/src/style/style.dart';
+import 'package:cinema_plus/src/style/style.dart' show CPTextStyle;
 
 class PaymentMethodsPage extends StatelessWidget {
   const PaymentMethodsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     final selectedCard =
         context.select((PaymentCubit bloc) => bloc.state.selectedCard);
     final creditCards =
@@ -23,9 +22,7 @@ class PaymentMethodsPage extends StatelessWidget {
         child: Padding(
           padding: defaultPadding,
           child: Column(
-            // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              
               if (creditCards.isEmpty)
                 Text(
                   'No payment method found',
@@ -39,8 +36,10 @@ class PaymentMethodsPage extends StatelessWidget {
                     return PaymentCreditCard(
                       card: card,
                       selected: selectedCard.id == card.id,
-                      onTap: () => context.read<PaymentCubit>().selectCard(card),
-                      onDelete: () => context.read<PaymentCubit>().removeCard(card.id),
+                      onTap: () =>
+                          context.read<PaymentCubit>().selectCard(card),
+                      onDelete: () =>
+                          context.read<PaymentCubit>().removeCard(card.id),
                     );
                   }).withSpacing(10),
                 ),

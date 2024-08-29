@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
+
 import 'package:cinema_plus/src/components/components.dart';
 import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/features/home/movies/cubit/movie_cubit.dart';
 import 'package:cinema_plus/src/models/models.dart';
 import 'package:cinema_plus/src/style/style.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gap/gap.dart';
 
 class CastDetailPage extends StatelessWidget {
   const CastDetailPage({super.key});

@@ -141,7 +141,7 @@ class MovieRepository {
         .snapshots();
   }
 
-  Future<bool> addToFavorites({required Movie movie}) async {
+  void addToFavorites({required Movie movie}) async {
     try {
       final docRef = _firebaseFirestore.userCollection
           .doc(_firebaseAuth.currentUser!.uid)
@@ -151,20 +151,18 @@ class MovieRepository {
               toFirestore: (Movie movie, options) => Movie.toFirestore(movie))
           .doc(movie.id.toString());
       await docRef.set(movie);
-      return true;
     } on FirebaseException catch (e) {
       throw CPException.firestore(e);
     }
   }
 
-  Future<bool> removeFromFavorites({required String movieID}) async {
+  void removeFromFavorites({required String movieID}) async {
     try {
       final docRef = _firebaseFirestore.userCollection
           .doc(_firebaseAuth.currentUser!.uid)
           .favoritesCollection
           .doc(movieID);
       await docRef.delete();
-      return true;
     } on FirebaseException catch (e) {
       throw CPException.firestore(e);
     }

@@ -1,6 +1,3 @@
-// enum Gender{
-//   0,1,2
-// }
 import 'package:flutter/widgets.dart';
 
 const genres = <Map<String,dynamic>>{

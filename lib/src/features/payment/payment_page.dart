@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:cinema_plus/src/components/components.dart';
-import 'package:cinema_plus/src/constants/constants.dart';
+import 'package:cinema_plus/src/components/components.dart'
+    show PageHeader, CPSnackbar, AppButton, PaymentCreditCard;
+import 'package:cinema_plus/src/constants/constants.dart'
+    show AppRoutes, defaultPadding, WidgetSpace;
 import 'package:cinema_plus/src/features/home/tickets/cubit/ticket_cubit.dart';
 import 'package:cinema_plus/src/features/payment/cubit/payment_cubit.dart';
-import 'package:cinema_plus/src/style/style.dart';
+import 'package:cinema_plus/src/style/style.dart' show CPTextStyle;
 
 class PaymentPage extends StatelessWidget {
   const PaymentPage({super.key});
@@ -60,7 +62,6 @@ class PaymentPage extends StatelessWidget {
                             context.read<PaymentCubit>().selectCard(card),
                         onDelete: () =>
                             context.read<PaymentCubit>().removeCard(card.id),
-                        
                       );
                     }).withSpacing(10),
                   ),

@@ -44,6 +44,7 @@ dependencies:
   adaptive_theme: ^3.6.0
   infinite_scroll_pagination: ^4.0.0
   animations: ^2.0.11
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +63,12 @@ flutter:
   assets:
     - assets/
     - assets/images/
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo.png"
+  remove_alpha_ios: true
 
         
     

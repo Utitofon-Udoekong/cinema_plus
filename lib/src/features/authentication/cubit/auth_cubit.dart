@@ -1,17 +1,17 @@
 import 'dart:async';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_inputs/form_inputs.dart';
+import 'package:formz/formz.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
+
 import 'package:cinema_plus/src/domain/exceptions.dart';
 import 'package:cinema_plus/src/domain/repository/auth_repository.dart';
 import 'package:cinema_plus/src/models/app_user.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:form_inputs/form_inputs.dart';
-import 'package:formz/formz.dart';
-import 'package:injectable/injectable.dart';
-
-part 'auth_state.dart';
 
 part 'auth_cubit.freezed.dart';
+part 'auth_state.dart';
 
 @lazySingleton
 class AuthCubit extends Cubit<AuthState> {

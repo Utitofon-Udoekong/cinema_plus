@@ -1,16 +1,15 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:cinema_plus/src/components/page_header.dart';
-import 'package:cinema_plus/src/features/payment/cubit/payment_cubit.dart';
-import 'package:cinema_plus/src/models/ticket.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:cinema_plus/src/components/components.dart';
 import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/features/booking/cubit/booking_cubit.dart';
+import 'package:cinema_plus/src/features/payment/cubit/payment_cubit.dart';
+import 'package:cinema_plus/src/models/ticket.dart';
 import 'package:cinema_plus/src/style/style.dart';
-import 'package:go_router/go_router.dart';
 
 class ChooseSeatPage extends StatefulWidget {
   const ChooseSeatPage({super.key});
@@ -24,7 +23,6 @@ class _ChooseSeatPageState extends State<ChooseSeatPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     setState(() {
       price = generateTicketPrice();

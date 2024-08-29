@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/features/authentication/create_account_page.dart';
 import 'package:cinema_plus/src/features/authentication/sign_in_page.dart';
@@ -15,8 +18,6 @@ import 'package:cinema_plus/src/features/payment/add_card_page.dart';
 import 'package:cinema_plus/src/features/payment/booking_confirmed_page.dart';
 import 'package:cinema_plus/src/features/payment/payment_methods_page.dart';
 import 'package:cinema_plus/src/features/payment/payment_page.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey =

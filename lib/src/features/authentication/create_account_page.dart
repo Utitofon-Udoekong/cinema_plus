@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:cinema_plus/src/components/components.dart';
 import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/features/authentication/cubit/auth_cubit.dart';
 import 'package:cinema_plus/src/style/style.dart';
-import 'package:go_router/go_router.dart';
 
 class CreateAccountPage extends StatelessWidget {
   const CreateAccountPage({super.key});
@@ -18,10 +18,10 @@ class CreateAccountPage extends StatelessWidget {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state.status.isSuccess) {
-          print("----------------success----------------");
           context.go(AppRoutes.movies);
         } else if (state.status.isFailure) {
-          CPSnackbar.showError(context, state.errorMessage ?? 'Sign Up Failure');
+          CPSnackbar.showError(
+              context, state.errorMessage ?? 'Sign Up Failure');
         }
       },
       child: Scaffold(

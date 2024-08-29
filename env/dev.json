@@ -1,0 +1,6 @@
+{
+  "imageUrl": "https://image.tmdb.org/t/p/original",
+  "baseURL": "https://api.themoviedb.org/3",
+  "apiKey": "DEV_API_KEY",
+  "accessToken": "DEV_ACCESS_TOKEN"
+}

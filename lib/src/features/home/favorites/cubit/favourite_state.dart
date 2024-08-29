@@ -8,7 +8,7 @@ class FavouriteState with _$FavouriteState {
     required String failure,
   }) = _FavouriteState;
 
-  factory FavouriteState.initial() => FavouriteState(
+  factory FavouriteState.initial() => const FavouriteState(
         favoriteMovies: [],
         isLoading: false,
         failure: ''

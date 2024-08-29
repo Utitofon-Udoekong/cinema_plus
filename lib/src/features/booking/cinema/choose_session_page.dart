@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:cinema_plus/src/components/components.dart';
 import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/features/booking/cubit/booking_cubit.dart';
 import 'package:cinema_plus/src/style/style.dart';
-import 'package:go_router/go_router.dart';
 
 class ChooseSessionPage extends StatefulWidget {
   const ChooseSessionPage({super.key});
@@ -181,7 +181,7 @@ const _3dSession = [
 ];
 
 class _ChooseCinemaModal extends StatelessWidget {
-  const _ChooseCinemaModal({super.key});
+  const _ChooseCinemaModal();
   @override
   Widget build(BuildContext context) {
     final selectedCinema =
