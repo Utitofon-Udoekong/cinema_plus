@@ -6,7 +6,8 @@ import 'package:jiffy/jiffy.dart';
 
 import 'package:cinema_plus/src/components/components.dart'
     show PageHeader, BookingQRCode, BookingDetail, AppButton;
-import 'package:cinema_plus/src/constants/constants.dart' show defaultPadding, AppRoutes;
+import 'package:cinema_plus/src/constants/constants.dart'
+    show defaultPadding, AppRoutes;
 import 'package:cinema_plus/src/features/booking/cubit/booking_cubit.dart';
 import 'package:cinema_plus/src/features/payment/cubit/payment_cubit.dart';
 

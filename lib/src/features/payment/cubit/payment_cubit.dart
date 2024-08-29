@@ -86,6 +86,7 @@ class PaymentCubit extends Cubit<PaymentState> {
         cardName: '',
         success: '',
         failure: '',
+        selectedCard: CreditCard.empty()
       ));
   void load() => emit(state.copyWith(
         success: '',

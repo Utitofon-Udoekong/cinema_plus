@@ -31,7 +31,7 @@ class ProfilePage extends StatelessWidget {
                   child: ListView(
                     children: [
                       ListTile(
-                        leading: const Icon(Icons.account_circle),
+                        leading: const Icon(Icons.account_circle, size: 30),
                         title: Text(
                             context.read<ProfileCubit>().currentUser.email),
                         subtitle: Text(
@@ -43,19 +43,17 @@ class ProfilePage extends StatelessWidget {
                             const Icon(Icons.keyboard_arrow_right_rounded),
                         onTap: () => context.push(AppRoutes.paymentMethods),
                       ),
-                      SwitchListTile.adaptive(
-                        value: themeMode.isSystem,
-                        title: const Text('Use system settings'),
-                        onChanged: (value) =>
-                            AdaptiveTheme.of(context).setSystem(),
-                      ),
+                      // SwitchListTile.adaptive(
+                      //   value: themeMode.isSystem,
+                      //   title: const Text('Use system settings'),
+                      //   onChanged: (value) =>
+                      //       AdaptiveTheme.of(context).setSystem(),
+                      // ),
                       SwitchListTile.adaptive(
                         value: themeMode.isLight,
                         title: Text(themeMode.isLight
                             ? 'Light theme'
-                            : themeMode.isSystem
-                                ? 'System theme'
-                                : 'Dark theme'),
+                            : 'Dark theme'),
                         onChanged: (value) {
                           if (value) {
                             AdaptiveTheme.of(context).setLight();

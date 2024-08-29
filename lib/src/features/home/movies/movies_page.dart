@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import 'package:cinema_plus/src/components/custom_tab_indicator.dart';
-import 'package:cinema_plus/src/constants/arb_styles.dart' show defaultPadding;
 import 'package:cinema_plus/src/features/movie_tabs/tabs/discover_movies.dart';
 import 'package:cinema_plus/src/features/movie_tabs/tabs/now_playing_movies.dart';
 import 'package:cinema_plus/src/features/movie_tabs/tabs/upcoming_movies.dart';
@@ -32,7 +31,7 @@ class _MoviesPageState extends State<MoviesPage>
       appBar: const CPSearchBar(),
       body: SafeArea(
         child: Padding(
-          padding: defaultPadding,
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
           child: Column(
             children: [
               TabBar(

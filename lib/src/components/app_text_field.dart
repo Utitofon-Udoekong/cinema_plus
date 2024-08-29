@@ -17,12 +17,16 @@ class AppTextField extends StatelessWidget {
     this.inputFormatters,
     this.focusNode,
     this.textInputAction,
+    this.suffix,
+    this.obscureText = false,
   });
 
   final String hint;
   final String? errorText;
+  final bool obscureText;
   final TextInputType? keyboardType;
   final Widget? prefixIcon;
+  final Widget? suffix;
   final TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
   final FocusNode? focusNode;
@@ -47,7 +51,9 @@ class AppTextField extends StatelessWidget {
         hintStyle: CPTextStyle.subTitle(context, color: CPColors.grey600),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20),
         prefixIcon: prefixIcon,
+        suffixIcon: suffix,
       ),
+      obscureText: obscureText,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
       focusNode: focusNode,
@@ -57,8 +63,6 @@ class AppTextField extends StatelessWidget {
       cursorColor: Theme.of(context).colorScheme.primary,
       onChanged: onChanged,
       textInputAction: textInputAction,
-      // onTap: () => FocusScope.of(context).requestFocus(focusNode),
-      // onTapAlwaysCalled: true,
     );
   }
 }

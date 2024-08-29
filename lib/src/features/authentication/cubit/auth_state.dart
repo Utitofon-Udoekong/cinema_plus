@@ -8,6 +8,7 @@ class AuthState with _$AuthState {
     required ConfirmedPassword confirmedPassword,
     required FormzSubmissionStatus status,
     required bool isValid,
+    required bool obscureText,
     required String? errorMessage,
     required AppUser user
   }) = _AuthState;
@@ -19,6 +20,7 @@ class AuthState with _$AuthState {
       confirmedPassword: const ConfirmedPassword.pure(),
       status: FormzSubmissionStatus.initial,
       isValid: false,
+      obscureText: true,
       errorMessage: null,
       user: AppUser.empty()
     );

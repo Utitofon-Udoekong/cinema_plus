@@ -8,6 +8,7 @@ import 'package:cinema_plus/src/components/components.dart';
 import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/features/authentication/cubit/auth_cubit.dart';
 import 'package:cinema_plus/src/style/style.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
@@ -47,31 +48,31 @@ class SignInPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Cinema',
-                    style: TextStyle(
-                        color: CPColors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 32,
-                        height: 0),
+                     style: GoogleFonts.archivoBlack().copyWith(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 32,
+                      height: 0.8
+                    ),
                   ),
                   ShaderMask(
                     shaderCallback: (bounds) {
                       return LinearGradient(
                         colors: [
-                          CPColors.purple,
+                          Theme.of(context).colorScheme.secondary,
                           Theme.of(context).colorScheme.primary
                         ],
                       ).createShader(bounds);
                     },
                     blendMode: BlendMode.modulate,
-                    child: const Text(
+                    child: Text(
                       'Plus+',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          color: Colors.white,
-                          fontSize: 32,
-                          height: 0),
+                      style: GoogleFonts.archivoBlack().copyWith(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 32,
+                        color: CPColors.white
+                      ),
                     ),
                   ),
                 ],
@@ -113,7 +114,7 @@ class SignInPage extends StatelessWidget {
                               shaderCallback: (bounds) {
                                 return LinearGradient(
                                   colors: [
-                                    CPColors.purple,
+                                    Theme.of(context).colorScheme.secondary,
                                     Theme.of(context).colorScheme.primary
                                   ],
                                 ).createShader(bounds);
@@ -121,9 +122,8 @@ class SignInPage extends StatelessWidget {
                               blendMode: BlendMode.modulate,
                               child: Text(
                                 'Create Account',
-                                style: CPTextStyle.caption(
-                                  context,
-                                ),
+                                style: CPTextStyle.caption(context,
+                                    color: CPColors.white),
                               ),
                             ),
                           ),
@@ -162,7 +162,9 @@ class _PasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
-      buildWhen: (previous, current) => previous.password != current.password,
+      buildWhen: (previous, current) =>
+          previous.password != current.password ||
+          previous.obscureText != current.obscureText,
       builder: (context, state) {
         return AppTextField(
           key: const Key('loginForm_passwordInput_textField'),
@@ -170,6 +172,14 @@ class _PasswordInput extends StatelessWidget {
           errorText:
               state.password.displayError != null ? 'invalid password' : null,
           textInputAction: TextInputAction.done,
+          obscureText: state.obscureText,
+          suffix: IconButton(
+            onPressed: () => context.read<AuthCubit>().obscureText(),
+            padding: EdgeInsets.zero,
+            icon: Icon(
+              state.obscureText ? Icons.visibility_off : Icons.visibility,
+            ),
+          ),
           onChanged: (password) =>
               context.read<AuthCubit>().passwordChanged(password),
         );

@@ -70,21 +70,19 @@ class FavoriteCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(defaultRadiusSm),
               color: Theme.of(context).colorScheme.primaryContainer,
             ),
-            child: Expanded(
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: size.width / 2.8,
-                    child: _MovieCard(
-                      movie: movie,
-                      isFavorite: isFavorite,
-                      onLikeButtonPressed: onLikeButtonPressed,
-                      likeButtonKey: likeButtonKey,
-                    ),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: size.width / 2.8,
+                  child: _MovieCard(
+                    movie: movie,
+                    isFavorite: isFavorite,
+                    onLikeButtonPressed: onLikeButtonPressed,
+                    likeButtonKey: likeButtonKey,
                   ),
-                  _MovieDetail(movie: movie)
-                ],
-              ),
+                ),
+                _MovieDetail(movie: movie)
+              ],
             ),
           ),
         );
@@ -214,7 +212,7 @@ class _MovieCard extends StatelessWidget {
                 child: Text(
               getTagline(movie.genreIds),
               style: CPTextStyle.link(context,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.onPrimaryContainer,
                   weight: FontWeight.bold),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,

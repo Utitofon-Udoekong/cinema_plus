@@ -2,6 +2,7 @@ export 'app_back_button.dart';
 export 'app_button.dart';
 export 'app_text_field.dart';
 export 'booking/booking.dart';
+export 'change_theme.dart';
 export 'cinema/cinema.dart';
 export 'loader/app_loader_sm.dart';
 export 'movies/cast_card.dart';

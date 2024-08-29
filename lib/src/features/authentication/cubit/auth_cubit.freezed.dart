@@ -21,6 +21,7 @@ mixin _$AuthState {
   ConfirmedPassword get confirmedPassword => throw _privateConstructorUsedError;
   FormzSubmissionStatus get status => throw _privateConstructorUsedError;
   bool get isValid => throw _privateConstructorUsedError;
+  bool get obscureText => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
   AppUser get user => throw _privateConstructorUsedError;
 
@@ -40,6 +41,7 @@ abstract class $AuthStateCopyWith<$Res> {
       ConfirmedPassword confirmedPassword,
       FormzSubmissionStatus status,
       bool isValid,
+      bool obscureText,
       String? errorMessage,
       AppUser user});
 
@@ -64,6 +66,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? confirmedPassword = null,
     Object? status = null,
     Object? isValid = null,
+    Object? obscureText = null,
     Object? errorMessage = freezed,
     Object? user = null,
   }) {
@@ -87,6 +90,10 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
       isValid: null == isValid
           ? _value.isValid
           : isValid // ignore: cast_nullable_to_non_nullable
+              as bool,
+      obscureText: null == obscureText
+          ? _value.obscureText
+          : obscureText // ignore: cast_nullable_to_non_nullable
               as bool,
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
@@ -122,6 +129,7 @@ abstract class _$$AuthStateImplCopyWith<$Res>
       ConfirmedPassword confirmedPassword,
       FormzSubmissionStatus status,
       bool isValid,
+      bool obscureText,
       String? errorMessage,
       AppUser user});
 
@@ -145,6 +153,7 @@ class __$$AuthStateImplCopyWithImpl<$Res>
     Object? confirmedPassword = null,
     Object? status = null,
     Object? isValid = null,
+    Object? obscureText = null,
     Object? errorMessage = freezed,
     Object? user = null,
   }) {
@@ -169,6 +178,10 @@ class __$$AuthStateImplCopyWithImpl<$Res>
           ? _value.isValid
           : isValid // ignore: cast_nullable_to_non_nullable
               as bool,
+      obscureText: null == obscureText
+          ? _value.obscureText
+          : obscureText // ignore: cast_nullable_to_non_nullable
+              as bool,
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -190,6 +203,7 @@ class _$AuthStateImpl implements _AuthState {
       required this.confirmedPassword,
       required this.status,
       required this.isValid,
+      required this.obscureText,
       required this.errorMessage,
       required this.user});
 
@@ -204,13 +218,15 @@ class _$AuthStateImpl implements _AuthState {
   @override
   final bool isValid;
   @override
+  final bool obscureText;
+  @override
   final String? errorMessage;
   @override
   final AppUser user;
 
   @override
   String toString() {
-    return 'AuthState(email: $email, password: $password, confirmedPassword: $confirmedPassword, status: $status, isValid: $isValid, errorMessage: $errorMessage, user: $user)';
+    return 'AuthState(email: $email, password: $password, confirmedPassword: $confirmedPassword, status: $status, isValid: $isValid, obscureText: $obscureText, errorMessage: $errorMessage, user: $user)';
   }
 
   @override
@@ -225,6 +241,8 @@ class _$AuthStateImpl implements _AuthState {
                 other.confirmedPassword == confirmedPassword) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.isValid, isValid) || other.isValid == isValid) &&
+            (identical(other.obscureText, obscureText) ||
+                other.obscureText == obscureText) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.user, user) || other.user == user));
@@ -232,7 +250,7 @@ class _$AuthStateImpl implements _AuthState {
 
   @override
   int get hashCode => Object.hash(runtimeType, email, password,
-      confirmedPassword, status, isValid, errorMessage, user);
+      confirmedPassword, status, isValid, obscureText, errorMessage, user);
 
   @JsonKey(ignore: true)
   @override
@@ -248,6 +266,7 @@ abstract class _AuthState implements AuthState {
       required final ConfirmedPassword confirmedPassword,
       required final FormzSubmissionStatus status,
       required final bool isValid,
+      required final bool obscureText,
       required final String? errorMessage,
       required final AppUser user}) = _$AuthStateImpl;
 
@@ -261,6 +280,8 @@ abstract class _AuthState implements AuthState {
   FormzSubmissionStatus get status;
   @override
   bool get isValid;
+  @override
+  bool get obscureText;
   @override
   String? get errorMessage;
   @override

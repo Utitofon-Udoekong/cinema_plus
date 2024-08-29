@@ -1,5 +1,5 @@
 name: cinema_plus
-description: "A new Flutter project."
+description: "Cinema Plus is a Flutter-based movie booking app with features including ticket booking, favorites management, cinema listings, and business-defined theming."
 publish_to: 'none' 
 version: 1.0.0+1
 
@@ -67,8 +67,9 @@ flutter:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/images/logo.png"
   remove_alpha_ios: true
+  image_path: "assets/images/logo.png"
+  adaptive_icon_background: "assets/images/logo_background.png"
 
         
     

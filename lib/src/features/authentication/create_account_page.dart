@@ -8,6 +8,7 @@ import 'package:cinema_plus/src/components/components.dart';
 import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/features/authentication/cubit/auth_cubit.dart';
 import 'package:cinema_plus/src/style/style.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CreateAccountPage extends StatelessWidget {
   const CreateAccountPage({super.key});
@@ -15,6 +16,11 @@ class CreateAccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    final password =
+        context.select((AuthCubit bloc) => bloc.state.password.value);
+    RegExp alphaRegex = RegExp(r'^(?=.*[A-Z])(?=.*[a-z])');
+    RegExp numberRegex = RegExp(r'[0-9]');
+    RegExp specialRegex = RegExp(r'[@$!%*?&]');
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state.status.isSuccess) {
@@ -47,31 +53,27 @@ class CreateAccountPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Cinema',
-                    style: TextStyle(
-                        color: CPColors.white,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 32,
-                        height: 0),
+                    style: GoogleFonts.archivoBlack().copyWith(
+                        fontWeight: FontWeight.w900, fontSize: 32, height: 0.8),
                   ),
                   ShaderMask(
                     shaderCallback: (bounds) {
                       return LinearGradient(
                         colors: [
-                          CPColors.purple,
+                          Theme.of(context).colorScheme.secondary,
                           Theme.of(context).colorScheme.primary
                         ],
                       ).createShader(bounds);
                     },
                     blendMode: BlendMode.modulate,
-                    child: const Text(
+                    child: Text(
                       'Plus+',
-                      style: TextStyle(
+                      style: GoogleFonts.archivoBlack().copyWith(
                           fontWeight: FontWeight.w900,
-                          color: Colors.white,
                           fontSize: 32,
-                          height: 0),
+                          color: CPColors.white),
                     ),
                   ),
                 ],
@@ -95,6 +97,50 @@ class CreateAccountPage extends StatelessWidget {
                       _EmailInput(),
                       const Gap(10),
                       _PasswordInput(),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Contains a lowercase and uppercase letter',
+                              style: CPTextStyle.link(context,
+                                  color: alphaRegex.hasMatch(password)
+                                      ? Colors.green
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .onSurface),
+                            ),
+                            Text(
+                              'Contains a number',
+                              style: CPTextStyle.link(context,
+                                  color: numberRegex.hasMatch(password)
+                                      ? Colors.green
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .onSurface),
+                            ),
+                            Text(
+                              'Contains a special character',
+                              style: CPTextStyle.link(context,
+                                  color: specialRegex.hasMatch(password)
+                                      ? Colors.green
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .onSurface),
+                            ),
+                            Text(
+                              'is atleast 8 characters',
+                              style: CPTextStyle.link(context,
+                                  color: password.length >= 8
+                                      ? Colors.green
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .onSurface),
+                            ),
+                          ],
+                        ),
+                      ),
                       const Gap(10),
                       _ConfirmPasswordInput(),
                       const Gap(20),
@@ -115,7 +161,7 @@ class CreateAccountPage extends StatelessWidget {
                               shaderCallback: (bounds) {
                                 return LinearGradient(
                                   colors: [
-                                    CPColors.purple,
+                                    Theme.of(context).colorScheme.secondary,
                                     Theme.of(context).colorScheme.primary
                                   ],
                                 ).createShader(bounds);
@@ -123,9 +169,8 @@ class CreateAccountPage extends StatelessWidget {
                               blendMode: BlendMode.modulate,
                               child: Text(
                                 'Sign In',
-                                style: CPTextStyle.caption(
-                                  context,
-                                ),
+                                style: CPTextStyle.caption(context,
+                                    color: CPColors.white),
                               ),
                             ),
                           ),
@@ -164,7 +209,9 @@ class _PasswordInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
-      buildWhen: (previous, current) => previous.password != current.password,
+      buildWhen: (previous, current) =>
+          previous.password != current.password ||
+          previous.obscureText != current.obscureText,
       builder: (context, state) {
         return AppTextField(
           key: const Key('loginForm_passwordInput_textField'),
@@ -172,6 +219,14 @@ class _PasswordInput extends StatelessWidget {
           errorText:
               state.password.displayError != null ? 'invalid password' : null,
           textInputAction: TextInputAction.next,
+          obscureText: state.obscureText,
+          suffix: IconButton(
+            onPressed: () => context.read<AuthCubit>().obscureText(),
+            padding: EdgeInsets.zero,
+            icon: Icon(
+              state.obscureText ? Icons.visibility_off : Icons.visibility,
+            ),
+          ),
           onChanged: (password) =>
               context.read<AuthCubit>().passwordChanged(password),
         );
@@ -186,7 +241,8 @@ class _ConfirmPasswordInput extends StatelessWidget {
     return BlocBuilder<AuthCubit, AuthState>(
       buildWhen: (previous, current) =>
           previous.password != current.password ||
-          previous.confirmedPassword != current.confirmedPassword,
+          previous.confirmedPassword != current.confirmedPassword ||
+          previous.obscureText != current.obscureText,
       builder: (context, state) {
         return AppTextField(
             key: const Key('signUpForm_confirmedPasswordInput_textField'),
@@ -195,6 +251,14 @@ class _ConfirmPasswordInput extends StatelessWidget {
                 ? 'passwords do not match'
                 : null,
             textInputAction: TextInputAction.done,
+            obscureText: state.obscureText,
+            suffix: IconButton(
+              onPressed: () => context.read<AuthCubit>().obscureText(),
+              padding: EdgeInsets.zero,
+              icon: Icon(
+                state.obscureText ? Icons.visibility_off : Icons.visibility,
+              ),
+            ),
             onChanged: (confirmPassword) => context
                 .read<AuthCubit>()
                 .confirmedPasswordChanged(confirmPassword));

@@ -24,6 +24,14 @@ class AuthCubit extends Cubit<AuthState> {
         .listen(listenAuthStateChangesStream);
   }
 
+  void obscureText() {
+    final isObscured = state.obscureText;
+    if(isObscured){
+      emit(state.copyWith(obscureText: false));
+    }else{
+      emit(state.copyWith(obscureText: true));
+    }
+  }
 
   Future<void> listenAuthStateChangesStream(AppUser authUser) async {
     if (authUser != AppUser.empty()) {
