@@ -172,23 +172,21 @@ class CastDetailPage extends StatelessWidget {
                                             )
                                           : SingleChildScrollView(
                                               scrollDirection: Axis.horizontal,
-                                              child: Expanded(
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: actor
-                                                      .movieCredits!.cast
-                                                      .where((movie) =>
-                                                          movie.backdropPath !=
-                                                          null)
-                                                      .map((movie) {
-                                                    return FilmCard(
-                                                      imageUrl:
-                                                          movie.backdropPath!,
-                                                      name: movie.title,
-                                                    );
-                                                  }).withSpacing(10),
-                                                ),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: actor
+                                                    .movieCredits!.cast
+                                                    .where((movie) =>
+                                                        movie.backdropPath !=
+                                                        null)
+                                                    .map((movie) {
+                                                  return FilmCard(
+                                                    imageUrl:
+                                                        movie.backdropPath!,
+                                                    name: movie.title,
+                                                  );
+                                                }).withSpacing(10),
                                               ),
                                             );
                                 },

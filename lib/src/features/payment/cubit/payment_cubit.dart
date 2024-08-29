@@ -6,7 +6,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:cinema_plus/src/constants/constants.dart';
-import 'package:cinema_plus/src/core/bloc_observer.dart';
 import 'package:cinema_plus/src/domain/exceptions.dart';
 import 'package:cinema_plus/src/domain/repository/user_repository.dart';
 import 'package:cinema_plus/src/models/models.dart';
@@ -62,7 +61,6 @@ class PaymentCubit extends Cubit<PaymentState> {
       await userRepository.addCard(card: card);
       pass('Card added');
     } on CPException catch (e) {
-      logger.e(e.message);
       fail(e.message);
     }
   }
@@ -73,7 +71,6 @@ class PaymentCubit extends Cubit<PaymentState> {
       await userRepository.removeCard(cardID: cardID);
       pass('Card removed');
     } on CPException catch (e) {
-      logger.e(e.message);
       fail(e.message);
     }
   }

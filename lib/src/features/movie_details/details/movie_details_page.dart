@@ -179,19 +179,17 @@ class MovieDetailsPage extends StatelessWidget {
                                         )
                                       : SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
-                                          child: Expanded(
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children:
-                                                  state.movieCast.map((cast) {
-                                                return Container(
-                                                  margin: const EdgeInsets.only(
-                                                      right: 10),
-                                                  child: CastCard(cast: cast),
-                                                );
-                                              }).toList(),
-                                            ),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children:
+                                                state.movieCast.map((cast) {
+                                              return Container(
+                                                margin: const EdgeInsets.only(
+                                                    right: 10),
+                                                child: CastCard(cast: cast),
+                                              );
+                                            }).toList(),
                                           ),
                                         );
                             },

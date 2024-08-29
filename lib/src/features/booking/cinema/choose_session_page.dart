@@ -66,25 +66,20 @@ class _ChooseSessionPageState extends State<ChooseSessionPage> {
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         clipBehavior: Clip.none,
-                        child: Expanded(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: getAvailableDays().map((day) {
-                              return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    selectedDate = day;
-                                  });
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.only(right: 10),
-                                  child: DateChip(
-                                      isSelected: selectedDate.day == day.day,
-                                      date: day),
-                                ),
-                              );
-                            }).toList(),
-                          ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: getAvailableDays().map((day) {
+                            return GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  selectedDate = day;
+                                });
+                              },
+                              child: DateChip(
+                                  isSelected: selectedDate.day == day.day,
+                                  date: day),
+                            );
+                          }).withSpacing(10),
                         ),
                       ),
                       const Gap(30),
@@ -100,8 +95,8 @@ class _ChooseSessionPageState extends State<ChooseSessionPage> {
                             CPTextStyle.link(context, color: CPColors.grey500),
                       ),
                       const Gap(10),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.start,
                         children: _classicSession.map((time) {
                           return GestureDetector(
                             onTap: () {
@@ -109,13 +104,10 @@ class _ChooseSessionPageState extends State<ChooseSessionPage> {
                                 selectedTime = time;
                               });
                             },
-                            child: Container(
-                              margin: const EdgeInsets.only(right: 10),
-                              child: TimeChip(
-                                  isSelected: selectedTime == time, time: time),
-                            ),
+                            child: TimeChip(
+                                isSelected: selectedTime == time, time: time),
                           );
-                        }).toList(),
+                        }).withSpacing(10),
                       ),
                       const Gap(10),
                       Text(
@@ -133,13 +125,10 @@ class _ChooseSessionPageState extends State<ChooseSessionPage> {
                                 selectedTime = time;
                               });
                             },
-                            child: Container(
-                              margin: const EdgeInsets.only(right: 10),
-                              child: TimeChip(
-                                  isSelected: selectedTime == time, time: time),
-                            ),
+                            child: TimeChip(
+                                isSelected: selectedTime == time, time: time),
                           );
-                        }).toList(),
+                        }).withSpacing(10),
                       )
                     ],
                   ),

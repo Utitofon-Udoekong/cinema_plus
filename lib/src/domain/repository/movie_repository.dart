@@ -1,5 +1,4 @@
 import 'package:cinema_plus/src/constants/app_strings.dart';
-import 'package:cinema_plus/src/core/bloc_observer.dart';
 import 'package:cinema_plus/src/core/firebase_helpers.dart';
 import 'package:cinema_plus/src/domain/exceptions.dart';
 import 'package:cinema_plus/src/models/models.dart' show Movie, Cast, Actor;
@@ -106,7 +105,6 @@ class MovieRepository {
     try {
       final response = await _dio.get(
           '${AppStrings.baseURL}/person/$actorId?append_to_response=movie_credits,images&language=en-US');
-      logger.w(response.data);
       return Actor.fromJson(response.data);
     } on DioException catch (e) {
       throw CPException.dio(e);
@@ -117,7 +115,6 @@ class MovieRepository {
     try {
       final response = await _dio.get(
           '${AppStrings.baseURL}/person/$actorId/movie_credits?language=en-US');
-      logger.w(response.data);
       final data = response.data;
       List<Movie> movieList = [];
       final serverMovieList = data['results'];

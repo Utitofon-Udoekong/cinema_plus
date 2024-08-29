@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cinema_plus/src/core/bloc_observer.dart';
 import 'package:cinema_plus/src/domain/exceptions.dart';
 import 'package:cinema_plus/src/domain/repository/ticket_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -41,7 +40,6 @@ class TicketCubit extends Cubit<TicketState> {
       await _ticketRepository.addTicket(ticket: ticket);
       pass('Ticket added');
     } on CPException catch (e) {
-      logger.e(e.message);
       fail(e.message);
     }
   }
@@ -52,7 +50,6 @@ class TicketCubit extends Cubit<TicketState> {
       await _ticketRepository.removeTicket(bookingID: bookingID);
       pass('Ticket removed');
     } on CPException catch (e) {
-      logger.e(e.message);
       fail(e.message);
     }
   }

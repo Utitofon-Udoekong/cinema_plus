@@ -53,7 +53,8 @@ class SignInPage extends StatelessWidget {
                      style: GoogleFonts.archivoBlack().copyWith(
                       fontWeight: FontWeight.w900,
                       fontSize: 32,
-                      height: 0.8
+                      height: 0.8,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   ShaderMask(
