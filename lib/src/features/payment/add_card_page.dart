@@ -98,8 +98,8 @@ class _AddCardPageState extends State<AddCardPage> {
         BlocListener<PaymentCubit, PaymentState>(
           listenWhen: (p, c) => c.success == 'Card added',
           listener: (context, state) {
-            context.pop();
             context.read<PaymentCubit>().resetCard();
+            context.pop();
           },
         ),
         BlocListener<PaymentCubit, PaymentState>(

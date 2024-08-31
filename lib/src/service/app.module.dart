@@ -1,8 +1,8 @@
 import 'package:cache/cache.dart';
+import 'package:cinema_plus/src/domain/local/movie_cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:cinema_plus/src/service/dio/dio_service.dart';
@@ -20,8 +20,8 @@ abstract class AppModule {
   @injectable
   FirebaseFirestore get firestore => FirebaseFirestore.instance;
 
-  @injectable
-  GoogleSignIn get googleSignIn => GoogleSignIn.standard();
+  @preResolve
+  Future<MovieCache> get movieCache => MovieCache.create();
 
   @injectable
   CacheClient get cache => CacheClient();

@@ -15,9 +15,13 @@ class UpcomingMovies extends StatefulWidget {
   State<UpcomingMovies> createState() => _UpcomingMoviesState();
 }
 
-class _UpcomingMoviesState extends State<UpcomingMovies> {
+class _UpcomingMoviesState extends State<UpcomingMovies>
+    with AutomaticKeepAliveClientMixin {
   final PagingController<int, Movie> _pagingController =
       PagingController(firstPageKey: 1);
+
+  @override
+  bool get wantKeepAlive => (_pagingController.itemList ?? []).isNotEmpty;
 
   @override
   void initState() {
@@ -29,8 +33,9 @@ class _UpcomingMoviesState extends State<UpcomingMovies> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final isFetched = await context.read<MovieCubit>().getUpcomingMovies(pageKey);
-      if(isFetched){
+      final isFetched =
+          await context.read<MovieCubit>().getUpcomingMovies(pageKey);
+      if (isFetched) {
         final newItems = context.read<MovieCubit>().state.upcomingMovies;
         final nextPageKey = pageKey += 1;
         _pagingController.appendPage(newItems, nextPageKey);
@@ -42,6 +47,8 @@ class _UpcomingMoviesState extends State<UpcomingMovies> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+    
     final favouriteMovies =
         context.select((FavouriteCubit bloc) => bloc.state.favoriteMovies);
     return PagedGridView<int, Movie>(

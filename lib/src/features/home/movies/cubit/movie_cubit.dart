@@ -1,3 +1,4 @@
+import 'package:cinema_plus/src/constants/constants.dart';
 import 'package:cinema_plus/src/models/models.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cinema_plus/src/domain/repository/movie_repository.dart';
@@ -22,7 +23,7 @@ class MovieCubit extends Cubit<MovieState> {
   Future<bool> discoverMovies([int page = 1]) async {
     loadDiscover();
     try {
-      final movies = await _movieRepository.discoverMovies(page);
+      final movies = await _movieRepository.getMovies(MovieListType.discover, page);
       emit(state.copyWith(discoverMovies: movies, isDiscoverLoading: false));
       return true;
     } on DioException catch (e) {
@@ -34,7 +35,7 @@ class MovieCubit extends Cubit<MovieState> {
   Future<bool> getUpcomingMovies([int page = 1]) async {
     loadUpcoming();
     try {
-      final movies = await _movieRepository.upcomingMovies(page);
+      final movies = await _movieRepository.getMovies(MovieListType.upcoming, page);
       emit(state.copyWith(upcomingMovies: movies, isUpcomingLoading: false));
       return true;
     } on DioException catch (e) {
@@ -46,7 +47,7 @@ class MovieCubit extends Cubit<MovieState> {
   Future<bool> getNowPlayingMovies([int page = 1]) async {
     loadNowPlaying();
     try {
-      final movies = await _movieRepository.nowPlaying(page);
+      final movies = await _movieRepository.getMovies(MovieListType.nowPlaying, page);
       emit(state.copyWith(nowPlaying: movies, isNowPlayingLoading: false));
       return true;
     } on DioException catch (e) {

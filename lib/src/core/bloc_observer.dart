@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:logger/logger.dart';
+import 'package:logger/logger.dart';
 
-// var logger = Logger(
-//   printer: PrettyPrinter(),
-// );
+var logger = Logger(
+  printer: PrettyPrinter(),
+);
 
 class AppBlocObserver extends BlocObserver {
   @override

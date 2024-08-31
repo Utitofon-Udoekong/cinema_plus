@@ -42,6 +42,7 @@ class BookingConfirmedPage extends StatelessWidget {
                 context.go(AppRoutes.tickets);
                 context.read<PaymentCubit>().resetCard();
                 context.read<BookingCubit>().reset();
+                context.pop();
               },
             ),
             const Gap(20)

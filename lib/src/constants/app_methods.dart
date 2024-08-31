@@ -125,3 +125,16 @@ String getViewingSession(String time) {
     return '3D SESSION';
   }
 }
+
+String getUrlFromMovieListType(MovieListType type) {
+  switch (type) {
+    case MovieListType.discover:
+      return '/discover/movie';
+    case MovieListType.upcoming:
+      return '/movie/upcoming';
+    case MovieListType.nowPlaying:
+      return '/movie/now_playing';
+    default:
+      return '/discover/movie';
+  }
+}

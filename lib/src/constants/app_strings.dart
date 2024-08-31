@@ -33,3 +33,15 @@ class AppRoutes {
   static const paymentMethods = "/payment-methods";
   static const bookingConfirmed = "/booking-confirmed";
 }
+
+class ModelHiveId {
+  static const cast = 0;
+  static const actor = 1;
+  static const movie = 2;
+}
+
+class HiveBox {
+  static const movieBox = 'enc_hive_move';
+  static const castBox = 'enc_hive_cast';
+  static const actorBox = 'enc_hive_actor';
+}

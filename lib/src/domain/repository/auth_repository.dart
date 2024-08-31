@@ -2,7 +2,6 @@ import 'package:cache/cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:cinema_plus/src/constants/app_methods.dart';
@@ -13,13 +12,12 @@ import 'package:cinema_plus/src/models/models.dart' show AppUser;
 @lazySingleton
 class AuthenticationRepository {
   /// {@macro authentication_repository}
-  AuthenticationRepository(this._cache, this._firebaseAuth, this._googleSignIn,
+  AuthenticationRepository(this._cache, this._firebaseAuth, 
       this._firebaseFirestore);
 
   final CacheClient _cache;
   final FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firebaseFirestore;
-  final GoogleSignIn _googleSignIn;
 
   /// User cache key.
   /// Should only be used for testing purposes.
@@ -82,27 +80,6 @@ class AuthenticationRepository {
       throw CPException.auth(e);
     } catch (_) {
       throw const SignUpWithEmailAndPasswordFailure();
-    }
-  }
-
-  /// Starts the Sign In with Google Flow.
-  ///
-  /// Throws a [LogInWithGoogleFailure] if an exception occurs.
-  Future<void> logInWithGoogle() async {
-    try {
-      late final AuthCredential credential;
-      final googleUser = await _googleSignIn.signIn();
-      final googleAuth = await googleUser!.authentication;
-      credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      await _firebaseAuth.signInWithCredential(credential);
-    } on FirebaseAuthException catch (e) {
-      throw LogInWithGoogleFailure.fromCode(e.code);
-    } catch (_) {
-      throw const LogInWithGoogleFailure();
     }
   }
 

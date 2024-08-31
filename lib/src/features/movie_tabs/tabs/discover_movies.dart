@@ -15,9 +15,14 @@ class DiscoverMovies extends StatefulWidget {
   State<DiscoverMovies> createState() => _DiscoverMoviesState();
 }
 
-class _DiscoverMoviesState extends State<DiscoverMovies> {
+class _DiscoverMoviesState extends State<DiscoverMovies>  with AutomaticKeepAliveClientMixin{
+
   final PagingController<int, Movie> _pagingController =
       PagingController(firstPageKey: 1);
+
+  @override
+  bool get wantKeepAlive => (_pagingController.itemList ?? []).isNotEmpty;
+
 
   @override
   void initState() {
@@ -42,6 +47,7 @@ class _DiscoverMoviesState extends State<DiscoverMovies> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final favouriteMovies =
         context.select((FavouriteCubit bloc) => bloc.state.favoriteMovies);
     return PagedGridView<int, Movie>(

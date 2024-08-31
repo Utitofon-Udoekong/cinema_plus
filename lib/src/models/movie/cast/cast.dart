@@ -18,7 +18,6 @@ class Cast with _$Cast {
     @JsonKey(name: "cast_id") required int castId,
     required String character,
     @JsonKey(name: "credit_id") required String creditId,
-    required int order,
   }) = _Cast;
 
   factory Cast.empty() => const Cast(
@@ -33,7 +32,6 @@ class Cast with _$Cast {
         castId: 0,
         character: '',
         creditId: '',
-        order: 0,
       );
 
   factory Cast.fromJson(Map<String, dynamic> json) => _$CastFromJson(json);

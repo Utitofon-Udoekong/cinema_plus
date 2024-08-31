@@ -124,7 +124,7 @@ class TicketCard extends StatelessWidget {
                 ),
               ),
             ),
-            if (jDate.isSameOrBefore(Jiffy.now()))
+            if (jDate.isSame(Jiffy.now()))
               Positioned(
                 top: 5,
                 right: 5,
@@ -136,6 +136,27 @@ class TicketCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5)),
                   child: Text(
                     'TODAY',
+                    style: CPTextStyle.link(
+                      context,
+                      size: 10,
+                      color: CPColors.white,
+                      weight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            if (Jiffy.now().isAfter(jDate))
+              Positioned(
+                top: 5,
+                right: 5,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  decoration: BoxDecoration(
+                      color: CPColors.grey700,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Text(
+                    'EXPIRED',
                     style: CPTextStyle.link(
                       context,
                       size: 10,

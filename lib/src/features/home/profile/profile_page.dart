@@ -70,9 +70,7 @@ class ProfilePage extends StatelessWidget {
                   child: AppButton(
                     title: 'LOGOUT',
                     isLoading: state.isLoading,
-                    ontap: () {
-                      context.read<ProfileCubit>().logout();
-                    },
+                    ontap: () => context.read<ProfileCubit>().logout(),
                   ),
                 ),
               ],

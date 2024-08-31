@@ -24,6 +24,7 @@ class CreateAccountPage extends StatelessWidget {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state.status.isSuccess) {
+          context.read<AuthCubit>().reset();
           context.go(AppRoutes.movies);
         } else if (state.status.isFailure) {
           CPSnackbar.showError(

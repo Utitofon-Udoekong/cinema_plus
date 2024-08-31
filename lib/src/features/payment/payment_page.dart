@@ -18,6 +18,8 @@ class PaymentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final selectedTicket =
         context.select((PaymentCubit bloc) => bloc.state.selectedTicket);
+    final isLoading =
+        context.select((PaymentCubit bloc) => bloc.state.isLoading);
     final selectedCard =
         context.select((PaymentCubit bloc) => bloc.state.selectedCard);
     final creditCards =
@@ -83,6 +85,7 @@ class PaymentPage extends StatelessWidget {
                 const Gap(10),
                 AppButton(
                   title: 'CONTINUE',
+                  isLoading: isLoading,
                   ontap: () {
                     context.read<TicketCubit>().addTicket(selectedTicket);
                   },

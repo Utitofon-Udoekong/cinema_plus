@@ -21,6 +21,7 @@ class UserRepository {
             fromFirestore: CreditCard.fromFirestore,
             toFirestore: (CreditCard creditCard, options) =>
                 CreditCard.toFirestore(creditCard))
+        
         .snapshots();
   }
 

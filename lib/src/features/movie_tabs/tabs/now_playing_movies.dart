@@ -15,9 +15,14 @@ class NowPlayingMovies extends StatefulWidget {
   State<NowPlayingMovies> createState() => _NowPlayingMoviesState();
 }
 
-class _NowPlayingMoviesState extends State<NowPlayingMovies> {
+class _NowPlayingMoviesState extends State<NowPlayingMovies>  with AutomaticKeepAliveClientMixin{
+
   final PagingController<int, Movie> _pagingController =
       PagingController(firstPageKey: 1);
+
+  @override
+  bool get wantKeepAlive => (_pagingController.itemList ?? []).isNotEmpty;
+
 
   @override
   void initState() {
@@ -42,6 +47,7 @@ class _NowPlayingMoviesState extends State<NowPlayingMovies> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
         context.select((MovieCubit bloc) => bloc.state.isNowPlayingLoading);
     final favouriteMovies =
         context.select((FavouriteCubit bloc) => bloc.state.favoriteMovies);

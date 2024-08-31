@@ -178,12 +178,12 @@ class CastDetailPage extends StatelessWidget {
                                                 children: actor
                                                     .movieCredits!.cast
                                                     .where((movie) =>
-                                                        movie.backdropPath !=
+                                                        movie.posterPath !=
                                                         null)
                                                     .map((movie) {
                                                   return FilmCard(
                                                     imageUrl:
-                                                        movie.backdropPath!,
+                                                        movie.posterPath!,
                                                     name: movie.title,
                                                   );
                                                 }).withSpacing(10),

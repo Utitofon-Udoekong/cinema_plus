@@ -1,6 +1,8 @@
-import 'package:cinema_plus/src/constants/app_strings.dart';
+import 'package:cinema_plus/src/constants/constants.dart';
+// import 'package:cinema_plus/src/core/bloc_observer.dart';
 import 'package:cinema_plus/src/core/firebase_helpers.dart';
 import 'package:cinema_plus/src/domain/exceptions.dart';
+import 'package:cinema_plus/src/domain/local/movie_cache.dart';
 import 'package:cinema_plus/src/models/models.dart' show Movie, Cast, Actor;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,58 +15,55 @@ class MovieRepository {
   final Dio _dio;
   final FirebaseFirestore _firebaseFirestore;
   final FirebaseAuth _firebaseAuth;
+  final MovieCache _movieCache;
 
-  MovieRepository(this._dio, this._firebaseFirestore, this._firebaseAuth);
+  MovieRepository(
+      this._dio, this._firebaseFirestore, this._firebaseAuth, this._movieCache);
 
-  Future<List<Movie>> discoverMovies(int page) async {
-    try {
-      final response = await _dio.get(
-          '${AppStrings.baseURL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=$page&sort_by=popularity.desc');
-      final data = response.data;
-      List<Movie> movieList = [];
-      final serverMovieList = data['results'];
-      for (var i = 0; i < serverMovieList.length; i++) {
-        final movie = Movie.fromJson(serverMovieList[i]);
-        movieList.add(movie);
+  Future<List<Movie>> getMovies(MovieListType listType, int page) async {
+    bool shouldFetch = await _movieCache.shouldFetchFromServer(listType);
+    if (shouldFetch) {
+      try {
+        final response = await _dio.get(
+            '${AppStrings.baseURL}${getUrlFromMovieListType(listType)}?include_adult=false&include_video=false&language=en-US&page=$page&sort_by=popularity.desc');
+        final moviesData = response.data;
+        List<Movie> movieList = [];
+        final serverMovieList = moviesData['results'];
+        for (var i = 0; i < serverMovieList.length; i++) {
+          final movie = Movie.fromJson(serverMovieList[i]);
+          movieList.add(movie);
+        }
+        await _movieCache.cacheMovies(movieList, listType, page,
+            moviesData['total_pages'], moviesData['total_results']);
+        await _movieCache.updateLastFetchTime(listType);
+        return movieList;
+      } on DioException catch (e) {
+        throw CPException.dio(e);
       }
-      return movieList;
-    } on DioException catch (e) {
-      throw CPException.dio(e);
+      // Fetch from API and cache
     }
-  }
 
-  Future<List<Movie>> nowPlaying(int page) async {
-    try {
-      final response = await _dio.get(
-          '${AppStrings.baseURL}/movie/now_playing?include_adult=false&include_video=false&language=en-US&page=$page&sort_by=popularity.desc');
-      final data = response.data;
-      List<Movie> movieList = [];
-      final serverMovieList = data['results'];
-      for (var i = 0; i < serverMovieList.length; i++) {
-        final movie = Movie.fromJson(serverMovieList[i]);
-        movieList.add(movie);
-      }
-      return movieList;
-    } on DioException catch (e) {
-      throw CPException.dio(e);
+    // Try to get from cache
+    final cachedMovies =
+        await _movieCache.getCachedMovies(listType, page: page);
+    if (cachedMovies.isNotEmpty) {
+      return cachedMovies;
     }
-  }
 
-  Future<List<Movie>> upcomingMovies(int page) async {
-    try {
-      final response = await _dio.get(
-          '${AppStrings.baseURL}/movie/upcoming?include_adult=false&include_video=false&language=en-US&page=$page&sort_by=popularity.desc');
-      final data = response.data;
-      List<Movie> movieList = [];
-      final serverMovieList = data['results'];
-      for (var i = 0; i < serverMovieList.length; i++) {
-        final movie = Movie.fromJson(serverMovieList[i]);
-        movieList.add(movie);
-      }
-      return movieList;
-    } on DioException catch (e) {
-      throw CPException.dio(e);
+    // If not in cache (shouldn't happen normally, but just in case), fetch from API
+    final response = await _dio.get(
+        '${AppStrings.baseURL}${getUrlFromMovieListType(listType)}?include_adult=false&include_video=false&language=en-US&page=$page&sort_by=popularity.desc');
+    final moviesData = response.data;
+    List<Movie> movieList = [];
+    final serverMovieList = moviesData['results'];
+    for (var i = 0; i < serverMovieList.length; i++) {
+      final movie = Movie.fromJson(serverMovieList[i]);
+      movieList.add(movie);
     }
+    await _movieCache.cacheMovies(movieList, listType, page,
+        moviesData['totalPages'], moviesData['totalResults']);
+    await _movieCache.updateLastFetchTime(listType);
+    return movieList;
   }
 
   Future<List<Movie>> searchMovie({required String query}) async {
@@ -85,6 +84,10 @@ class MovieRepository {
   }
 
   Future<List<Cast>> getMovieCast({required int movieId}) async {
+    final cachedCast = await _movieCache.getCachedCast(movieId);
+    if (cachedCast.isNotEmpty) {
+      return cachedCast;
+    }
     try {
       final response =
           await _dio.get('${AppStrings.baseURL}/movie/$movieId/credits');
@@ -95,6 +98,7 @@ class MovieRepository {
         final cast = Cast.fromJson(serverCastList[i]);
         castList.add(cast);
       }
+      await _movieCache.cacheCast(movieId, castList);
       return castList;
     } on DioException {
       rethrow;
@@ -102,27 +106,16 @@ class MovieRepository {
   }
 
   Future<Actor> getActor({required int actorId}) async {
+    final cachedActor = await _movieCache.getCachedActor(actorId);
+    if (cachedActor != null) {
+      return cachedActor;
+    }
     try {
       final response = await _dio.get(
           '${AppStrings.baseURL}/person/$actorId?append_to_response=movie_credits,images&language=en-US');
-      return Actor.fromJson(response.data);
-    } on DioException catch (e) {
-      throw CPException.dio(e);
-    }
-  }
-
-  Future<List<Movie>> getActorFilmography({required String actorId}) async {
-    try {
-      final response = await _dio.get(
-          '${AppStrings.baseURL}/person/$actorId/movie_credits?language=en-US');
-      final data = response.data;
-      List<Movie> movieList = [];
-      final serverMovieList = data['results'];
-      for (var i = 0; i < serverMovieList.length; i++) {
-        final movie = Movie.fromJson(serverMovieList[i]);
-        movieList.add(movie);
-      }
-      return movieList;
+      final actor = Actor.fromJson(response.data);
+      await _movieCache.cacheActor(actor);
+      return actor;
     } on DioException catch (e) {
       throw CPException.dio(e);
     }

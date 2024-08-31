@@ -26,9 +26,9 @@ class AuthCubit extends Cubit<AuthState> {
 
   void obscureText() {
     final isObscured = state.obscureText;
-    if(isObscured){
+    if (isObscured) {
       emit(state.copyWith(obscureText: false));
-    }else{
+    } else {
       emit(state.copyWith(obscureText: true));
     }
   }
@@ -124,23 +124,6 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  Future<void> logInWithGoogle() async {
-    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
-    try {
-      await _authenticationRepository.logInWithGoogle();
-      emit(state.copyWith(status: FormzSubmissionStatus.success));
-    } on LogInWithGoogleFailure catch (e) {
-      emit(
-        state.copyWith(
-          errorMessage: e.message,
-          status: FormzSubmissionStatus.failure,
-        ),
-      );
-    } catch (_) {
-      emit(state.copyWith(status: FormzSubmissionStatus.failure));
-    }
-  }
-
   Future<void> signUp() async {
     if (!state.isValid) return;
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
@@ -161,4 +144,6 @@ class AuthCubit extends Cubit<AuthState> {
       emit(state.copyWith(status: FormzSubmissionStatus.failure));
     }
   }
+
+  void reset() => emit(AuthState.initial());
 }

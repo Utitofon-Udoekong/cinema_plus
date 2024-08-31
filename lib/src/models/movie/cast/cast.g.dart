@@ -18,7 +18,6 @@ _$CastImpl _$$CastImplFromJson(Map<String, dynamic> json) => _$CastImpl(
       castId: (json['cast_id'] as num).toInt(),
       character: json['character'] as String,
       creditId: json['credit_id'] as String,
-      order: (json['order'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$CastImplToJson(_$CastImpl instance) =>
@@ -34,5 +33,4 @@ Map<String, dynamic> _$$CastImplToJson(_$CastImpl instance) =>
       'cast_id': instance.castId,
       'character': instance.character,
       'credit_id': instance.creditId,
-      'order': instance.order,
     };

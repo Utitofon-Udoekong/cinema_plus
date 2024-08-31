@@ -36,7 +36,6 @@ mixin _$Cast {
   String get character => throw _privateConstructorUsedError;
   @JsonKey(name: "credit_id")
   String get creditId => throw _privateConstructorUsedError;
-  int get order => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -59,8 +58,7 @@ abstract class $CastCopyWith<$Res> {
       @JsonKey(name: "profile_path") String? profilePath,
       @JsonKey(name: "cast_id") int castId,
       String character,
-      @JsonKey(name: "credit_id") String creditId,
-      int order});
+      @JsonKey(name: "credit_id") String creditId});
 }
 
 /// @nodoc
@@ -87,7 +85,6 @@ class _$CastCopyWithImpl<$Res, $Val extends Cast>
     Object? castId = null,
     Object? character = null,
     Object? creditId = null,
-    Object? order = null,
   }) {
     return _then(_value.copyWith(
       adult: null == adult
@@ -134,10 +131,6 @@ class _$CastCopyWithImpl<$Res, $Val extends Cast>
           ? _value.creditId
           : creditId // ignore: cast_nullable_to_non_nullable
               as String,
-      order: null == order
-          ? _value.order
-          : order // ignore: cast_nullable_to_non_nullable
-              as int,
     ) as $Val);
   }
 }
@@ -160,8 +153,7 @@ abstract class _$$CastImplCopyWith<$Res> implements $CastCopyWith<$Res> {
       @JsonKey(name: "profile_path") String? profilePath,
       @JsonKey(name: "cast_id") int castId,
       String character,
-      @JsonKey(name: "credit_id") String creditId,
-      int order});
+      @JsonKey(name: "credit_id") String creditId});
 }
 
 /// @nodoc
@@ -185,7 +177,6 @@ class __$$CastImplCopyWithImpl<$Res>
     Object? castId = null,
     Object? character = null,
     Object? creditId = null,
-    Object? order = null,
   }) {
     return _then(_$CastImpl(
       adult: null == adult
@@ -232,10 +223,6 @@ class __$$CastImplCopyWithImpl<$Res>
           ? _value.creditId
           : creditId // ignore: cast_nullable_to_non_nullable
               as String,
-      order: null == order
-          ? _value.order
-          : order // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -254,8 +241,7 @@ class _$CastImpl implements _Cast {
       @JsonKey(name: "profile_path") this.profilePath,
       @JsonKey(name: "cast_id") required this.castId,
       required this.character,
-      @JsonKey(name: "credit_id") required this.creditId,
-      required this.order});
+      @JsonKey(name: "credit_id") required this.creditId});
 
   factory _$CastImpl.fromJson(Map<String, dynamic> json) =>
       _$$CastImplFromJson(json);
@@ -287,12 +273,10 @@ class _$CastImpl implements _Cast {
   @override
   @JsonKey(name: "credit_id")
   final String creditId;
-  @override
-  final int order;
 
   @override
   String toString() {
-    return 'Cast(adult: $adult, gender: $gender, id: $id, knownForDepartment: $knownForDepartment, name: $name, originalName: $originalName, popularity: $popularity, profilePath: $profilePath, castId: $castId, character: $character, creditId: $creditId, order: $order)';
+    return 'Cast(adult: $adult, gender: $gender, id: $id, knownForDepartment: $knownForDepartment, name: $name, originalName: $originalName, popularity: $popularity, profilePath: $profilePath, castId: $castId, character: $character, creditId: $creditId)';
   }
 
   @override
@@ -316,8 +300,7 @@ class _$CastImpl implements _Cast {
             (identical(other.character, character) ||
                 other.character == character) &&
             (identical(other.creditId, creditId) ||
-                other.creditId == creditId) &&
-            (identical(other.order, order) || other.order == order));
+                other.creditId == creditId));
   }
 
   @JsonKey(ignore: true)
@@ -334,8 +317,7 @@ class _$CastImpl implements _Cast {
       profilePath,
       castId,
       character,
-      creditId,
-      order);
+      creditId);
 
   @JsonKey(ignore: true)
   @override
@@ -364,8 +346,7 @@ abstract class _Cast implements Cast {
       @JsonKey(name: "profile_path") final String? profilePath,
       @JsonKey(name: "cast_id") required final int castId,
       required final String character,
-      @JsonKey(name: "credit_id") required final String creditId,
-      required final int order}) = _$CastImpl;
+      @JsonKey(name: "credit_id") required final String creditId}) = _$CastImpl;
 
   factory _Cast.fromJson(Map<String, dynamic> json) = _$CastImpl.fromJson;
 
@@ -396,8 +377,6 @@ abstract class _Cast implements Cast {
   @override
   @JsonKey(name: "credit_id")
   String get creditId;
-  @override
-  int get order;
   @override
   @JsonKey(ignore: true)
   _$$CastImplCopyWith<_$CastImpl> get copyWith =>

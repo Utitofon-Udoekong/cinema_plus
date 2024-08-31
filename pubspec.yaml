@@ -16,10 +16,10 @@ dependencies:
   dio: ^5.5.0+1
   get_it: ^7.7.0
   injectable: ^2.4.4
-  firebase_core: ^2.24.2
-  firebase_auth: ^4.16.0
+  firebase_core: ^3.4.0
+  firebase_auth: ^5.2.0
   shared_preferences: ^2.3.1
-  cloud_firestore: ^4.14.0
+  cloud_firestore: ^5.3.0
   gap: ^3.0.1
   equatable: ^2.0.5
   json_annotation: ^4.9.0
@@ -31,8 +31,7 @@ dependencies:
     path: packages/form_inputs
   cache:
     path: packages/cache
-  google_sign_in: ^6.2.1
-  firebase_crashlytics: ^3.5.7
+  firebase_crashlytics: ^4.1.0
   logger: ^2.4.0
   salomon_bottom_bar: ^3.3.2
   ionicons: ^0.2.2
@@ -45,12 +44,13 @@ dependencies:
   infinite_scroll_pagination: ^4.0.0
   animations: ^2.0.11
   flutter_launcher_icons: ^0.13.1
+  sqflite: ^2.3.3+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
   injectable_generator: ^2.6.2
   build_runner: ^2.4.11
   json_serializable: ^6.8.0
